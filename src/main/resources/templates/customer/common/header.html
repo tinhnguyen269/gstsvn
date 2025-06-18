@@ -6,7 +6,7 @@
 <body>
 <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg"  th:fragment="header">
     <div class="container">
-        <a class="navbar-brand" href="index.html">GSTS <span class="tooplate-red">Vietnam</span></a>
+        <a class="navbar-brand" th:href="@{/home_doInit}">GSTS <span class="tooplate-red">Vietnam</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,29 +15,29 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_1">Trang chủ</a>
+                    <a class="nav-link click-scroll" th:href="@{/home_doInit}">Trang chủ</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" th:href="@{/doCompanyInfor}">Giới thiệu</a>
+                    <a class="nav-link click-scroll" th:href="@{/companyInfor_doInit}">Giới thiệu</a>
                 </li>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle click-scroll" href="#section_3" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dịch vụ</a>
 
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                        <li><a class="dropdown-item" href="shop-listing.html">Vệ sinh sàn</a></li>
+                        <li><a class="dropdown-item" th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a></li>
 
                         <li><a class="dropdown-item" href="shop-detail.html">Ve sinh sau thi cong </a></li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_4">Báo giá dịch vụ</a>
+                    <a class="nav-link click-scroll" th:href="@{/priceList_doInit}">Báo giá dịch vụ</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link click-scroll" href="#section_5">Liên he</a>
+                    <a class="nav-link click-scroll" href="#section_5">Tin tức</a>
                 </li>
             </ul>
         </div>
