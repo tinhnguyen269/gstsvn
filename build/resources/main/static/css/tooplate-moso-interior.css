@@ -1129,4 +1129,154 @@ strong {
   .copyright-text-wrap {
     justify-content: center;
   }
+  /*---------------------------------------
+  Hình ảnh sau thi công
+-----------------------------------------*/
+  .gallery-section {
+    background: #f3f3f3;
+    padding: 50px 0;
+  }
+
+  .gallery-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+
+  .gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-item p {
+    font-weight: 600;
+    font-size: 17px;
+    padding: 15px 10px;
+    margin: 0;
+  }
+  /*---------------------------------------
+Shop detail
+-----------------------------------------*/
+
+  .breadcrumb-section {
+    margin-top: 50px;
+    background: url('https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/bg-page-title.jpg') no-repeat center center/cover;
+    padding: 80px 0;
+    color: #fff;
+    text-align: center;
+  }
+
+  .breadcrumb-section h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .breadcrumb-section .breadcrumb {
+    justify-content: center;
+  }
+
+  .service-detail img {
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+
+  .service-detail h2 {
+    font-size: 32px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+
+  .service-detail p {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+
+  .service-detail ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .service-detail ul li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: #198754;
+    margin-right: 10px;
+  }
+
+  .service-detail ul li {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .cta-section {
+    background: #198754;
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-top: 50px;
+  }
+
+  .cta-section h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .cta-section a {
+    font-size: 20px;
+  }
+
+  /*---------------------------------------
+company Infor
+-----------------------------------------*/
+  .sidebar {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background: #fff;
+  }
+
+  .sidebar h5 {
+    margin-bottom: 15px;
+    font-size: 18px;
+  }
+
+  .sidebar .post-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .sidebar .post-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+
+  .sidebar .post-item a {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+  }
+
+  .sidebar .post-item a:hover {
+    color: #007bff;
+  }
+
 }

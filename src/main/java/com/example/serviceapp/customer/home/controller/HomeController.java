@@ -9,21 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
-@RequestMapping("/customer")
 public class HomeController {
 
-    @GetMapping("/home")
+    @GetMapping("/home_doInit")
     public String index() {
         return "customer/index";
     }
 
-    @PostMapping("/{id}/doTransition")
-    public String doTransition(@PathVariable int id) {
-        return "customer/shop-detail";
-    }
-
-    @GetMapping("/doCompanyInfor")
-    public String doCompanyInfor() {
-        return "redirect: customer/inforCompany";
-    }
 }

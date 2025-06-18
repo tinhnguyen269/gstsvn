@@ -13,7 +13,7 @@ import java.util.Optional;
 
 
 @Controller
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 public class ServiceController {
 
     private final ServiceService serviceService;
@@ -24,7 +24,7 @@ public class ServiceController {
 
     @GetMapping("/service_doInit")
     public String doInit(Model model) {
-        return "/admin/html/dashboard/index";
+        return "/admin/service/Service";
     }
 
     @GetMapping("/service")
