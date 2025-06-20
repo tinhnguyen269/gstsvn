@@ -10,7 +10,6 @@ public class HomeController {
 
     @GetMapping("/home_doInit")
     public String index() {
-        return "/customer/home";
+        return "/customer/index";
     }
-
 }
