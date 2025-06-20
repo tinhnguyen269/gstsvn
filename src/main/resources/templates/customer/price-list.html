@@ -17,13 +17,15 @@
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap"
           rel="stylesheet">
 
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/customer/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="/css/bootstrap-icons.css" rel="stylesheet">
+    <link href="/customer/css/bootstrap-icons.css" rel="stylesheet">
 
-    <link href="/css/owl.carousel.min.css" rel="stylesheet">
+    <link href="/customer/css/owl.carousel.min.css" rel="stylesheet">
 
-    <link href="/css/tooplate-moso-interior.css" rel="stylesheet">
+    <link href="/customer/css/tooplate-moso-interior.css" rel="stylesheet">
+
+    <link href="/customer/css/commom.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
@@ -69,6 +71,8 @@
     <div class="price-table text-center">
         <img id="priceImage" src="images/price/sofa.png" alt="Bảng giá dịch vụ">
     </div>
+    <!--Button contact-->
+    <div th:replace="customer/common/contact:: contact"></div>
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#36363e" fill-opacity="1"
@@ -78,12 +82,12 @@
 
 
 <!-- JAVASCRIPT FILES -->
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/click-scroll.js"></script>
-<script src="/js/jquery.backstretch.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/custom.js"></script>
+<script src="/customer/js/jquery.min.js"></script>
+<script src="/customer/js/bootstrap.min.js"></script>
+<script src="/customer/js/click-scroll.js"></script>
+<script src="/customer/js/jquery.backstretch.min.js"></script>
+<script src="/customer/js/owl.carousel.min.js"></script>
+<script src="/customer/js/custom.js"></script>
 <script>
     function changeImage(event, type) {
         document.getElementById('priceImage').src = 'images/price/' + type + '.jpg';
