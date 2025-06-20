@@ -39,7 +39,7 @@
 <div class="container">
     <div class="row">
         <!-- Content chính -->
-        <main class="col-12 col-md-8 order-2 order-md-1 mb-4">
+        <main class="col-12 col-md-8 order-1 order-md-1 mb-4">
             <div class="container my-5 service-detail">
                 <div class="row">
                     <div class="col-lg-12">
@@ -67,63 +67,7 @@
             </div>
         </main>
 
-        <!-- Sidebar -->
-        <aside class="col-12 col-md-4 order-1 order-md-2 mb-4">
-            <div class="sidebar">
-                <h5>Bài viết mới nhất</h5>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/dich-vu-ve-sinh-sau-xay-dung-300x200.jpg"
-                         alt="">
-                    <a href="#">Vệ sinh sau xây dựng tại Hà Nội</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/lau-kinh-1-300x200.jpg"
-                         alt="">
-                    <a href="#">Vệ sinh kính văn phòng tại Hà Nội</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/giat-tham-van-phong-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt thảm văn phòng tại Hà Nội</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/giat-tham-trang-tri-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt thảm trang trí tại nhà</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/giat-rem-ha-noi-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt rèm cho các hộ gia đình tại Hà Nội</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/giat-nem-tai-nha-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt nệm tại nhà riêng và chung cư</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/dich-vu-giat-tham-ha-noi-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt ghế sofa tại nhà</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/vesinh-pizza-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt ghế chuỗi nhà hàng Pizza 4P's</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/vesinh-ngan-hang-300x200.jpg"
-                         alt="">
-                    <a href="#">Giặt ghế cho ngân hàng HD Bank</a>
-                </div>
-                <div class="post-item">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/chung-cu-sau-xay-dung-300x200.jpg"
-                         alt="">
-                    <a href="#">Vệ sinh chung cư sau xây dựng, bạn cần phải thực hiện những công việc nào đầu
-                        tiên?</a>
-                </div>
-            </div>
-        </aside>
+        <div th:replace="/customer/common/sidebar::sidebar"></div>
     </div>
     <!--Button contact-->
     <div th:replace="customer/common/contact:: contact"></div>
