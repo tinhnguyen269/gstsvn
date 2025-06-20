@@ -15,6 +15,6 @@ public class ServiceDetailController {
 
     @GetMapping("/serviceDetail_doInit")
     public String doDetail() {
-        return "customer/shop-detail";
+        return "customer/service-detail";
     }
 }
