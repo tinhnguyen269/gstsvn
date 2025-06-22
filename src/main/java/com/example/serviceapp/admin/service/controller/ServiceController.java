@@ -24,7 +24,7 @@ public class ServiceController {
 
     @GetMapping("/service_doInit")
     public String doInit(Model model) {
-        return "/admin/service/Service";
+        return "/admin/tables";
     }
 
     @GetMapping("/service")

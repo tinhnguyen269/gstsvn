@@ -1,16 +1,14 @@
-package com.example.serviceapp.admin.home;
+package com.example.serviceapp.admin.chart;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/admin")
-public class ADHomeController {
-
-    @GetMapping("/home")
-    public String doInit(Model model) {
-        return "/admin/index";
+public class ChartController {
+    @GetMapping("/chart")
+    public String showChart() {
+        return "admin/charts";
     }
 }
