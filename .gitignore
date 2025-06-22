@@ -1,0 +1,81 @@
+# 👉 Java / IntelliJ
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.ear
+*.iml
+.idea/
+*.iws
+out/
+
+# 👉 Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+.gradle-cache/
+gradle-app.setting
+gradle.properties
+
+# 👉 Maven nếu có (dự phòng)
+target/
+
+# 👉 Spring Boot specific
+spring.log
+
+# 👉 Logs
+*.log
+logs/
+log/
+
+# 👉 OS junk files
+.DS_Store
+Thumbs.db
+
+# 👉 Node.js / Frontend tool nếu dùng
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# 👉 SCSS compiled files (nếu compile ra css)
+*.css
+*.css.map
+
+# 👉 SCSS cache nếu dùng tool build SCSS
+.sass-cache/
+.cache/
+
+# 👉 VS Code settings nếu dùng
+.vscode/
+
+# 👉 Environment Files
+.env
+*.env
+
+# 👉 Database files (sqlite hoặc file db tạm)
+*.h2.db
+*.mv.db
+
+# 👉 Other build outputs
+dist/
+tmp/
+
+# 👉 Ignore user-specific files
+*.swp
+*~
+.project
+.settings/
+.metadata/
+
+# 👉 Ignore IDE config
+*.ipr
+*.iws
+
+# 👉 Ignore Test report
+test-output/
+surefire-reports/
+
+# 👉 Frontend static generated resources (nếu copy vào build/resources)
+build/resources/
