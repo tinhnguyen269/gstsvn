@@ -1,16 +1,26 @@
-# 👉 Java / IntelliJ
+# ========================================
+# OS hệ điều hành
+# ========================================
+.DS_Store
+Thumbs.db
+
+# ========================================
+# Java / IntelliJ IDEA
+# ========================================
 *.class
-*.log
-*.ctxt
 *.jar
 *.war
 *.ear
+*.log
+*.ctxt
 *.iml
 .idea/
 *.iws
 out/
 
-# 👉 Gradle
+# ========================================
+# Gradle
+# ========================================
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
@@ -18,64 +28,87 @@ build/
 gradle-app.setting
 gradle.properties
 
-# 👉 Maven nếu có (dự phòng)
+# Cache của wrapper nếu có
+gradle/wrapper/gradle-wrapper.properties
+gradle/wrapper/gradle-wrapper.jar
+
+# ========================================
+# Maven (dự phòng nếu có dùng)
+# ========================================
 target/
 
-# 👉 Spring Boot specific
-spring.log
-
-# 👉 Logs
+# ========================================
+# Spring Boot Logs
+# ========================================
 *.log
 logs/
-log/
+spring.log
 
-# 👉 OS junk files
-.DS_Store
-Thumbs.db
-
-# 👉 Node.js / Frontend tool nếu dùng
+# ========================================
+# NodeJS / Frontend (nếu có)
+# ========================================
 node_modules/
-npm-debug.log
-yarn-debug.log
-yarn-error.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# 👉 SCSS compiled files (nếu compile ra css)
+# ========================================
+# SCSS / CSS compiled files
+# ========================================
 *.css
 *.css.map
-
-# 👉 SCSS cache nếu dùng tool build SCSS
 .sass-cache/
 .cache/
 
-# 👉 VS Code settings nếu dùng
-.vscode/
+# Nếu SCSS build ra static/css hoặc build/resources thì ignore
+build/resources/
 
-# 👉 Environment Files
+# ========================================
+# Environment và Config cá nhân
+# ========================================
 .env
 *.env
 
-# 👉 Database files (sqlite hoặc file db tạm)
-*.h2.db
-*.mv.db
+# ========================================
+# Test Reports
+# ========================================
+test-output/
+surefire-reports/
 
-# 👉 Other build outputs
-dist/
-tmp/
+# ========================================
+# IDE VSCode
+# ========================================
+.vscode/
 
-# 👉 Ignore user-specific files
+# ========================================
+# User-specific files
+# ========================================
 *.swp
 *~
 .project
 .settings/
 .metadata/
 
-# 👉 Ignore IDE config
-*.ipr
-*.iws
+# ========================================
+# Database file nếu dùng SQLite hoặc H2 local
+# ========================================
+*.h2.db
+*.mv.db
 
-# 👉 Ignore Test report
-test-output/
-surefire-reports/
+# ========================================
+# Dist / Release / Temporary
+# ========================================
+dist/
+tmp/
 
-# 👉 Frontend static generated resources (nếu copy vào build/resources)
-build/resources/
+# ========================================
+# Remote tracking branch cleanup cache
+# ========================================
+.git/modules/
+
+# ========================================
+# OS swap/backup
+# ========================================
+*.bak
+*.tmp
+*.orig
