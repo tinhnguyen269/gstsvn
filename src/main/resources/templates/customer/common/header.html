@@ -5,47 +5,65 @@
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg"  th:fragment="header">
+    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg" th:fragment="header">
         <div class="container">
             <a class="navbar-brand" th:href="@{/home_doInit}">GSTS <span class="tooplate-red">Vietnam</span></a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/home_doInit}">Trang chủ</a>
+                        <a class="nav-link [[${#httpServletRequest.requestURI == '/home_doInit'} ? 'active' : '']]"
+                           th:href="@{/home_doInit}">Trang chủ</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/companyInfor_doInit}">Giới thiệu</a>
+                        <a class="nav-link [[${#httpServletRequest.requestURI == '/companyInfor_doInit'} ? 'active' : '']]"
+                           th:href="@{/companyInfor_doInit}">Giới thiệu</a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle click-scroll" href="#section_3" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dịch vụ</a>
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           id="navbarLightDropdownMenuLink"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">Dịch vụ</a>
 
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a></li>
-                            <li><a class="dropdown-item" th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a></li>
-                            <li><a class="dropdown-item" th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a></li>
-                            <li><a class="dropdown-item" th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a></li>
-                            <li><a class="dropdown-item" th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a></li>
+                            <li>
+                                <a class="dropdown-item [[${#httpServletRequest.requestURI == '/serviceDetail_doInit'} ? 'active' : '']]"
+                                   th:href="@{/serviceDetail_doInit}">Dịch vụ lau kính</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item [[${#httpServletRequest.requestURI == '/serviceDetail_doInit2'} ? 'active' : '']]"
+                                   th:href="@{/serviceDetail_doInit2}">Dịch vụ giặt thảm</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item [[${#httpServletRequest.requestURI == '/serviceDetail_doInit3'} ? 'active' : '']]"
+                                   th:href="@{/serviceDetail_doInit3}">Dịch vụ vệ sinh sofa</a>
+                            </li>
                         </ul>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/priceList_doInit}">Báo giá dịch vụ</a>
+                        <a class="nav-link [[${#httpServletRequest.requestURI == '/priceList_doInit'} ? 'active' : '']]"
+                           th:href="@{/priceList_doInit}">Báo giá dịch vụ</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/post_doInit}">Tin tức</a>
+                        <a class="nav-link [[${#httpServletRequest.requestURI == '/post_doInit'} ? 'active' : '']]"
+                           th:href="@{/post_doInit}">Tin tức</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
 </body>
 </html>

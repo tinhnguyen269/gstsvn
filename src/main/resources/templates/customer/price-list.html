@@ -28,43 +28,31 @@
     <link href="/customer/css/commom.css" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        .nav-link.active {
-            color: green;
-            border-bottom: 2px solid green;
-        }
-
-        .price-table img {
-            max-width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            margin-top: 20px;
-        }
-    </style>
+    <link href="/customer/css/price-list.css" rel="stylesheet">
 </head>
 <body>
 
 <di th:replace="/customer/common/header::header"></di>
 
 <div class="container py-4">
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs justify-content-center">
         <li class="nav-item">
-            <a class="nav-link active" id="sofa-tab" onclick="changeImage(event, 'sofa')">Giá giặt ghế sofa</a>
+            <a class="nav-link active" id="sofa-tab" onclick="changeImage(event, 'sofa')">Giặt ghế sofa</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="changeImage(event, 'nem')">Giá giặt nệm</a>
+            <a class="nav-link" onclick="changeImage(event, 'nem')">Giặt nệm</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="changeImage(event, 'tham')">Giá giặt thảm</a>
+            <a class="nav-link" onclick="changeImage(event, 'tham')">Giặt thảm</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="changeImage(event, 'rem')">Giá giặt rèm</a>
+            <a class="nav-link" onclick="changeImage(event, 'rem')">Giặt rèm</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="changeImage(event, 'vesinh')">Giá vệ sinh kính</a>
+            <a class="nav-link" onclick="changeImage(event, 'vesinh')">Vệ sinh kính</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" onclick="changeImage(event, 'xaydung')">Giá VS sau xây dựng</a>
+            <a class="nav-link" onclick="changeImage(event, 'xaydung')">VS sau xây dựng</a>
         </li>
     </ul>
 
@@ -90,15 +78,31 @@
 <script src="/customer/js/custom.js"></script>
 <script>
     function changeImage(event, type) {
-        document.getElementById('priceImage').src = 'images/price/' + type + '.jpg';
+        const priceImg = document.getElementById('priceImage');
 
-        // Bỏ active ở tất cả các tab
+        priceImg.style.opacity = '0';
+        setTimeout(() => {
+            priceImg.src = '/customer/images/price/' + type + '.png';
+            priceImg.style.opacity = '1';
+        }, 300);
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => link.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+
+    window.onload = function() {
+        // Đặt lại ảnh mặc định khi load trang
+        document.getElementById('priceImage').src = '/customer/images/price/sofa.png';
+
+        // Xóa tất cả active ở nav-link
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => link.classList.remove('active'));
 
-        // Thêm active vào tab được click
-        event.target.classList.add('active');
+        // Set active lại tab đầu tiên
+        document.getElementById('sofa-tab').classList.add('active');
     }
+
 </script>
 </body>
 </html>

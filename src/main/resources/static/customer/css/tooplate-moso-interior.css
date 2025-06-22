@@ -11,7 +11,7 @@ https://www.tooplate.com/view/2133-moso-interior
 -----------------------------------------*/
 :root {
     --white-color: #ffffff;
-    --primary-color: rgba(14, 140, 68, 0.53);
+    --primary-color: rgb(39, 164, 73);
     --secondary-color: #f65129;
     --section-bg-color: #f9f9f9;
     --site-footer-bg-color: #36363e;
@@ -148,7 +148,6 @@ strong {
   SECTION               
 -----------------------------------------*/
 .section-padding {
-    padding-top: 100px;
     padding-bottom: 100px;
 }
 
@@ -590,10 +589,7 @@ strong {
   FEATURED              
 -----------------------------------------*/
 .featured-section {
-    background-image: url('../images/empty-living-room-with-blue-sofa-plants-table-empty-white-wall-background-3d-rendering.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
+    font-size: 0.9rem;
 }
 
 .featured-icon {

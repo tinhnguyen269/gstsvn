@@ -38,6 +38,15 @@
 /*---------------------------------------
    Hình ảnh sau thi công
  -----------------------------------------*/
+
+.gallery-img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
 .gallery-section {
     background: #f3f3f3;
     padding: 50px 0;
@@ -80,7 +89,7 @@
 .stats-section {
     margin-top: 80px;
     margin-bottom: 80px;
-    background-color: #0E8C4487;
+    background-color: #27a449;
 
 }
 
@@ -131,29 +140,26 @@
         font-size: 12px;
     }
 
-    /*    commit */
-    .commitment-section {
-        background: #34A853 url('../img/bg-green.png') no-repeat center center;
-        background-size: cover;
+    /* Flex  */
+    .stats-section {
+        background-color: #27a449;
     }
 
-    .commitment-box {
-        background: #fff;
-        color: #333;
-        border-radius: 8px;
-        min-height: 180px;
+    .stats-section h2 {
+        font-size: 28px;
     }
 
-    .commitment-box h6 {
-        font-weight: 600;
+    .stats-section p {
+        font-size: 16px;
+        line-height: 1.6;
     }
 
-    .commitment-img {
-        max-width: 320px;
+    .stats-section h3 {
+        font-size: 24px;
     }
 
-    .text-success {
-        color: #34A853 !important;
+    .stats-section .small {
+        font-size: 14px;
     }
-
 }
+
