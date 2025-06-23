@@ -1,8 +1,4 @@
-# ========================================
-# OS hệ điều hành
-# ========================================
-.DS_Store
-Thumbs.db
+
 
 # ========================================
 # Java / IntelliJ IDEA
@@ -33,82 +29,17 @@ gradle/wrapper/gradle-wrapper.properties
 gradle/wrapper/gradle-wrapper.jar
 
 # ========================================
-# Maven (dự phòng nếu có dùng)
-# ========================================
-target/
-
-# ========================================
 # Spring Boot Logs
 # ========================================
 *.log
 logs/
 spring.log
 
-# ========================================
-# NodeJS / Frontend (nếu có)
-# ========================================
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# ========================================
-# SCSS / CSS compiled files
-# ========================================
-*.css
-*.css.map
-.sass-cache/
-.cache/
-
 # Nếu SCSS build ra static/css hoặc build/resources thì ignore
 build/resources/
 
-# ========================================
-# Environment và Config cá nhân
-# ========================================
-.env
-*.env
-
-# ========================================
-# Test Reports
-# ========================================
-test-output/
-surefire-reports/
-
-# ========================================
-# IDE VSCode
-# ========================================
-.vscode/
-
-# ========================================
-# User-specific files
-# ========================================
-*.swp
-*~
-.project
-.settings/
-.metadata/
-
-# ========================================
-# Database file nếu dùng SQLite hoặc H2 local
-# ========================================
-*.h2.db
-*.mv.db
-
-# ========================================
-# Dist / Release / Temporary
-# ========================================
-dist/
-tmp/
 
 # ========================================
 # Remote tracking branch cleanup cache
 # ========================================
 .git/modules/
-
-# ========================================
-# OS swap/backup
-# ========================================
-*.bak
-*.tmp
-*.orig
