@@ -1,7 +1,6 @@
 
 package com.example.serviceapp.admin.service.controller;
 
-import com.example.serviceapp.admin.service.ServiceKey;
 import com.example.serviceapp.admin.service.service.ServiceService;
 import com.example.serviceapp.common.entity.Services;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,7 @@ public class ServiceController {
 
     @GetMapping("/service_doInit")
     public String doInit(Model model) {
-        return "/admin/tables";
+        return "admin/service";
     }
 
     @GetMapping("/service")
