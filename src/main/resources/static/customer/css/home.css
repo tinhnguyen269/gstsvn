@@ -1,0 +1,165 @@
+/*service-list*/
+.service-card {
+    border: 1px solid #198754;
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    box-shadow: 0 0 10px rgba(25, 135, 84, 0.25);
+    transform: translateY(-3px);
+}
+
+.service-card img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/*post-list*/
+.card-title {
+    font-size: 16px;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #555;
+}
+
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+
+/*---------------------------------------
+   Hình ảnh sau thi công
+ -----------------------------------------*/
+
+.gallery-img {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.gallery-img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.gallery-section {
+    background: #f3f3f3;
+    padding: 50px 0;
+}
+
+.gallery-section h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    background: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item p {
+    font-weight: 600;
+    font-size: 17px;
+    padding: 15px 10px;
+    margin: 0;
+}
+
+
+/*Flex about company*/
+.stats-section {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    background-color: #27a449;
+
+}
+
+.stats-section h2 {
+    font-size: 26px;
+}
+
+.stats-section p {
+    font-size: 14px;
+}
+
+.stats-section h3 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+/* Custom ảnh bên phải */
+.custom-img {
+    max-width: 100%;
+    border-radius: 12px;
+}
+
+/* Responsive tablet và mobile */
+@media (max-width: 768px) {
+    .stats-section h2 {
+        font-size: 22px;
+    }
+
+    .stats-section h3 {
+        font-size: 20px;
+    }
+
+    .stats-section p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-section h2 {
+        font-size: 20px;
+    }
+
+    .stats-section h3 {
+        font-size: 18px;
+    }
+
+    .stats-section p {
+        font-size: 12px;
+    }
+
+    /* Flex  */
+    .stats-section {
+        background-color: #27a449;
+    }
+
+    .stats-section h2 {
+        font-size: 28px;
+    }
+
+    .stats-section p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .stats-section h3 {
+        font-size: 24px;
+    }
+
+    .stats-section .small {
+        font-size: 14px;
+    }
+}
+
