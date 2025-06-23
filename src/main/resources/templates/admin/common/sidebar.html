@@ -16,40 +16,50 @@
                         Thống kê
                     </a>
                     <div class="sb-sidenav-menu-heading">Interface</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
+                       aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                         Giao diện
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" th:href="@{/admin/layout-light}">Sáng</a>
                             <a class="nav-link" th:href="@{/admin/layout-dark}">Ban đêm</a>
                         </nav>
                     </div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
+                       aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         Trang
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
-                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                    <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
+                         data-bs-parent="#sidenavAccordion">
                         <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#pagesCollapseAuth" aria-expanded="false"
+                               aria-controls="pagesCollapseAuth">
                                 Bảo mật
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" th:href="@{/login}">Đăng nhập</a>
                                     <a class="nav-link" th:href="@{/register}">Đăng kí</a>
                                     <a class="nav-link" th:href="@{/password}">Quên mật khẩu</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#pagesCollapseError" aria-expanded="false"
+                               aria-controls="pagesCollapseError">
                                 Error
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
+                            <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
+                                 data-bs-parent="#sidenavAccordionPages">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="401.html">401 Page</a>
                                     <a class="nav-link" href="404.html">404 Page</a>
@@ -63,10 +73,47 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                         Biểu đồ
                     </a>
-                    <a class="nav-link" th:href="@{/admin/service_doInit}">
+                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#service"
+                       aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Dịch vụ
+                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                     </a>
+                    <div class="collapse" id="service" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                        <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                            <a class="nav-link collapsed" th:href="@{/admin/service_doInit}">
+                                Dịch vụ 1
+                            </a>
+                            <a class="nav-link collapsed" th:href="@{/admin/service_doInit}">
+                                Dịch vụ 2
+                            </a>
+                        </nav>
+                    </div>
+                    <a class="nav-link" th:href="@{/admin/customer}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Khách hàng
+                    </a>
+
+                    <a class="nav-link" th:href="@{/admin/feedback}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
+                        Phản hồi
+                    </a>
+
+                    <a class="nav-link" th:href="@{/admin/post}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-newspaper"></i></div>
+                        Bài viết
+                    </a>
+
+                    <a class="nav-link" th:href="@{/admin/company-infor}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                        Thông tin công ty
+                    </a>
+
+                    <a class="nav-link" th:href="@{/admin/employee}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
+                        Nhân viên
+                    </a>
+
                 </div>
             </div>
             <div class="sb-sidenav-footer">
