@@ -1,4 +1,4 @@
-package com.example.serviceapp.admin.post.controller;
+package com.example.serviceapp.common.uploadImage;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/admin/post")
+@RequestMapping("/admin")
 public class ImageUploadController {
 
 

@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ADCompanyInforController {
 @GetMapping("/company-infor")
     public String doInit() {
-        return "admin/company-infor";
+        return "admin/company-infor/company-infor";
     }
 }

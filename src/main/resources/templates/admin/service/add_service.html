@@ -29,28 +29,23 @@
         <main class="container py-4">
             <div class="card shadow-sm rounded-4">
                 <div class="card-header bg-success text-white rounded-top-4">
-                    <h3 class="mb-0">📝 Sửa bài viết</h3>
+                    <h3 class="mb-0">📝 Thêm bài viết mới</h3>
                 </div>
                 <div class="card-body">
-                    <form th:action="@{'/admin/post/update/' + ${post.postId}}" th:object="${post}" method="post">
+                    <form th:action="@{/admin/service/save}" th:object="${service}" method="post">
 
                         <div class="mb-3">
                             <label for="title" class="form-label">Tiêu đề</label>
-                            <input type="text" th:field="*{title}" class="form-control form-control-lg rounded-3"
-                                   id="title" placeholder="Nhập tiêu đề bài viết" required>
+                            <input type="text" th:field="*{serviceName}" class="form-control form-control-lg rounded-3"
+                                   id="title" placeholder="Nhập tên dịch vụ" required/>
                         </div>
                         <div class="mb-3">
-                            <label for="imageUpload" class="form-label">Ảnh bài viết</label>
+                            <label for="imageUpload" class="form-label">Icon dịch vụ</label>
                             <input class="form-control" type="file" id="imageUpload" accept="image/*" onchange="uploadImage(event)">
                             <div class="mt-3">
-                                <img id="previewImage"
-                                     th:src="${post.imageUrl}"
-                                     alt="Preview"
-                                     style="width: 150px; height: auto; border: 1px solid #ddd; border-radius: 8px;"
-                                     class="shadow-sm"
-                                     th:if="${post.imageUrl != null}"/>
+                                <img id="previewImage" src="#" alt="Preview" style="max-height: 200px; display: none;" class="rounded shadow-sm"/>
                             </div>
-                            <input type="hidden" th:field="*{imageUrl}" id="imageUrl"/>
+                            <input type="hidden" th:field="*{icon}" id="imageUrl"/>
                         </div>
 
 
@@ -60,9 +55,10 @@
                         </div>
 
                         <div class="text-end">
-                            <button type="submit" class="btn btn-success btn-sm rounded-pill px-4">💾 Cập nhật</button>
+                            <button type="submit" class="btn btn-success btn-sm rounded-pill px-4">💾 Lưu</button>
                             <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-4"
-                                    onclick="confirmBack()">⬅️ Quay lại</button>
+                                    onclick="confirmBack()">⬅️ Quay lại
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -80,7 +76,7 @@
     CKEDITOR.replace('contentEditor', {
         language: 'vi',
         height: 400,
-        filebrowserUploadUrl: '/admin/post/uploadImage',
+        filebrowserUploadUrl: '/admin/service/uploadImage',
         filebrowserUploadMethod: 'form',
         removeButtons: '',
         toolbarGroups: [
@@ -107,17 +103,15 @@
         const formData = new FormData();
         formData.append("upload", file);
 
-        fetch("/admin/post/uploadImage", {
+        fetch("/admin/uploadImage", {
             method: "POST",
             body: formData
         })
             .then(response => response.json())
             .then(data => {
                 if (data.uploaded === 1) {
-                    // Hiển thị ảnh preview mới
                     document.getElementById("previewImage").src = data.url;
                     document.getElementById("previewImage").style.display = "block";
-                    // Gán URL vào input hidden
                     document.getElementById("imageUrl").value = data.url;
                 } else {
                     alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
@@ -129,10 +123,9 @@
             });
     }
 
-
     function confirmBack() {
         if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {
-            window.location.href = "/admin/post/list";
+            window.location.href = "/admin/service/list";
         }
     }
 </script>

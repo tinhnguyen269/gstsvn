@@ -14,9 +14,11 @@ public class Services {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long serviceId;
     private String serviceName;
-    @Column(columnDefinition = "TEXT")
-    private String description;
+    @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
+    private String content;
     private String imgPrice;
+    private String icon;
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
@@ -40,12 +42,20 @@ public class Services {
         this.serviceName = serviceName;
     }
 
-    public String getDescription() {
-        return description;
+    public String getContent() {
+        return content;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public String getImgPrice() {

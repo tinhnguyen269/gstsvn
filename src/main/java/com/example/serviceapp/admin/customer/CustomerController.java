@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CustomerController {
 @GetMapping("/customer")
     public String doInit() {
-        return "admin/customer";
+        return "admin/customer/customer";
     }
 }

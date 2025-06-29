@@ -15,7 +15,7 @@ public class ADLoginController {
 
     @GetMapping("/login")
     public String doLogin(Model model) {
-        return "admin/login";
+        return "admin/authenticate/login";
     }
 
 }
