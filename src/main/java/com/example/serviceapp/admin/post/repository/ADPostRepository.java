@@ -1,11 +1,8 @@
-package com.example.serviceapp.customer.post.repositoty;
+package com.example.serviceapp.admin.post.repository;
 
 import com.example.serviceapp.common.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PostRepository extends JpaRepository<Post, Long> {
-
-}
-
+public interface ADPostRepository extends JpaRepository<Post, Long> {}

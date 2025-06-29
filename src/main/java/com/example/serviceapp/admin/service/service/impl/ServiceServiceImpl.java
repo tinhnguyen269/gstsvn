@@ -1,8 +1,8 @@
 package com.example.serviceapp.admin.service.service.impl;
 
+import com.example.serviceapp.admin.service.repository.ServiceRepository;
 import com.example.serviceapp.admin.service.service.ServiceService;
 import com.example.serviceapp.common.entity.Services;
-import com.example.serviceapp.common.repository.ServiceRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

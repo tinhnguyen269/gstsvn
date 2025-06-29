@@ -27,6 +27,7 @@
     <link href="/customer/css/post-service-detail.css" rel="stylesheet">
     <link href="/customer/css/commom.css" rel="stylesheet">
 
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
@@ -36,41 +37,35 @@
 
 
 <!-- Content + Sidebar -->
-<div class="container">
-    <div class="row">
-        <!-- Content chính -->
-        <main class="col-12 col-md-8 order-1 order-md-1 mb-4">
-            <div class="container my-5 service-detail">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <p><a href="#">Trang chủ</a> » Dịch vụ</p>
-                        <h4>Giới thiệu dịch vụ lau kính chuyên nghiệp</h4>
-                        <p>Chúng tôi cung cấp dịch vụ lau kính mặt ngoài, kính nội thất cho tòa nhà, văn phòng, khách
-                            sạn
-                            với đội ngũ nhân viên lành nghề, thiết bị hiện đại, hóa chất an toàn.</p>
-                        <img src="/customer/images/slideshow/banner-ve-sinh-cong-nghiep-1.jpg" alt="Dịch vụ lau kính"
-                             class="img-fluid">
+<div class="container my-5">
+    <div class="row gx-5">
+        <!-- Nội dung chính -->
+        <main class="col-12 col-md-8 mb-5 mb-md-0">
+            <nav aria-label="breadcrumb" class="mb-3">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Tin tức</li>
+                </ol>
+            </nav>
 
-                        <h4>Lý do chọn chúng tôi</h4>
-                        <ul>
-                            <li>Dụng cụ chuyên dụng và hóa chất an toàn</li>
-                            <li>Nhân viên đào tạo bài bản, có bảo hiểm lao động</li>
-                            <li>Giá dịch vụ hợp lý, báo giá nhanh chóng</li>
-                            <li>Thời gian thi công linh hoạt</li>
-                        </ul>
+            <h4 th:text="${post.title}" class="fw-bold mb-3"></h4>
+            <div class="text-muted mb-3">
+                <i class="fa-regular fa-clock me-1"></i>
+                <span th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+            </div>
 
-                        <h4>Quy trình thực hiện</h4>
-                        <p>Tiếp nhận yêu cầu, khảo sát thực tế, lập phương án thi công và báo giá. Sau đó tiến hành thực
-                            hiện dịch vụ đúng quy trình kỹ thuật và bàn giao công việc sạch sẽ, an toàn.</p>
-                    </div>
-                </div>
+            <!-- Nội dung bài viết -->
+            <div class="post-content">
+                <div th:utext="${post.content}"></div>
             </div>
         </main>
+        <!-- Sidebar -->
+        <div th:replace="customer/common/sidebar :: sidebar"></div>
 
-        <div th:replace="customer/common/sidebar::sidebar"></div>
     </div>
-    <!--Button contact-->
-    <div th:replace="customer/common/contact:: contact"></div>
+
+    <!-- Nút liên hệ -->
+    <div th:replace="customer/common/contact :: contact"></div>
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
     <path fill="#36363e" fill-opacity="1"
