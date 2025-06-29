@@ -109,3 +109,36 @@ sidebar
 .sidebar .post-item a:hover {
     color: #007bff;
 }
+
+/*---------------------------------------
+CSS tùy chỉnh cho content
+-----------------------------------------*/
+
+ .post-content {
+     overflow-wrap: break-word;
+     word-break: break-word;
+ }
+
+.post-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.375rem;
+    margin-bottom: 1rem;
+}
+
+.post-content table {
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+    border-collapse: collapse;
+}
+
+.post-content table td, .post-content table th {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+}
+
+.breadcrumb {
+    --bs-breadcrumb-divider: '»';
+}
+
