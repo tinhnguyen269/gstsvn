@@ -9,4 +9,6 @@ public interface PostService {
     Optional<Post> findById(Long id);
 
     List<Post> findAll();
+
+    List<Post> getTop10NewestPosts();
 }

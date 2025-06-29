@@ -26,4 +26,8 @@ public class PostServiceImpl implements PostService {
     public List<Post> findAll() {
         return postRepository.findAllActivePosts();
     }
+
+    public List<Post> getTop10NewestPosts() {
+        return postRepository.findTop10NewestPosts();
+    }
 }
