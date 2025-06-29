@@ -15,13 +15,22 @@ public class Post {
     private Long postId;
     private String title;
     @Lob
+    @Column(columnDefinition = "MEDIUMTEXT")
     private String content;
+    private String imageUrl;
     private LocalDateTime createdAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
     public Long getPostId() {
         return postId;
     }

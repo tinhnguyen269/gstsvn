@@ -32,7 +32,7 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             <div th:each="post : ${Post}" class="col">
                 <div class="news-card h-100 border rounded shadow-sm overflow-hidden">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post8.jpg"
+                    <img th:src="${post.imageUrl}" th:alt="${post.title}"
                          alt="Tin tức"
                          class="img-fluid w-100"
                          style="height:180px;object-fit:cover;">

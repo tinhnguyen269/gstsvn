@@ -15,6 +15,7 @@ public class PostServiceImpl implements PostService {
     public PostServiceImpl(PostRepository postRepository) {
         this.postRepository = postRepository;
     }
+
     @Override
     public Optional<Post> findById(Long id) {
         return postRepository.findById(id);
@@ -23,6 +24,6 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAll() {
-        return postRepository.findAll();
+        return postRepository.findAllActivePosts();
     }
 }

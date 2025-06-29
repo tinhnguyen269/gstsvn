@@ -3,9 +3,10 @@ package com.example.serviceapp.admin.post.service.impl;
 import com.example.serviceapp.admin.post.repository.ADPostRepository;
 import com.example.serviceapp.admin.post.service.ADPostService;
 import com.example.serviceapp.common.entity.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,7 +29,13 @@ public class ADPostServiceImpl implements ADPostService {
     }
 
     @Override
-    public List<Post> findAll() {
-        return postRepository.findAll();
+    public Page<Post> findAll(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Post> searchPosts(String keyword, Pageable pageable) {
+        return postRepository.searchPosts(keyword, pageable);
+    }
+
 }

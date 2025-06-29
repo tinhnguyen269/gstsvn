@@ -28,10 +28,18 @@ public class ImageUploadController {
             Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
             String imageUrl = (String) uploadResult.get("secure_url");
 
-            return ResponseEntity.ok(Map.of("url", imageUrl));
+            return ResponseEntity.ok(Map.of(
+                    "uploaded", 1,
+                    "fileName", file.getOriginalFilename(),
+                    "url", imageUrl
+            ));
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Upload thất bại");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "uploaded", 0,
+                    "error", Map.of("message", "Upload thất bại")
+            ));
         }
     }
+
 
 }
