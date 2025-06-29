@@ -68,9 +68,8 @@
                 </div>
             </div>
         </main>
-
         <!-- Sidebar -->
-        <div th:replace="customer/common/sidebar::sidebar"></div>
+        <div th:replace="customer/common/sidebar :: sidebar(${latestPosts})"></div>
     </div>
     <!--Button contact-->
     <div th:replace="customer/common/contact:: contact"></div>

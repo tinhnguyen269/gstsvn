@@ -30,6 +30,8 @@ public class PostController {
         Post post = postService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
         model.addAttribute("post", post);
+
         return "customer/post_detail";
     }
+
 }

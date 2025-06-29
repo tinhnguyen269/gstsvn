@@ -6,59 +6,12 @@
 </head>
 <body>
 <!-- Sidebar -->
-<aside class="col-12 col-md-4 order-2 order-md-2 mb-4" th:fragment="sidebar">
+<aside class="col-12 col-md-4 order-2 order-md-2 mb-4" th:fragment="sidebar(latestPosts)">
     <div class="sidebar">
         <h5>Bài viết mới nhất</h5>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Vệ sinh sau xây dựng tại Hà Nội</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Vệ sinh kính văn phòng tại Hà Nội</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt thảm văn phòng tại Hà Nội</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt thảm trang trí tại nhà</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt rèm cho các hộ gia đình tại Hà Nội</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt nệm tại nhà riêng và chung cư</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt ghế sofa tại nhà</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt ghế chuỗi nhà hàng Pizza 4P's</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Giặt ghế cho ngân hàng HD Bank</a>
-        </div>
-        <div class="post-item">
-            <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/ve-sinh-kinh-vp.jpg"
-                 alt="">
-            <a href="#">Vệ sinh chung cư sau xây dựng, bạn cần phải thực hiện những công việc nào đầu
-                tiên?</a>
+        <div class="post-item" th:each="post : ${latestPosts}">
+            <img th:src="${post.imageUrl}" alt="Ảnh bài viết">
+            <a th:href="@{'/Post/' + ${post.postId}}" th:text="${post.title}"></a>
         </div>
     </div>
 </aside>
