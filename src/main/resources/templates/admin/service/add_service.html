@@ -40,13 +40,27 @@
                                    id="title" placeholder="Nhập tên dịch vụ" required/>
                         </div>
                         <div class="mb-3">
-                            <label for="imageUpload" class="form-label">Icon dịch vụ</label>
-                            <input class="form-control" type="file" id="imageUpload" accept="image/*" onchange="uploadImage(event)">
+                            <label for="iconUpload" class="form-label">Icon dịch vụ</label>
+                            <input class="form-control" type="file" id="iconUpload" accept="image/*"
+                                   onchange="uploadImage(event)"
+                                   data-preview="iconPreview" data-url="iconUrl">
                             <div class="mt-3">
-                                <img id="previewImage" src="#" alt="Preview" style="max-height: 200px; display: none;" class="rounded shadow-sm"/>
+                                <img id="iconPreview" src="#" alt="Preview" style="max-height: 200px; display: none;" class="rounded shadow-sm"/>
                             </div>
-                            <input type="hidden" th:field="*{icon}" id="imageUrl"/>
+                            <input type="hidden" th:field="*{icon}" id="iconUrl"/>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="priceUpload" class="form-label">Image bảng giá</label>
+                            <input class="form-control" type="file" id="priceUpload" accept="image/*"
+                                   onchange="uploadImage(event)"
+                                   data-preview="pricePreview" data-url="priceUrl">
+                            <div class="mt-3">
+                                <img id="pricePreview" src="#" alt="Preview" style="max-height: 200px; display: none;" class="rounded shadow-sm"/>
+                            </div>
+                            <input type="hidden" th:field="*{imgPrice}" id="priceUrl"/>
+                        </div>
+
 
 
                         <div class="mb-3">
@@ -100,6 +114,9 @@
         const file = event.target.files[0];
         if (!file) return;
 
+        const previewId = event.target.dataset.preview;
+        const urlInputId = event.target.dataset.url;
+
         const formData = new FormData();
         formData.append("upload", file);
 
@@ -110,9 +127,9 @@
             .then(response => response.json())
             .then(data => {
                 if (data.uploaded === 1) {
-                    document.getElementById("previewImage").src = data.url;
-                    document.getElementById("previewImage").style.display = "block";
-                    document.getElementById("imageUrl").value = data.url;
+                    document.getElementById(previewId).src = data.url;
+                    document.getElementById(previewId).style.display = "block";
+                    document.getElementById(urlInputId).value = data.url;
                 } else {
                     alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
                 }
@@ -122,6 +139,7 @@
                 alert("Có lỗi khi upload ảnh.");
             });
     }
+
 
     function confirmBack() {
         if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {

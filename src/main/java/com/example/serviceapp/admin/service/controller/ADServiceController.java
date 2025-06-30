@@ -1,7 +1,7 @@
 
 package com.example.serviceapp.admin.service.controller;
 
-import com.example.serviceapp.admin.service.service.ServiceService;
+import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.entity.Services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,11 +17,11 @@ import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/admin/service")
-public class ServiceController {
+public class ADServiceController {
 
-    private final ServiceService serviceService;
+    private final ADServiceService serviceService;
 
-    public ServiceController(ServiceService serviceService) {
+    public ADServiceController(ADServiceService serviceService) {
         this.serviceService = serviceService;
     }
 

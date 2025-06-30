@@ -40,18 +40,37 @@
                                    id="title" placeholder="Nhập tên dịch vụ" required>
                         </div>
                         <div class="mb-3">
-                            <label for="imageUpload" class="form-label">Icon dịch vụ</label>
-                            <input class="form-control" type="file" id="imageUpload" accept="image/*" onchange="uploadImage(event)">
+                            <label for="iconUpload" class="form-label">Icon dịch vụ</label>
+                            <input class="form-control" type="file" id="iconUpload" accept="image/*"
+                                   onchange="uploadImage(event)"
+                                   data-preview="iconPreview" data-url="iconUrl">
                             <div class="mt-3">
-                                <img id="previewImage"
+                                <img id="iconPreview"
+                                     th:if="${service.icon != null}"
                                      th:src="${service.icon}"
-                                     alt="Preview"
+                                     alt="Icon preview"
                                      style="width: 150px; height: auto; border: 1px solid #ddd; border-radius: 8px;"
-                                     class="shadow-sm"
-                                     th:if="${service.icon != null}"/>
+                                     class="shadow-sm"/>
                             </div>
-                            <input type="hidden" th:field="*{icon}" id="imageUrl"/>
+                            <input type="hidden" th:field="*{icon}" id="iconUrl"/>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="priceUpload" class="form-label">Ảnh bảng giá</label>
+                            <input class="form-control" type="file" id="priceUpload" accept="image/*"
+                                   onchange="uploadImage(event)"
+                                   data-preview="pricePreview" data-url="priceUrl">
+                            <div class="mt-3">
+                                <img id="pricePreview"
+                                     th:if="${service.imgPrice != null}"
+                                     th:src="${service.imgPrice}"
+                                     alt="Bảng giá preview"
+                                     style="width: 150px; height: auto; border: 1px solid #ddd; border-radius: 8px;"
+                                     class="shadow-sm"/>
+                            </div>
+                            <input type="hidden" th:field="*{imgPrice}" id="priceUrl"/>
+                        </div>
+
 
 
                         <div class="mb-3">
@@ -104,6 +123,9 @@
         const file = event.target.files[0];
         if (!file) return;
 
+        const previewId = event.target.dataset.preview;
+        const urlInputId = event.target.dataset.url;
+
         const formData = new FormData();
         formData.append("upload", file);
 
@@ -114,11 +136,11 @@
             .then(response => response.json())
             .then(data => {
                 if (data.uploaded === 1) {
-                    // Hiển thị ảnh preview mới
-                    document.getElementById("previewImage").src = data.url;
-                    document.getElementById("previewImage").style.display = "block";
-                    // Gán URL vào input hidden
-                    document.getElementById("imageUrl").value = data.url;
+                    const previewImg = document.getElementById(previewId);
+                    previewImg.src = data.url;
+                    previewImg.style.display = "block";
+
+                    document.getElementById(urlInputId).value = data.url;
                 } else {
                     alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
                 }
@@ -129,12 +151,12 @@
             });
     }
 
-
     function confirmBack() {
         if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {
             window.location.href = "/admin/service/list";
         }
     }
+
 </script>
 
 <!-- Optional Custom JS -->

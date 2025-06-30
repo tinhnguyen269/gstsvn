@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface ServiceService {
+public interface ADServiceService {
     void save(Services services);
 
     Optional<Services> findById(Long id);

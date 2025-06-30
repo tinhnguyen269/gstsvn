@@ -1,7 +1,7 @@
 package com.example.serviceapp.admin.service.service.impl;
 
-import com.example.serviceapp.admin.service.repository.ServiceRepository;
-import com.example.serviceapp.admin.service.service.ServiceService;
+import com.example.serviceapp.admin.service.repository.ADServiceRepository;
+import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.entity.Services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class ServiceServiceImpl implements ServiceService {
+public class ADServiceServiceImpl implements ADServiceService {
 
 
-    private final ServiceRepository serviceRepository;
+    private final ADServiceRepository serviceRepository;
 
-    public ServiceServiceImpl(ServiceRepository serviceRepository) {
+    public ADServiceServiceImpl(ADServiceRepository serviceRepository) {
         this.serviceRepository = serviceRepository;
     }
 

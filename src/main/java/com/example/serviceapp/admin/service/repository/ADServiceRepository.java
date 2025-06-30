@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ServiceRepository extends JpaRepository<Services,Long> {
+public interface ADServiceRepository extends JpaRepository<Services,Long> {
     @Query("SELECT s FROM Services s WHERE LOWER(s.serviceName) LIKE LOWER(CONCAT('%', :keyword, '%')) AND s.deleteFlag = 0 ORDER BY s.createAt DESC")
     Page<Services> searchServices(@Param("keyword") String keyword, Pageable pageable);
 }
