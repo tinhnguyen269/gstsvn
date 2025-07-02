@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ChartController {
     @GetMapping("/chart")
     public String showChart() {
-        return "admin/charts";
+        return "admin/chart/charts";
     }
 }

@@ -6,12 +6,12 @@
 </head>
 <body>
 <!-- Sidebar -->
-<aside class="col-12 col-md-4 order-2 order-md-2 mb-4" th:fragment="sidebar(latestPosts)">
+<aside class="col-12 col-md-4 order-2 order-md-2 mb-4" th:fragment="sidebar">
     <div class="sidebar">
         <h5>Bài viết mới nhất</h5>
-        <div class="post-item" th:each="post : ${latestPosts}">
+        <div class="post-item" th:each="post : ${postAdvice}">
             <img th:src="${post.imageUrl}" alt="Ảnh bài viết">
-            <a th:href="@{'/Post/' + ${post.postId}}" th:text="${post.title}"></a>
+            <a th:href="@{'/post/' + ${post.postId}}" th:text="${post.title}"></a>
         </div>
     </div>
 </aside>

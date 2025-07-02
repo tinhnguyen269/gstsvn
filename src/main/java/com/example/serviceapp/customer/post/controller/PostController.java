@@ -18,20 +18,20 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/Post")
+    @GetMapping("/post")
     public String showPostForCustomer(Model model) {
         List<Post> Post = postService.findAll();
         model.addAttribute("Post", Post);
-        return "customer/post_list";
+        return "customer/post/post_list";
     }
 
-    @GetMapping("/Post/{id}")
+    @GetMapping("/post/{id}")
     public String viewPost(@PathVariable Long id, Model model) {
         Post post = postService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
         model.addAttribute("post", post);
 
-        return "customer/post_detail";
+        return "customer/post/post_detail";
     }
 
 }

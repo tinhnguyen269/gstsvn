@@ -27,7 +27,7 @@
         @GetMapping("/add")
         public String showAddForm(Model model) {
                 model.addAttribute("post", new Post());
-            return "admin/add_post";
+            return "admin/post/add_post";
         }
 
         @PostMapping("/save")
@@ -57,7 +57,7 @@
             model.addAttribute("pageSize", size);
             model.addAttribute("keyword", keyword);
 
-            return "admin/post";
+            return "admin/post/post";
         }
 
         @GetMapping("")
@@ -70,7 +70,7 @@
             Post post = postService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
             model.addAttribute("post", post);
-            return "admin/edit_post";
+            return "admin/post/edit_post";
         }
 
         @PostMapping("/update/{id}")

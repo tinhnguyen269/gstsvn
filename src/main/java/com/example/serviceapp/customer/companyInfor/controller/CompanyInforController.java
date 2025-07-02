@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class CompanyInforController {
-    @GetMapping("/companyInfor_doInit")
+    @GetMapping("/company-info")
     public String doInit() {
-        return "customer/companyInfor";
+        return "customer/company-info/company_info";
     }
 }

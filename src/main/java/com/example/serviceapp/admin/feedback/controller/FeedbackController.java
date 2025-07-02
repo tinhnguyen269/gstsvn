@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class FeedbackController {
     @GetMapping("/feedback")
     public String doInit() {
-        return "admin/feedback";
+        return "admin/feedback/feedback";
     }
 }
