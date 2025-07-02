@@ -24,7 +24,7 @@
 </head>
 
 <body>
-<div th:replace="customer/common/header:: header"></div>
+<div th:replace="customer/common/header::header"></div>
 
 <main class="col-12 order-2 order-md-1 mb-4">
 
@@ -59,7 +59,8 @@
         <div class="row g-4 align-items-start">
             <div class="col-lg-6">
                 <div class="row row-cols-2 row-cols-md-3 g-3">
-                    <div class="col" th:each="service : ${services}">
+                    <div class="col" th:each="service, iterStat : ${serviceAdvice}"
+                         th:if="${iterStat.index < 6}">
                         <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white">
                             <a th:href="@{/services/{id}(id=${service.serviceId})}">
                                 <img th:src="${service.icon}" th:alt="${service.serviceName}" class="img-fluid mb-2">
@@ -76,7 +77,7 @@
                     phòng, nhà ở, công trình với đội ngũ nhân viên tận tâm, giàu kinh nghiệm.</p>
                 <p>Chúng tôi cam kết mang lại không gian sạch sẽ, an toàn, tiết kiệm thời gian và chi phí cho khách
                     hàng.</p>
-                <a class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow" th:href="@{/companyInfor_doInit}">Xem
+                <a class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow" th:href="@{/company-info}">Xem
                     chi tiết</a>
             </div>
         </div>
@@ -270,7 +271,7 @@
                         <h6 class="fw-bold mb-2">Cách vệ sinh nhà cửa hiệu quả</h6>
                         <div class="text-muted small mb-2">20/06/2025</div>
                         <p class="mb-2">Những mẹo nhỏ giúp bạn giữ không gian sống luôn sạch sẽ, thoáng mát...</p>
-                        <a th:href="@{/post_doInit}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi
+                        <a th:href="@{/post}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi
                             tiết</a>
                     </div>
                 </div>

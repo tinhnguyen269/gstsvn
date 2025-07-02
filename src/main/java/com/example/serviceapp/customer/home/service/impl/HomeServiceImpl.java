@@ -15,8 +15,4 @@ public class HomeServiceImpl implements HomeService {
         this.homeRepository = homeRepository;
     }
 
-    @Override
-    public List<Services> findAll() {
-        return homeRepository.findAllActivePosts();
-    }
 }

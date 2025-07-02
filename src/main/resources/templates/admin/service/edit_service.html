@@ -29,7 +29,7 @@
         <main class="container py-4">
             <div class="card shadow-sm rounded-4">
                 <div class="card-header bg-success text-white rounded-top-4">
-                    <h3 class="mb-0">📝 Sửa bài viết</h3>
+                    <h3 class="mb-0">📝 Sửa dịch vụ</h3>
                 </div>
                 <div class="card-body">
                     <form th:action="@{'/admin/service/update/' + ${service.serviceId}}" th:object="${service}" method="post">
@@ -152,7 +152,7 @@
     }
 
     function confirmBack() {
-        if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {
+        if (confirm("Bạn có chắc muốn quay lại mà không lưu dịch vụ?")) {
             window.location.href = "/admin/service/list";
         }
     }

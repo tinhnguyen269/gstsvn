@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface HomeRepository extends JpaRepository<Services, Long> {
-    @Query("SELECT s FROM Services s WHERE s.deleteFlag = 0 ORDER BY s.createAt DESC")
-    List<Services> findAllActivePosts();
+
 }

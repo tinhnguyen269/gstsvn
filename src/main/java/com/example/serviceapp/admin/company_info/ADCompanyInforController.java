@@ -1,4 +1,4 @@
-package com.example.serviceapp.admin.companyInfor;
+package com.example.serviceapp.admin.company_info;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

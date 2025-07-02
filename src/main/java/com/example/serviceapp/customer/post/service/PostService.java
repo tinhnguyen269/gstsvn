@@ -10,5 +10,4 @@ public interface PostService {
 
     List<Post> findAll();
 
-    List<Post> getTop10NewestPosts();
 }

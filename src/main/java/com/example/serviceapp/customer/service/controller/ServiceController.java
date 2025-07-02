@@ -1,14 +1,11 @@
 package com.example.serviceapp.customer.service.controller;
 
-import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.service.service.ServiceService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.List;
 
 @Controller
 public class ServiceController {
@@ -25,6 +22,7 @@ public class ServiceController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
         model.addAttribute("services", services);
 
-        return "customer/service-detail";
+        return "customer/service/service_detail";
     }
+
 }
