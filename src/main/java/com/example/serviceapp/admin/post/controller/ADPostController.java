@@ -32,7 +32,6 @@
 
         @PostMapping("/save")
         public String savePost(@ModelAttribute Post post) {
-            post.setCreatedAt(LocalDateTime.now());
             postService.save(post);
             return "redirect:/admin/post/list";
         }
@@ -43,7 +42,7 @@
                                @RequestParam(defaultValue = "10") int size,
                                @RequestParam(required = false, defaultValue = "") String keyword) {
 
-            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createAt"));
             Page<Post> postPage;
 
             if (keyword != null && !keyword.isEmpty()) {
@@ -58,11 +57,6 @@
             model.addAttribute("keyword", keyword);
 
             return "admin/post/post";
-        }
-
-        @GetMapping("")
-        public String redirectToList() {
-            return "redirect:/admin/post/list";
         }
 
         @GetMapping("/edit/{id}")
@@ -81,7 +75,6 @@
             existingPost.setTitle(post.getTitle());
             existingPost.setContent(post.getContent());
             existingPost.setImageUrl(post.getImageUrl());
-            existingPost.setUpdateAt(LocalDateTime.now());
 
             postService.save(existingPost);
             return "redirect:/admin/post/list";
@@ -92,7 +85,6 @@
                     .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
 
             existingPost.setDeleteFlag(1);
-            existingPost.setUpdateAt(LocalDateTime.now());
             postService.save(existingPost);
 
             return "redirect:/admin/post/list";

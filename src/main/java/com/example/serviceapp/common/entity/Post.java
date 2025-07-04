@@ -2,7 +2,6 @@
 package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
@@ -18,11 +17,22 @@ public class Post {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String content;
     private String imageUrl;
-    private LocalDateTime createdAt;
+    private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -55,12 +65,12 @@ public class Post {
         this.content = content;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getCreateAt() {
+        return createAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
     }
 
     public Long getCreateBy() {

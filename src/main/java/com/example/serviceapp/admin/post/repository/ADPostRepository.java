@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ADPostRepository extends JpaRepository<Post, Long> {
 
-    @Query("SELECT p FROM Post p WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :keyword, '%')) AND p.deleteFlag = 0 ORDER BY p.createdAt DESC")
+    @Query("SELECT p FROM Post p WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :keyword, '%')) AND p.deleteFlag = 0 ORDER BY p.createAt DESC")
     Page<Post> searchPosts(@Param("keyword") String keyword, Pageable pageable);}
