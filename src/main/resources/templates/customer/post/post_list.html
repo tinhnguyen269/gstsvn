@@ -39,8 +39,8 @@
 
                     <div class="p-3">
                         <h6 th:text="${post.title}" class="fw-bold mb-2"></h6>
-                        <p th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}" class="text-muted small mb-2"></p>
-                        <a th:href="@{/post/{id}(id=${post.postId})}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
+                        <p th:text="${#temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}" class="text-muted small mb-2"></p>
+                        <a th:href="@{/post/list/{id}(id=${post.postId})}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
                     </div>
                 </div>
             </div>

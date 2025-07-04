@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/post")
 public class PostController {
 
     private final PostService postService;
@@ -18,14 +20,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/post")
+    @GetMapping("/list")
     public String showPostForCustomer(Model model) {
         List<Post> Post = postService.findAll();
         model.addAttribute("Post", Post);
         return "customer/post/post_list";
     }
 
-    @GetMapping("/post/{id}")
+    @GetMapping("list/{id}")
     public String viewPost(@PathVariable Long id, Model model) {
         Post post = postService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));

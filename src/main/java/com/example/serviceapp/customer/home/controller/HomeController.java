@@ -1,6 +1,8 @@
 
 package com.example.serviceapp.customer.home.controller;
 
+import com.example.serviceapp.common.entity.Customer;
+import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.home.service.HomeService;
 import org.springframework.stereotype.Controller;
@@ -22,7 +24,10 @@ public class HomeController {
 
 
     @GetMapping("")
-    public String index() {
+    public String index(Model model) {
+        List<Post> Post = homeService.findAll();
+        model.addAttribute("Post", Post);
+        model.addAttribute("customer" , new Customer());
         return "customer/index";
     }
 

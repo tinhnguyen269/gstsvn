@@ -51,7 +51,7 @@
             <h4 th:text="${post.title}" class="fw-bold mb-3"></h4>
             <div class="text-muted mb-3">
                 <i class="fa-regular fa-clock me-1"></i>
-                <span th:text="${#temporals.format(post.createdAt, 'dd/MM/yyyy HH:mm')}"></span>
+                <span th:text="${post.updateAt != null ? #temporals.format(post.updateAt, 'dd/MM/yyyy HH:mm') : #temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}"></span>
             </div>
 
             <!-- Nội dung bài viết -->

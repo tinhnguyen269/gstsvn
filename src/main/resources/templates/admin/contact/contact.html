@@ -1,36 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <title>Dashboard - SB Admin</title>
     <head th:replace="admin/common/header :: header"></head>
 
-    <script>
-        $(document).ready(function () {
-            // Activate tooltip
-            $('[data-toggle="tooltip"]').tooltip();
-
-
-            // Select/Deselect checkboxes
-            var checkbox = $('table tbody input[type="checkbox"]');
-            $("#selectAll").click(function () {
-                if (this.checked) {
-                    checkbox.each(function () {
-                        this.checked = true;
-                    });
-                } else {
-                    checkbox.each(function () {
-                        this.checked = false;
-                    });
-                }
-            });
-            checkbox.click(function () {
-                if (!this.checked) {
-                    $("#selectAll").prop("checked", false);
-                }
-            });
-        });
-    </script>
 </head>
 <body class="sb-nav-fixed">
 <div th:replace="admin/common/navbar :: navbar"></div>
@@ -92,9 +65,9 @@
                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                 </a>
 
-
-
-                                <a href="#deleteContactModal" class="delete" data-toggle="modal"><i
+                                <a href="#deleteContactModal" class="delete" data-toggle="modal"
+                                   th:data-id="${customer.customerId}"
+                                ><i
                                         class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
                         </tr>
@@ -181,19 +154,18 @@
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" name="customerId" id="customerId">
+                                <input type="hidden" name="editCustomerId" id="editCustomerId">
                                 <div class="form-group">
                                     <label>Tên</label>
-                                    <input name="name" id="name" class="form-control" required>
+                                    <input name="editName" id="editName" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
-                                    <input name="phoneNumber" id="phoneNumber" class="form-control" required>
+                                    <input name="editPhoneNumber" id="editPhoneNumber" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Dịch vụ</label>
-                                    <select name="serviceId" id="serviceId" class="form-control" required>
-                                        <option value="">-- Chọn dịch vụ --</option>
+                                    <select name="editServiceId" id="editServiceId" class="form-control" required>
                                         <option th:each="service : ${serviceAdvice}"
                                                 th:value="${service.serviceId}"
                                                 th:text="${service.serviceName}"></option>
@@ -201,11 +173,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Ghi chú</label>
-                                    <textarea name="context" id="context" class="form-control"></textarea>
+                                    <textarea name="editContext" id="editContext" class="form-control"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Trạng thái</label>
-                                    <select name="status" id="status" class="form-control">
+                                    <select name="editStatus" id="editStatus" class="form-control">
                                         <option value="Chờ liên hệ">Chờ liên hệ</option>
                                         <option value="Đã liên hệ">Đã liên hệ</option>
                                         <option value="Hủy bỏ">Hủy bỏ</option>
@@ -223,9 +195,10 @@
             <div id="deleteContactModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form>
+                        <form id="deleteForm">
+                            <input type="hidden" id="deleteCustomerId" name="deleteCustomerId">
                             <div class="modal-header">
-                                <h4 class="modal-title">Delete Employee</h4>
+                                <h4 class="modal-title">Xóa khách hàng</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
                                 </button>
                             </div>
@@ -254,15 +227,37 @@
                 type: 'GET',
                 success: function (data) {
                     // Fill data vào form
-                    $('#customerId').val(data.customerId);
-                    $('#name').val(data.name);
-                    $('#phoneNumber').val(data.phoneNumber);
-                    $('#serviceId').val(data.serviceId);
-                    $('#context').val(data.context);
-                    $('#status').val(data.status);
+                    $('#editCustomerId').val(data.customerId);
+                    $('#editName').val(data.name);
+                    $('#editPhoneNumber').val(data.phoneNumber);
+                    $('#editServiceId').val(data.serviceId);
+                    $('#editContext').val(data.context);
+                    $('#editStatus').val(data.status);
                 },
                 error: function () {
                     alert('Không thể lấy dữ liệu khách hàng.');
+                }
+            });
+        });
+
+        $('.delete').on('click', function () {
+            var customerId = $(this).data('id');
+            $('#deleteCustomerId').val(customerId);
+        });
+
+
+        $('#deleteForm').on('submit', function (e) {
+            e.preventDefault(); // tránh submit form thật
+            var customerId = $('#deleteCustomerId').val();
+            $.ajax({
+                url: '/admin/contact/delete/' + customerId,
+                type: 'POST',
+                success: function () {
+                    $('#deleteContactModal').modal('hide');
+                    location.reload();
+                },
+                error: function () {
+                    alert('Không thể xóa dữ liệu khách hàng.');
                 }
             });
         });
@@ -272,12 +267,12 @@
             e.preventDefault();
 
             var customerData = {
-                customerId: $('#customerId').val(),
-                name: $('#name').val(),
-                phoneNumber: $('#phoneNumber').val(),
-                serviceId: $('#serviceId').val(),
-                context: $('#context').val(),
-                status: $('#status').val()
+                customerId: $('#editCustomerId').val(),
+                name: $('#editName').val(),
+                phoneNumber: $('#editPhoneNumber').val(),
+                serviceId: $('#editServiceId').val(),
+                context: $('#editContext').val(),
+                status: $('#editStatus').val()
             };
 
             $.ajax({
