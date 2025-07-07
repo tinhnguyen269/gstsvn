@@ -68,7 +68,6 @@
                             <th>ID</th>
                             <th>Tên dịch vụ</th>
                             <th>Ngày tạo</th>
-                            <th>Người tạo</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
@@ -77,7 +76,6 @@
                             <td th:text="${service.serviceId}"></td>
                             <td th:text="${service.serviceName}"></td>
                             <td th:text="${#temporals.format(service.updateAt != null ? service.updateAt : service.createAt, 'dd/MM/yyyy HH:mm')}"></td>
-                            <td th:text="${service.createBy}"></td>
                             <td>
                                 <a th:href="@{'/admin/service/edit/' + ${service.serviceId}}" class="edit"><i
                                         class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
