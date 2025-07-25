@@ -20,6 +20,16 @@ public class Feedback {
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+    @PrePersist
+    protected void onCreate() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
 
     public Long getFeedbackId() {
         return feedbackId;

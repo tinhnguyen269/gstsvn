@@ -2,35 +2,52 @@
 package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Where(clause = "delete_flag = 0")
-public class Contact {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long contactId;
+    private Long customerId;
     private String name;
     private String phoneNumber;
-
+    private Long serviceId;
     @Column(columnDefinition = "TEXT")
-    private String message;
+    private String context;
     private String status;
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
-
-    public Long getContactId() {
-        return contactId;
+    @PrePersist
+    protected void onCreate() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
     }
 
-    public void setContactId(Long contactId) {
-        this.contactId = contactId;
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public Long getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getName() {
@@ -49,12 +66,12 @@ public class Contact {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getMessage() {
-        return message;
+    public String getContext() {
+        return context;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setContext(String context) {
+        this.context = context;
     }
 
     public String getStatus() {

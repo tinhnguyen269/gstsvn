@@ -3,9 +3,12 @@ package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Where;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Where(clause = "delete_flag = 0")
 public class CompanyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +26,17 @@ public class CompanyInfo {
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
 
     public Long getCompanyId() {
         return companyId;

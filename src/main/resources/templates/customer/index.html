@@ -262,77 +262,19 @@
     <!-- Tin tức/Bài viết -->
     <section class="container my-5">
         <h3 class="text-center text-success fw-bold mb-4">Bài viết tin tức</h3>
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-            <div class="col">
-                <div class="news-card h-100">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post8.jpg" alt="Tin 1"
-                         class="img-fluid w-100" style="height:180px;object-fit:cover;">
+            <div th:each="post : ${Post}" class="col">
+                <div class="news-card h-100 border rounded shadow-sm overflow-hidden">
+                    <img th:src="${post.imageUrl}" th:alt="${post.title}"
+                         alt="Tin tức"
+                         class="img-fluid w-100"
+                         style="height:180px;object-fit:cover;">
+
                     <div class="p-3">
-                        <h6 class="fw-bold mb-2">Cách vệ sinh nhà cửa hiệu quả</h6>
-                        <div class="text-muted small mb-2">20/06/2025</div>
-                        <p class="mb-2">Những mẹo nhỏ giúp bạn giữ không gian sống luôn sạch sẽ, thoáng mát...</p>
-                        <a th:href="@{/post}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi
-                            tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="news-card h-100">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post8.jpg"
-                         class="img-fluid w-100" style="height:180px;object-fit:cover;">
-                    <div class="p-3">
-                        <h6 class="fw-bold mb-2">Vệ sinh văn phòng chuyên nghiệp</h6>
-                        <div class="text-muted small mb-2">15/06/2025</div>
-                        <p class="mb-2">Dịch vụ vệ sinh văn phòng giúp nâng cao hiệu suất làm việc...</p>
-                        <a href="#" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="news-card h-100">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post7.jpg"
-                         class="img-fluid w-100" style="height:180px;object-fit:cover;">
-                    <div class="p-3">
-                        <h6 class="fw-bold mb-2">Bí quyết giặt thảm sạch như mới</h6>
-                        <div class="text-muted small mb-2">10/06/2025</div>
-                        <p class="mb-2">Chia sẻ kinh nghiệm giặt thảm nhanh chóng, tiết kiệm chi phí...</p>
-                        <a href="#" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="news-card h-100">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post6.jpg"
-                         class="img-fluid w-100" style="height:180px;object-fit:cover;">
-                    <div class="p-3">
-                        <h6 class="fw-bold mb-2">Cách vệ sinh nhà cửa hiệu quả</h6>
-                        <div class="text-muted small mb-2">20/06/2025</div>
-                        <p class="mb-2">Những mẹo nhỏ giúp bạn giữ không gian sống luôn sạch sẽ, thoáng mát...</p>
-                        <a href="#" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="news-card h-100">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post5.jpg"
-                         class="img-fluid w-100" style="height:180px;object-fit:cover;">
-                    <div class="p-3">
-                        <h6 class="fw-bold mb-2">Vệ sinh văn phòng chuyên nghiệp</h6>
-                        <div class="text-muted small mb-2">15/06/2025</div>
-                        <p class="mb-2">Dịch vụ vệ sinh văn phòng giúp nâng cao hiệu suất làm việc...</p>
-                        <a href="#" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="news-card h-100">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/05/post4.jpg"
-                         class="img-fluid w-100" style="height:180px;object-fit:cover;">
-                    <div class="p-3">
-                        <h6 class="fw-bold mb-2">Bí quyết giặt thảm sạch như mới</h6>
-                        <div class="text-muted small mb-2">10/06/2025</div>
-                        <p class="mb-2">Chia sẻ kinh nghiệm giặt thảm nhanh chóng, tiết kiệm chi phí...</p>
-                        <a href="#" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
+                        <h6 th:text="${post.title}" class="fw-bold mb-2"></h6>
+                        <p th:text="${#temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}" class="text-muted small mb-2"></p>
+                        <a th:href="@{/post/list/{id}(id=${post.postId})}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -348,8 +290,10 @@
                     <div class="mb-4">
                         <h2 class="text-success">Lịch làm việc của công ty</h2>
                     </div>
-                    <img src="https://acheckin.vn/wp-content/uploads/2023/10/phan-mem-xep-lich-lam-viec-6.jpg"
-                         class="img-fluid w-100 object-fit-cover mb-4 mb-lg-0" alt="Hình ảnh dịch vụ">
+                    <!-- Lark Scheduler Inline Embed Begin -->
+                    <div class="scheduler-inline-widget" data-url="https://zsgpueraw1sx.sg.larksuite.com/scheduler/embed/f5d8cbe213d423f9" style="width:100%;height:626px;"></div>
+                    <script type="text/javascript" src="https://zsgpueraw1sx.sg.larksuite.com/scheduler/embed/scheduler-widget.js" async></script>
+                    <!-- Lark Scheduler Inline Embed End -->
                 </div>
 
                 <!-- Đặt lịch và form -->
@@ -357,32 +301,31 @@
                     <div class="mb-4">
                         <h2 class="text-success">Đặt lịch</h2>
                     </div>
-                    <form class="custom-form contact-form w-100" action="#" method="post" role="form">
+                    <form class="custom-form contact-form w-100" th:action="@{/contact/add}" th:object="${customer}" method="post" role="form">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="first-name" class="form-label">Tên</label>
-                                <input type="text" class="form-control" id="first-name" name="first-name" required>
+                                <input th:field ="*{name}" type="text" class="form-control" id="first-name" name="first-name" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="last-name" class="form-label">SĐT</label>
-                                <input type="text" class="form-control" id="last-name" name="last-name" required>
+                                <input th:field ="*{phoneNumber}" type="text" class="form-control" id="last-name" name="last-name" required>
                             </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="service-type" class="form-label">Loại dịch vụ</label>
-                            <select class="form-select" id="service-type" name="service-type" required>
-                                <option value="" selected disabled>Chọn dịch vụ</option>
-                                <option value="vệ sinh nhà cửa">Vệ sinh nhà cửa</option>
-                                <option value="vệ sinh công trình">Vệ sinh công trình sau thi công</option>
-                                <option value="lát sàn">Lát sàn</option>
-                                <option value="cải tạo phòng">Cải tạo phòng</option>
+                            <select class="form-select" th:field="*{serviceId}" id="service-type" name="service-type" required>
+                                <option th:value="__NULL__" disabled selected>Chọn dịch vụ</option>
+                                <option th:each="service : ${serviceAdvice}"
+                                        th:value="${service.serviceId}"
+                                        th:text="${service.serviceName}"></option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label for="message" class="form-label">Ghi chú</label>
-                            <textarea class="form-control" id="message" name="message" rows="5"></textarea>
+                            <textarea th:field="*{context}" class="form-control" id="message" name="message" rows="5"></textarea>
                         </div>
 
                         <div class="d-grid">
@@ -415,5 +358,13 @@
 <script src="/customer/js/owl.carousel.min.js"></script>
 <script src="/customer/js/custom.js"></script>
 <script src="/customer/js/home.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    let urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success') === 'true') {
+        alert('Đặt lịch thành công!');
+    }
+    /*]]>*/
+</script>
 </body>
 </html>
