@@ -2,6 +2,7 @@
 package com.example.serviceapp.customer.home.controller;
 
 import com.example.serviceapp.common.entity.Customer;
+import com.example.serviceapp.common.entity.Feedback;
 import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.home.service.HomeService;
@@ -22,10 +23,11 @@ public class HomeController {
         this.homeService = homeService;
     }
 
-
     @GetMapping("")
     public String index(Model model) {
         List<Post> Post = homeService.findAll();
+        List<Feedback> feedbacks = homeService.findAllFeedback();
+        model.addAttribute("Feedback", feedbacks);
         model.addAttribute("Post", Post);
         model.addAttribute("customer" , new Customer());
         return "customer/index";
