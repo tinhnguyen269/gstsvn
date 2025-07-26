@@ -137,61 +137,19 @@
                 <!-- Danh sách video -->
                 <div class="video-scroll d-flex overflow-auto px-5 gap-4" id="videoScroll"
                      style="scroll-behavior:smooth;">
-                    <!-- Ví dụ 2 feedback, bạn thay bằng vòng lặp Thymeleaf nếu có -->
-                    <div class="flex-shrink-0" style="width:300px;">
+                    <div class="flex-shrink-0" style="width:300px;" th:each="feedback : ${Feedback}">
                         <div class="bg-white rounded-4 shadow-sm p-3 h-100">
                             <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-2">
                                 <iframe width="560" height="315"
-                                        src="https://www.youtube.com/embed/_OgmnKy7ed0?si=Pl5zpK6UKVeQpQaE"
+                                        th:src="${feedback.linkYoutube}"
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                         referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                             </div>
-                            <div class="fw-semibold">Anh Nguyễn Văn A</div>
-                            <div class="text-muted small">"Dịch vụ rất tốt, nhân viên nhiệt tình!"</div>
+                            <div class="fw-semibold" th:text="${feedback.nameCustomer}"></div>
+                            <div class="text-muted small" th:text="${feedback.content}"></div>
                         </div>
                     </div>
-                    <div class="flex-shrink-0" style="width:300px;">
-                        <div class="bg-white rounded-4 shadow-sm p-3 h-100">
-                            <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-2">
-                                <iframe src="https://www.youtube.com/embed/2" title="Feedback 2"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="fw-semibold">Chị Trần Thị B</div>
-                            <div class="text-muted small">"Không gian sạch sẽ, giá hợp lý."</div>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0" style="width:300px;">
-                        <div class="bg-white rounded-4 shadow-sm p-3 h-100">
-                            <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-2">
-                                <iframe src="https://www.youtube.com/embed/2" title="Feedback 2"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="fw-semibold">Chị Trần Thị B</div>
-                            <div class="text-muted small">"Không gian sạch sẽ, giá hợp lý."</div>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0" style="width:300px;">
-                        <div class="bg-white rounded-4 shadow-sm p-3 h-100">
-                            <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-2">
-                                <iframe src="https://www.youtube.com/embed/2" title="Feedback 2"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="fw-semibold">Chị Trần Thị B</div>
-                            <div class="text-muted small">"Không gian sạch sẽ, giá hợp lý."</div>
-                        </div>
-                    </div>
-                    <div class="flex-shrink-0" style="width:300px;">
-                        <div class="bg-white rounded-4 shadow-sm p-3 h-100">
-                            <div class="ratio ratio-16x9 rounded-3 overflow-hidden mb-2">
-                                <iframe src="https://www.youtube.com/embed/2" title="Feedback 2"
-                                        allowfullscreen></iframe>
-                            </div>
-                            <div class="fw-semibold">Chị Trần Thị B</div>
-                            <div class="text-muted small">"Không gian sạch sẽ, giá hợp lý."</div>
-                        </div>
-                    </div>
-
                 </div>
                 <!-- Nút cuộn phải -->
                 <button class="btn btn-success btn-sm rounded-circle position-absolute top-50 end-0 translate-middle-y shadow-sm"
@@ -363,8 +321,14 @@
     let urlParams = new URLSearchParams(window.location.search);
     if (urlParams.get('success') === 'true') {
         alert('Đặt lịch thành công!');
+
+        // Xóa tham số 'success' khỏi URL mà không reload trang
+        urlParams.delete('success');
+        const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+        window.history.replaceState({}, document.title, newUrl);
     }
     /*]]>*/
 </script>
+
 </body>
 </html>

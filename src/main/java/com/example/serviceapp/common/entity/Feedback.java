@@ -13,7 +13,8 @@ public class Feedback {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long feedbackId;
-    private String title;
+    private String nameCustomer;
+    private String content;
     private String linkYoutube;
     private LocalDateTime createAt;
     private Long createBy;
@@ -39,12 +40,20 @@ public class Feedback {
         this.feedbackId = feedbackId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getNameCustomer() {
+        return nameCustomer;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public String getLinkYoutube() {
