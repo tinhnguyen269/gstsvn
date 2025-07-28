@@ -1,32 +1,28 @@
-
 package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Where(clause = "delete_flag = 0")
-public class ImgService {
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imgServiceId;
-    private String title;
-    @Column(columnDefinition = "TEXT")
-    private String content;
-    private String imageServiceUrl;
-
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
-
+    private Long projectId;
+    private String projectName;
+    private String thumbnailUrl;
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImageProject> imageProjects = new ArrayList<>();
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+
     @PrePersist
     protected void onCreate() {
         this.createAt = LocalDateTime.now();
@@ -38,44 +34,36 @@ public class ImgService {
         this.updateAt = LocalDateTime.now();
     }
 
-    public Project getProject() {
-        return project;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Long getImgServiceId() {
-        return imgServiceId;
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setImgServiceId(Long imgServiceId) {
-        this.imgServiceId = imgServiceId;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getContent() {
-        return content;
+    public List<ImageProject> getImageProjects() {
+        return imageProjects;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImageServiceUrl() {
-        return imageServiceUrl;
-    }
-
-    public void setImageServiceUrl(String imageServiceUrl) {
-        this.imageServiceUrl = imageServiceUrl;
+    public void setImageProjects(List<ImageProject> imageProjects) {
+        this.imageProjects = imageProjects;
     }
 
     public LocalDateTime getCreateAt() {
