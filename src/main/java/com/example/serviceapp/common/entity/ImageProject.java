@@ -1,27 +1,20 @@
-
 package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Where(clause = "delete_flag = 0")
-public class ImgService {
+public class ImageProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imgServiceId;
-    private String title;
-    @Column(columnDefinition = "TEXT")
-    private String content;
-    private String imageServiceUrl;
-
+    private Long imageProjectId;
+    private String imageProjectUrl;
     @ManyToOne
     @JoinColumn(name = "project_id")
     private Project project;
-
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
@@ -46,36 +39,20 @@ public class ImgService {
         this.project = project;
     }
 
-    public Long getImgServiceId() {
-        return imgServiceId;
+    public Long getImageProjectId() {
+        return imageProjectId;
     }
 
-    public void setImgServiceId(Long imgServiceId) {
-        this.imgServiceId = imgServiceId;
+    public void setImageProjectId(Long imageProjectId) {
+        this.imageProjectId = imageProjectId;
     }
 
-    public String getTitle() {
-        return title;
+    public String getImageProjectUrl() {
+        return imageProjectUrl;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImageServiceUrl() {
-        return imageServiceUrl;
-    }
-
-    public void setImageServiceUrl(String imageServiceUrl) {
-        this.imageServiceUrl = imageServiceUrl;
+    public void setImageProjectUrl(String imageProjectUrl) {
+        this.imageProjectUrl = imageProjectUrl;
     }
 
     public LocalDateTime getCreateAt() {

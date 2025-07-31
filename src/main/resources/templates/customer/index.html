@@ -166,55 +166,18 @@
         <div class="container">
             <h3 class="text-center text-success fw-bold mb-4">Dự án đã thực hiện</h3>
             <div class="row g-4">
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <a th:href="@{/project-complete}" class="text-decoration-none text-dark">
-                        <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-ghe-sofa.jpg"
-                             class="gallery-img img-fluid rounded shadow-sm" alt="Giặt thảm văn phòng">
-                        <p class="text-center mt-2 fw-medium">Giặt thảm văn phòng tại Hà Nội</p>
+                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}">
+                    <a th:href="@{customer/project/{id}(id=${project.projectId})}" class="text-decoration-none text-dark">
+                        <img th:src="@{${project.thumbnailUrl}}" th:alt="${project.projectName}"
+                             class="gallery-img-fixed img-fluid shadow-sm">
+                        <p class="text-center mt-2 fw-medium" th:text="${project.projectName}"></p>
                     </a>
                 </div>
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-tai-van-phong.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt thảm trang trí">
-                    <p class="text-center mt-2 fw-medium">Giặt thảm trang trí tại nhà</p>
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-trang-tri-tai-nha.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt rèm hộ gia đình">
-                    <p class="text-center mt-2 fw-medium">Giặt rèm cho các hộ gia đình tại Hà Nội</p>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-trang-tri-tai-nha.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt rèm hộ gia đình">
-                    <p class="text-center mt-2 fw-medium">Giặt rèm cho các hộ gia đình tại Hà Nội</p>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-trang-tri-tai-nha.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt rèm hộ gia đình">
-                    <p class="text-center mt-2 fw-medium">Giặt rèm cho các hộ gia đình tại Hà Nội</p>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-trang-tri-tai-nha.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt rèm hộ gia đình">
-                    <p class="text-center mt-2 fw-medium">Giặt rèm cho các hộ gia đình tại Hà Nội</p>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-trang-tri-tai-nha.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt rèm hộ gia đình">
-                    <p class="text-center mt-2 fw-medium">Giặt rèm cho các hộ gia đình tại Hà Nội</p>
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-                    <img src="https://vesinh4.mauthemewp.com/wp-content/uploads/2019/10/giat-tham-trang-tri-tai-nha.jpg"
-                         class="gallery-img img-fluid rounded shadow-sm" alt="Giặt rèm hộ gia đình">
-                    <p class="text-center mt-2 fw-medium">Giặt rèm cho các hộ gia đình tại Hà Nội</p>
-                </div>
-
             </div>
         </div>
     </section>
+
+
 
 
     <!-- Tin tức/Bài viết -->
