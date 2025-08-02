@@ -1,0 +1,34 @@
+package com.example.serviceapp.customer.project.controller;
+
+import com.example.serviceapp.common.entity.Project;
+import com.example.serviceapp.customer.project.service.ProjectService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Optional;
+
+@Controller
+@RequestMapping("/customer/project")
+public class ProjectController {
+
+    private final ProjectService projectService;
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
+
+    @GetMapping("{projectId}")
+    public String findAllImageByProject(@PathVariable Long projectId, Model model) {
+        Optional<Project> project = projectService.findAllImageByProject(projectId);
+        if (project.isPresent()) {
+            model.addAttribute("project", project.get());
+            model.addAttribute("images", project.get().getImageProjects());
+        } else {
+            return "redirect:/not-found";
+        }
+        return "customer/project/project_detail";
+    }
+
+}

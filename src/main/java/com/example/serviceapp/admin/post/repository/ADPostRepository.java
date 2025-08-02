@@ -8,9 +8,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface ADPostRepository extends JpaRepository<Post, Long> {
 
     @Query("SELECT p FROM Post p WHERE LOWER(p.title) LIKE LOWER(CONCAT('%', :keyword, '%')) AND p.deleteFlag = 0 ORDER BY p.createAt DESC")
-    Page<Post> searchPosts(@Param("keyword") String keyword, Pageable pageable);}
+    Page<Post> searchPosts(@Param("keyword") String keyword, Pageable pageable);
+
+    @Query("SELECT p FROM Post p WHERE p.deleteFlag = 0 ORDER BY p.createAt DESC limit 9")
+    List<Post> findTop9ByOrderByCreateAtDesc();
+}
