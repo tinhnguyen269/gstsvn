@@ -1,38 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-        <title>Sidenav Light - SB Admin</title>
-        <div th:replace="admin/common/header:: header"></div>
+<head>
+    <title>Sidenav Light - SB Admin</title>
+    <div th:replace="admin/common/header:: header"></div>
 
-    </head>
-    <body class="sb-nav-fixed">
-    <div th:replace="admin/common/navbar :: navbar"></div>
-        <div id="layoutSidenav">
-            <div th:replace="admin/common/sidebar:: sidebar"></div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Sidenav Light</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Sidenav Light</li>
-                        </ol>
-                        <div class="card mb-4">
-                            <div class="card-body">
-                                This page is an example of using the light side navigation option. By appending the
-                                <code>.sb-sidenav-light</code>
-                                class to the
-                                <code>.sb-sidenav</code>
-                                class, the side navigation will take on a light color scheme. The
-                                <code>.sb-sidenav-dark</code>
-                                is also available for a darker option.
-                            </div>
-                        </div>
+</head>
+<body class="sb-nav-fixed">
+<div th:replace="admin/common/navbar :: navbar"></div>
+<div id="layoutSidenav">
+    <div th:replace="admin/common/sidebar:: sidebar"></div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Sidenav Light</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Sidenav Light</li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-body">
+                        This page is an example of using the light side navigation option. By appending the
+                        <code>.sb-sidenav-light</code>
+                        class to the
+                        <code>.sb-sidenav</code>
+                        class, the side navigation will take on a light color scheme. The
+                        <code>.sb-sidenav-dark</code>
+                        is also available for a darker option.
                     </div>
-                </main>
+                </div>
             </div>
-        </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/admin/js/scripts.js"></script>
-    </body>
+        </main>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/admin/assets/demo/chart-area-demo.js"></script>
+<script src="/admin/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+<script src="/admin/js/datatables-simple-demo.js"></script>
+</body>
 </html>

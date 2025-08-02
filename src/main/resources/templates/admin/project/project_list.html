@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-
-    <title>GSTS-Quản lí</title>
     <div th:replace="admin/common/header:: header"></div>
-
     <script>
         $(document).ready(function () {
             // Activate tooltip
@@ -33,6 +30,7 @@
 </head>
 <body class="sb-nav-fixed">
 <div th:replace="admin/common/navbar :: navbar"></div>
+
 <div id="layoutSidenav">
     <div th:replace="admin/common/sidebar:: sidebar"></div>
     <div id="layoutSidenav_content">
@@ -42,19 +40,19 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h2>Quản lí <b>dịch vụ</b></h2>
+                                <h2>Quản lí <b>dự án</b></h2>
                             </div>
                             <div class="col-sm-12 d-flex justify-content-end">
                                 <div class="input-group me-2" style="width: 250px;">
-                                    <form th:action="@{/admin/service/list}" method="get" class="d-flex me-2" style="width: 300px;">
-                                        <input class="form-control me-2" type="text" name="keyword" placeholder="Tìm dịch vụ..."
+                                    <form th:action="@{/admin/project/list}" method="get" class="d-flex me-2" style="width: 300px;">
+                                        <input class="form-control me-2" type="text" name="keyword" placeholder="Tìm dự án..."
                                                th:value="${keyword}" aria-label="Search">
                                         <button class="btn btn-primary" type="submit">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </form>
                                 </div>
-                                <a th:href="@{/admin/service/add}" class="btn btn-success">
+                                <a th:href="@{/admin/project/add}" class="btn btn-success">
                                     <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
                                 </a>
                             </div>
@@ -66,23 +64,23 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên dịch vụ</th>
+                            <th>Tên dự án</th>
                             <th>Ngày tạo</th>
                             <th>Người tạo</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="service : ${servicePage.content}">
-                            <td th:text="${service.serviceId}"></td>
-                            <td th:text="${service.serviceName}"></td>
-                            <td th:text="${#temporals.format(service.createAt, 'dd/MM/yyyy HH:mm')}"></td>
-                            <td th:text="${service.createBy}"></td>
+                        <tr th:each="project : ${projectPage.content}">
+                            <td th:text="${project.projectId}"></td>
+                            <td th:text="${project.projectName}"></td>
+                            <td th:text="${#temporals.format(project.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${project.createBy}"></td>
                             <td>
-                                <a th:href="@{'/admin/service/edit/' + ${service.serviceId}}" class="edit"><i
+                                <a th:href="@{'/admin/project/edit/' + ${project.projectId}}" class="edit"><i
                                         class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteServiceModal" class="delete" data-toggle="modal"
-                                   th:onclick="'openDeleteModal(' + ${service.serviceId} + ')'"><i
+                                <a href="#deleteProjectModal" class="delete" data-toggle="modal"
+                                   th:onclick="'openDeleteModal(' + ${project.projectId} + ')'"><i
                                         class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
                         </tr>
@@ -91,22 +89,22 @@
                     <nav>
                         <ul class="pagination justify-content-center">
                             <!-- Previous -->
-                            <li class="page-item" th:classappend="${servicePage.first} ? 'disabled'">
+                            <li class="page-item" th:classappend="${projectPage.first} ? 'disabled'">
                                 <a class="page-link"
-                                   th:href="@{'/admin/service/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
+                                   th:href="@{'/admin/project/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
                             </li>
                             <li class="page-item"
-                                th:each="i : ${#numbers.sequence(0, servicePage.totalPages-1)}"
+                                th:each="i : ${#numbers.sequence(0, projectPage.totalPages-1)}"
                                 th:classappend="${i} == ${currentPage} ? 'active'">
                                 <a class="page-link"
-                                   th:href="@{'/admin/service/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
+                                   th:href="@{'/admin/project/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
                                    th:text="${i+1}">1</a>
                             </li>
 
                             <!-- Next -->
-                            <li class="page-item" th:classappend="${servicePage.last} ? 'disabled'">
+                            <li class="page-item" th:classappend="${projectPage.last} ? 'disabled'">
                                 <a class="page-link"
-                                   th:href="@{'/admin/service/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
+                                   th:href="@{'/admin/project/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
                             </li>
 
                         </ul>
@@ -115,16 +113,16 @@
                 </div>
             </div>
             <!-- Delete Modal HTML -->
-            <div id="deleteServiceModal" class="modal fade">
+            <div id="deleteProjectModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Xóa dịch vụ </h4>
+                            <h4 class="modal-title">Xóa bài viết </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
                             </button>
                         </div>
                         <div class="modal-body">
-                            <p>Bạn có chắc chắn muốn xóa dịch vụ không ?</p>
+                            <p>Bạn có chắc chắn muốn xóa bài viết không ?</p>
                             <p class="text-warning"><small>Hành động này không thể phục hồi.</small></p>
                         </div>
                         <div class="modal-footer">
@@ -148,17 +146,17 @@
 <script src="admin/js/datatables-simple-demo.js"></script>
 
 <script>
-    let serviceIdToDelete = null;
+    let projectIdToDelete = null;
 
-    function openDeleteModal(serviceId) {
-        serviceIdToDelete = serviceId;
-        const deleteModal = new bootstrap.Modal(document.getElementById('deleteServiceModal'));
+    function openDeleteModal(projectId) {
+        projectIdToDelete = projectId;
+        const deleteModal = new bootstrap.Modal(document.getElementById('deleteProjectModal'));
         deleteModal.show();
     }
 
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-        if (serviceIdToDelete) {
-            fetch(`/admin/service/delete/${serviceIdToDelete}`, {
+        if (projectIdToDelete) {
+            fetch(`/admin/project/delete/${projectIdToDelete}`, {
                 method: 'POST'
             })
                 .then(response => {

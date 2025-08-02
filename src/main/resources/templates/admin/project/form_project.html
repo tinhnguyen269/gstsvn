@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thêm bài viết mới</title>
+    <div th:replace="admin/common/header:: header"></div>
+</head>
+<body class="sb-nav-fixed">
+
+<!-- Header -->
+<div th:replace="admin/common/navbar :: navbar"></div>
+
+<div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div th:replace="admin/common/sidebar :: sidebar"></div>
+
+    <!-- Main Content -->
+    <div id="layoutSidenav_content">
+        <main class="container py-4">
+            <div class="card shadow-sm rounded-4">
+                <div class="card-header bg-success text-white rounded-top-4">
+                    <h3 class="mb-0" th:text="${project.projectId == null} ? '📝 Thêm dự án mới' : '✏️ Chỉnh sửa dự án'"></h3>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{${project.projectId == null} ? '/admin/project/save' : '/admin/project/update'}"
+                          th:object="${project}" method="post">
+                        <input type="hidden" th:field="*{projectId}"/>
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Tiêu đề</label>
+                            <input type="text" th:field="*{projectName}" class="form-control form-control-lg rounded-3"
+                                   id="title" placeholder="Nhập tên dự án" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="thumbnailUpload" class="form-label">Ảnh nền dự án</label>
+                            <input class="form-control" type="file" id="thumbnailUpload" accept="image/*" onchange="uploadThumbnail(event)">
+
+                            <!-- Hiển thị preview ảnh nền -->
+                            <div id="thumbnailPreview" class="mt-2"></div>
+
+                            <!-- Input ẩn lưu URL ảnh nền -->
+                            <input type="hidden" name="thumbnailUrl" id="thumbnailUrl" th:value="${project.thumbnailUrl}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageUpload" class="form-label">Ảnh dự án (có thể chọn nhiều ảnh)</label>
+                            <input class="form-control" type="file" id="imageUpload" accept="image/*" multiple onchange="uploadImages(event)">
+
+                            <!-- Hiển thị preview ảnh -->
+                            <div id="previewImages" class="row"></div>
+
+                            <!-- Input ẩn lưu danh sách ảnh dạng JSON -->
+                            <input type="hidden" name="imageProjects" id="imageUrls"
+                                   th:value="${imageUrlsJson != null ? imageUrlsJson : '[]'}"/>
+                        </div>
+
+                        <div class="text-end">
+                            <button type="submit" class="btn btn-success btn-sm rounded-pill px-4">💾 Lưu</button>
+                            <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-4"
+                                    onclick="confirmBack()">⬅️ Quay lại
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const imageList = [];
+
+    function uploadImages(event) {
+        const files = event.target.files;
+
+        Array.from(files).forEach(file => {
+            const formData = new FormData();
+            formData.append("upload", file);
+
+            fetch("/admin/uploadImage", {
+                method: "POST",
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.uploaded === 1) {
+                        imageList.push(data.url);
+                        renderImages();
+                    } else {
+                        alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("Có lỗi khi upload ảnh.");
+                });
+        });
+    }
+
+    function renderImages() {
+        const container = document.getElementById("previewImages");
+        container.innerHTML = "";
+
+        imageList.forEach((url, index) => {
+            const col = document.createElement("div");
+            col.className = "col-4";
+            col.innerHTML = `
+            <div class="position-relative border rounded p-1 shadow-sm">
+                <img src="${url}" alt="image-${index}" class="img-fluid rounded mb-2"/>
+                <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                    onclick="removeImage(${index})">✖</button>
+            </div>
+        `;
+            container.appendChild(col);
+        });
+
+        // ✅ FIX HERE: Serialize to JSON
+        document.getElementById("imageUrls").value = JSON.stringify(imageList);
+    }
+
+    function removeImage(index) {
+        imageList.splice(index, 1);
+        renderImages();
+    }
+
+    function confirmBack() {
+        if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {
+            window.location.href = "/admin/project/list";
+        }
+    }
+
+    // Khi tải lại trang (edit mode), parse dữ liệu từ hidden input
+    window.addEventListener("DOMContentLoaded", function () {
+        const savedImages = document.getElementById("imageUrls").value;
+        try {
+            const parsed = JSON.parse(savedImages);
+            if (Array.isArray(parsed)) {
+                parsed.forEach(url => imageList.push(url));
+                renderImages();
+            }
+            const thumbnailUrl = document.getElementById("thumbnailUrl").value;
+            if (thumbnailUrl) {
+                renderThumbnail(thumbnailUrl);
+            }
+        } catch (e) {
+            console.warn("Không thể parse ảnh:", e);
+        }
+    });
+
+    function uploadThumbnail(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("upload", file);
+
+        fetch("/admin/uploadImage", {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.uploaded === 1) {
+                    document.getElementById("thumbnailUrl").value = data.url;
+                    renderThumbnail(data.url);
+                } else {
+                    alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("Có lỗi khi upload ảnh nền.");
+            });
+    }
+
+    function renderThumbnail(url) {
+        const container = document.getElementById("thumbnailPreview");
+        container.innerHTML = `
+        <div class="position-relative border rounded p-1 shadow-sm" style="max-width: 300px;">
+            <img src="${url}" alt="Thumbnail" class="img-fluid rounded"/>
+        </div>
+    `;
+    }
+
+</script>
+
+<!-- Optional Custom JS -->
+<script src="/admin/js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+<script src="/admin/assets/demo/chart-area-demo.js"></script>
+<script src="/admin/assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
+        crossorigin="anonymous"></script>
+<script src="/admin/js/datatables-simple-demo.js"></script>
+</body>
+</html>
