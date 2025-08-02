@@ -74,7 +74,7 @@
                         <tr th:each="post : ${postPage.content}">
                             <td th:text="${post.postId}"></td>
                             <td th:text="${post.title}"></td>
-                            <td th:text="${#temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(post.updateAt != null ? post.updateAt : post.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td th:text="${post.createBy}"></td>
                             <td>
                                 <a th:href="@{'/admin/post/edit/' + ${post.postId}}" class="edit"><i
