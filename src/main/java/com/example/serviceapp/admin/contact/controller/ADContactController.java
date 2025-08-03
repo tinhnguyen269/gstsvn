@@ -3,6 +3,7 @@ package com.example.serviceapp.admin.contact.controller;
 import com.example.serviceapp.common.constants.CONTACT_STATUS;
 import com.example.serviceapp.admin.contact.service.ADContactService;
 import com.example.serviceapp.common.entity.Customer;
+import com.example.serviceapp.common.entity.Services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -12,12 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Controller
 @RequestMapping("/admin/contact")
 public class ADContactController {
 
     public final ADContactService contactService;
-
     public ADContactController(ADContactService contactService) {
         this.contactService = contactService;
     }
@@ -45,7 +49,12 @@ public class ADContactController {
         } else {
             customerPage = contactService.findAll(pageable);
         }
+        List<Services> services = contactService.getAllServices();
+        Map<Long, String> serviceMap = services.stream()
+                .collect(Collectors.toMap(Services::getServiceId, Services::getServiceName));
 
+        model.addAttribute("serviceMap", serviceMap);
+        model.addAttribute("services", services);
         model.addAttribute("customerPage", customerPage);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);

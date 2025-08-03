@@ -74,7 +74,7 @@
                         <tr th:each="project : ${projectPage.content}">
                             <td th:text="${project.projectId}"></td>
                             <td th:text="${project.projectName}"></td>
-                            <td th:text="${#temporals.format(project.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(project.updateAt != null ? project.updateAt : project.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td th:text="${project.createBy}"></td>
                             <td>
                                 <a th:href="@{'/admin/project/edit/' + ${project.projectId}}" class="edit"><i
@@ -183,6 +183,5 @@
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
 <script src="/admin/js/datatables-simple-demo.js"></script>
-
 </body>
 </html>

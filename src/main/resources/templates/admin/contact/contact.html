@@ -53,10 +53,10 @@
                             <td th:text="${customer.customerId}"></td>
                             <td th:text="${customer.name}"></td>
                             <td th:text="${customer.phoneNumber}"></td>
-                            <td th:text="${customer.serviceId}"></td>
+                            <td th:text="${serviceMap[customer.serviceId]}"></td>
                             <td th:text="${customer.context}"></td>
                             <td th:text="${customer.status}"></td>
-                            <td th:text="${customer.createAt}"></td>
+                            <td th:text="${#temporals.format(customer.updateAt != null ? customer.updateAt : customer.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>
                                 <a href="#editContactModal"
                                    class="edit"
@@ -122,7 +122,7 @@
                                     <label>Dịch vụ</label>
                                     <select th:field="*{serviceId}" class="form-control" required>
                                         <option value="">-- Chọn dịch vụ --</option>
-                                        <option th:each="service : ${serviceAdvice}"
+                                        <option th:each="service : ${services}"
                                                 th:value="${service.serviceId}"
                                                 th:text="${service.serviceName}">
                                         </option>
@@ -166,7 +166,7 @@
                                 <div class="form-group">
                                     <label>Dịch vụ</label>
                                     <select name="editServiceId" id="editServiceId" class="form-control" required>
-                                        <option th:each="service : ${serviceAdvice}"
+                                        <option th:each="service : ${services}"
                                                 th:value="${service.serviceId}"
                                                 th:text="${service.serviceName}"></option>
                                     </select>

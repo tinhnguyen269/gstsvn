@@ -76,7 +76,7 @@
                         <tr th:each="service : ${servicePage.content}">
                             <td th:text="${service.serviceId}"></td>
                             <td th:text="${service.serviceName}"></td>
-                            <td th:text="${#temporals.format(service.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${#temporals.format(service.updateAt != null ? service.updateAt : service.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td th:text="${service.createBy}"></td>
                             <td>
                                 <a th:href="@{'/admin/service/edit/' + ${service.serviceId}}" class="edit"><i
