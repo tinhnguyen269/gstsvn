@@ -14,7 +14,7 @@
 
 
     @Controller
-    @RequestMapping("/admin/post")
+    @RequestMapping("/admin")
     public class ADPostController {
 
         private final ADPostService postService;
@@ -24,19 +24,19 @@
         }
 
 
-        @GetMapping("/add")
+        @GetMapping("/post/add")
         public String showAddForm(Model model) {
                 model.addAttribute("post", new Post());
             return "admin/post/add_post";
         }
 
-        @PostMapping("/save")
+        @PostMapping("/post/save")
         public String savePost(@ModelAttribute Post post) {
             postService.save(post);
             return "redirect:/admin/post/list";
         }
 
-        @GetMapping("/list")
+        @GetMapping("/post/list")
         public String listPost(Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size,
@@ -59,7 +59,7 @@
             return "admin/post/post";
         }
 
-        @GetMapping("/edit/{id}")
+        @GetMapping("/post/edit/{id}")
         public String showEditForm(@PathVariable Long id, Model model) {
             Post post = postService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
@@ -67,7 +67,7 @@
             return "admin/post/edit_post";
         }
 
-        @PostMapping("/update/{id}")
+        @PostMapping("/post/update/{id}")
         public String updatePost(@PathVariable Long id, @ModelAttribute Post post) {
             Post existingPost = postService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
@@ -79,7 +79,7 @@
             postService.save(existingPost);
             return "redirect:/admin/post/list";
         }
-        @PostMapping("/delete/{id}")
+        @PostMapping("/post/delete/{id}")
         public String deletePost(@PathVariable Long id) {
             Post existingPost = postService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));

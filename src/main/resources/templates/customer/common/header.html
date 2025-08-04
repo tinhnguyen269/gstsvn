@@ -23,7 +23,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link [[${currentRequestURI  == '/company-info'} ? 'active' : '']]"
-                           th:href="@{/company-info}">Giới thiệu</a>
+                           th:href="@{/home/company-info}">Giới thiệu</a>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -33,12 +33,11 @@
                            role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">Dịch vụ</a>
-
                         <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                             <li th:each="service : ${serviceAdvice}">
                                 <a class="dropdown-item"
                                    th:classappend="${currentRequestURI  == '/services/' + service.serviceId ? 'active' : ''}"
-                                   th:href="@{/services/{id}(id=${service.serviceId})}"
+                                   th:href="@{/home/services/{id}(id=${service.serviceId})}"
                                    th:text="${service.serviceName}"></a>
                             </li>
                         </ul>
@@ -47,12 +46,12 @@
 
                     <li class="nav-item">
                         <a class="nav-link [[${currentRequestURI  == '/price-list'} ? 'active' : '']]"
-                           th:href="@{/price-list}">Báo giá dịch vụ</a>
+                           th:href="@{/home/price-list}">Báo giá dịch vụ</a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link [[${currentRequestURI  == '/post'} ? 'active' : '']]"
-                           th:href="@{/post/list}">Tin tức</a>
+                           th:href="@{/home/post/list}">Tin tức</a>
                     </li>
                 </ul>
             </div>

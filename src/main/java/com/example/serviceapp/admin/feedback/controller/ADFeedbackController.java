@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin/feedback")
+@RequestMapping("/admin")
 public class ADFeedbackController {
 
     public final ADFeedbackService feedbackService;
@@ -22,14 +22,14 @@ public class ADFeedbackController {
     }
 
 
-    @PostMapping("/add")
+    @PostMapping("/feedback/add")
     public String doAdd(Feedback feedback) {
         feedbackService.addFeedback(feedback);
         return "redirect:/admin/feedback/list";
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/feedback/list")
     public String listFeedback(Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size,
@@ -53,7 +53,7 @@ public class ADFeedbackController {
         return "admin/feedback/feedback";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/feedback/edit/{id}")
     @ResponseBody
     public ResponseEntity<Feedback> getFeedbackById(@PathVariable Long id, Model model) {
         Feedback feedback = feedbackService.findById(id);
@@ -64,7 +64,7 @@ public class ADFeedbackController {
         }
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/feedback/update/{id}")
     @ResponseBody
     public ResponseEntity<?> updateFeedback(@PathVariable Long id, @RequestBody Feedback updatedFeedback) {
         Feedback existing = feedbackService.findById(id);
@@ -79,7 +79,7 @@ public class ADFeedbackController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/feedback/delete/{id}")
     public String deleteFeedback(@PathVariable Long id) {
         Feedback feedback = feedbackService.findById(id);
         if (feedback != null) {

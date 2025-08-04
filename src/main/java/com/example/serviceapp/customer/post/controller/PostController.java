@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/post")
+@RequestMapping("home")
 public class PostController {
 
     private final PostService postService;
@@ -20,14 +20,14 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/post/list")
     public String showPostForCustomer(Model model) {
         List<Post> Post = postService.findAll();
         model.addAttribute("Post", Post);
         return "customer/post/post_list";
     }
 
-    @GetMapping("list/{id}")
+    @GetMapping("/post/list/{id}")
     public String viewPost(@PathVariable Long id, Model model) {
         Post post = postService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));

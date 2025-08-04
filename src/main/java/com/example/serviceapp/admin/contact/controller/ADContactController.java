@@ -18,7 +18,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/admin/contact")
+@RequestMapping("/admin")
 public class ADContactController {
 
     public final ADContactService contactService;
@@ -27,7 +27,7 @@ public class ADContactController {
     }
 
 
-    @PostMapping("/add")
+    @PostMapping("/contact/add")
     public String doAdd(Customer customer) {
         customer.setStatus(CONTACT_STATUS.PENDING.getStatus());
         contactService.addCustomer(customer);
@@ -35,7 +35,7 @@ public class ADContactController {
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/contact/list")
     public String listCustomer(Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size,
@@ -64,7 +64,7 @@ public class ADContactController {
         return "admin/contact/contact";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/contact/edit/{id}")
     @ResponseBody
     public ResponseEntity<Customer> getCustomerById(@PathVariable Long id, Model model) {
         Customer customer = contactService.findById(id);
@@ -75,7 +75,7 @@ public class ADContactController {
         }
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/contact/update/{id}")
     @ResponseBody
     public ResponseEntity<?> updateCustomer(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
         Customer existing = contactService.findById(id);
@@ -92,7 +92,7 @@ public class ADContactController {
         }
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("/contact/delete/{id}")
     public String deleteCustomer(@PathVariable Long id) {
         Customer customer = contactService.findById(id);
         if (customer != null) {

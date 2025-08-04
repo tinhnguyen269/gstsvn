@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 
 @Controller
-@RequestMapping("/admin/service")
+@RequestMapping("/admin")
 public class ADServiceController {
 
     private final ADServiceService serviceService;
@@ -25,20 +25,20 @@ public class ADServiceController {
         this.serviceService = serviceService;
     }
 
-    @GetMapping("/add")
+    @GetMapping("/service/add")
     public String showAddForm(Model model) {
         model.addAttribute("service", new Services());
         return "admin/service/add_service";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/service/save")
     public String saveService(@ModelAttribute Services services) {
         services.setCreateAt(LocalDateTime.now());
         serviceService.save(services);
         return "redirect:/admin/service/list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/service/list")
     public String listService(Model model,
                            @RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "10") int size,
@@ -66,7 +66,7 @@ public class ADServiceController {
         return "redirect:/admin/service/list";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/service/edit/{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Services service = serviceService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Service ID: " + id));
@@ -87,7 +87,7 @@ public class ADServiceController {
         serviceService.save(existingService);
         return "redirect:/admin/service/list";
     }
-    @PostMapping("/delete/{id}")
+    @PostMapping("/service/delete/{id}")
     public String deleteService(@PathVariable Long id) {
         Services existingService = serviceService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Service ID: " + id));

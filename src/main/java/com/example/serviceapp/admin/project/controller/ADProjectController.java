@@ -21,7 +21,7 @@
 
 
     @Controller
-    @RequestMapping("/admin/project")
+    @RequestMapping("/admin")
     public class ADProjectController {
 
         private final ADProjectService projectService;
@@ -31,13 +31,13 @@
         }
 
 
-        @GetMapping("/add")
+        @GetMapping("/project/add")
         public String showAddForm(Model model) {
                 model.addAttribute("project", new Project());
             return "admin/project/form_project";
         }
 
-        @PostMapping("/save")
+        @PostMapping("/project/save")
         public String saveProject(@ModelAttribute Project project,
                                   @RequestParam("imageProjects") String imageJson) throws JsonProcessingException {
             ObjectMapper mapper = new ObjectMapper();
@@ -62,7 +62,7 @@
             binder.setDisallowedFields("imageProjects");
         }
 
-        @GetMapping("/list")
+        @GetMapping("/project/list")
         public String listProject(Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size,
@@ -84,7 +84,7 @@
 
             return "admin/project/project_list";
         }
-        @GetMapping("/edit/{id}")
+        @GetMapping("/project/edit/{id}")
         public String showEditForm(@PathVariable Long id, Model model) throws JsonProcessingException {
             Project project = projectService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid project ID: " + id));
@@ -104,7 +104,7 @@
             return "admin/project/form_project";
         }
 
-        @PostMapping("/update")
+        @PostMapping("/project/update")
         public String updateProject(@ModelAttribute Project project,
                                     @RequestParam("imageProjects") String imageJson,
                                     @RequestParam("thumbnailUrl") String thumbnailUrl) throws JsonProcessingException {
@@ -133,7 +133,7 @@
         }
 
 
-        @PostMapping("/delete/{id}")
+        @PostMapping("/project/delete/{id}")
         @ResponseBody
         public ResponseEntity<?> deleteProject(@PathVariable Long id) {
             Project existingProject = projectService.findById(id)
