@@ -1,11 +1,13 @@
 package com.example.serviceapp.admin.authenticate.controller;
 
 import com.example.serviceapp.admin.authenticate.service.UserService;
+import com.example.serviceapp.common.entity.Employee;
 import com.example.serviceapp.common.entity.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @Controller
 public class AuthController {
@@ -18,9 +20,12 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        model.addAttribute("user", new User());
+        User user = new User();
+        user.setEmployee(new Employee());
+        model.addAttribute("user", user);
         return "admin/authenticate/register";
     }
+
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user, Model model) {
@@ -41,5 +46,57 @@ public class AuthController {
         model.addAttribute("user", new User());
         return "admin/authenticate/login";
     }
+
+
+    @GetMapping("/access-denied")
+    public String accessDenied() {
+        return "admin/error/access-denied"; // file .html trong templates/error/
+    }
+
+    @GetMapping("/forgot-password")
+    public String showForgotPasswordForm(Model model) {
+        model.addAttribute("user", new User());
+        return "admin/authenticate/forgot-password";
+    }
+    @PostMapping("/forgot-password")
+    public String processForgotPassword(@ModelAttribute("user") User user, Model model) {
+        Optional<User> userOpt = userService.findByEmail(user.getEmail());
+        if (userOpt.isPresent()) {
+            userService.sendResetPasswordToken(userOpt.get());
+            model.addAttribute("message", "Đã gửi email đặt lại mật khẩu, vui lòng kiểm tra.");
+        } else {
+            model.addAttribute("message", "Không tìm thấy email trong hệ thống.");
+        }
+        return "admin/authenticate/forgot-password";
+    }
+
+    @GetMapping("/reset-password")
+    public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
+        Optional<User> userOpt = userService.findByResetToken(token);
+        if (userOpt.isEmpty()) {
+            model.addAttribute("message", "Liên kết không hợp lệ hoặc đã hết hạn.");
+            return "admin/authenticate/login";
+        }
+        model.addAttribute("token", token);
+        model.addAttribute("user", new User());
+        return "admin/authenticate/reset-password";
+    }
+
+    @PostMapping("/reset-password")
+    public String handleResetPassword(
+            @RequestParam("token") String token,
+            @ModelAttribute("user") User user,
+            Model model) {
+
+        boolean success = userService.resetPassword(token, user.getPassword());
+
+        model.addAttribute("message", success
+                ? "Đặt lại mật khẩu thành công!"
+                : "Token không hợp lệ hoặc đã hết hạn.");
+
+        return "admin/authenticate/login";
+    }
+
+
 }
 

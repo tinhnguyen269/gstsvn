@@ -11,7 +11,7 @@
         <h5>Bài viết mới nhất</h5>
         <div class="post-item" th:each="post : ${postAdvice}">
             <img th:src="${post.imageUrl}" alt="Ảnh bài viết">
-            <a th:href="@{'/post/list/' + ${post.postId}}" th:text="${post.title}"></a>
+            <a th:href="@{'/home/post/list/' + ${post.postId}}" th:text="${post.title}"></a>
         </div>
     </div>
 </aside>

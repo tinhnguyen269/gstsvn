@@ -9,7 +9,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -25,21 +29,26 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register", "/activate", "/login",
-                                "/admin/css/**","/customer/css/**",
-                                "/js/**", "/images/**", "/webjars/**"
-                        ,"/home").permitAll()
+                                "/admin/css/**", "/customer/css/**",
+                                "/js/**", "/images/**", "/webjars/**","/forgot-password","/reset-password"
+                                , "/home/**").permitAll()
+                        .requestMatchers("/employee").hasRole("ADMIN")
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN", "EMPLOYEE")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .loginProcessingUrl("/home")
-                        .defaultSuccessUrl("/home", true)
+                        .loginProcessingUrl("/login")
+                        .defaultSuccessUrl("/admin/home", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/access-denied")
                 );
 
         return http.build();
@@ -53,5 +62,12 @@ public class SecurityConfig {
                 .and()
                 .build();
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
 }
 

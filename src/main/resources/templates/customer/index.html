@@ -62,7 +62,7 @@
                     <div class="col" th:each="service, iterStat : ${serviceAdvice}"
                          th:if="${iterStat.index < 6}">
                         <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white">
-                            <a th:href="@{/services/{id}(id=${service.serviceId})}">
+                            <a th:href="@{/home/services/{id}(id=${service.serviceId})}">
                                 <img th:src="${service.icon}" th:alt="${service.serviceName}" class="img-fluid mb-2">
                                 <p class="mb-0" th:text="${service.serviceName}"></p>
                             </a>
@@ -77,7 +77,7 @@
                     phòng, nhà ở, công trình với đội ngũ nhân viên tận tâm, giàu kinh nghiệm.</p>
                 <p>Chúng tôi cam kết mang lại không gian sạch sẽ, an toàn, tiết kiệm thời gian và chi phí cho khách
                     hàng.</p>
-                <a class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow" th:href="@{/company-info}">Xem
+                <a class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow" th:href="@{/home/company-info}">Xem
                     chi tiết</a>
             </div>
         </div>
@@ -167,7 +167,7 @@
             <h3 class="text-center text-success fw-bold mb-4">Dự án đã thực hiện</h3>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}">
-                    <a th:href="@{customer/project/{id}(id=${project.projectId})}" class="text-decoration-none text-dark">
+                    <a th:href="@{home/project/{id}(id=${project.projectId})}" class="text-decoration-none text-dark">
                         <img th:src="@{${project.thumbnailUrl}}" th:alt="${project.projectName}"
                              class="gallery-img-fixed img-fluid shadow-sm">
                         <p class="text-center mt-2 fw-medium" th:text="${project.projectName}"></p>
@@ -195,7 +195,7 @@
                     <div class="p-3">
                         <h6 th:text="${post.title}" class="fw-bold mb-2"></h6>
                         <p th:text="${#temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}" class="text-muted small mb-2"></p>
-                        <a th:href="@{/post/list/{id}(id=${post.postId})}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
+                        <a th:href="@{/home/post/list/{id}(id=${post.postId})}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
@@ -222,7 +222,7 @@
                     <div class="mb-4">
                         <h2 class="text-success">Đặt lịch</h2>
                     </div>
-                    <form class="custom-form contact-form w-100" th:action="@{/contact/add}" th:object="${customer}" method="post" role="form">
+                    <form class="custom-form contact-form w-100" th:action="@{/home/contact/add}" th:object="${customer}" method="post" role="form">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="first-name" class="form-label">Tên</label>
