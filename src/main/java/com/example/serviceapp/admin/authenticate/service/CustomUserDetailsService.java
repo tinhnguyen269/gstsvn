@@ -3,7 +3,6 @@ package com.example.serviceapp.admin.authenticate.service;
 import com.example.serviceapp.admin.authenticate.repository.UserRepository;
 import com.example.serviceapp.common.entity.Role;
 import com.example.serviceapp.common.entity.User;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -28,20 +26,22 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng: " + username));
-
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 user.isEnabled(),
                 true, true, true,
-                mapRolesToAuthorities(user.getRoles())
+                mapRoleToAuthorities(user.getRole())
         );
     }
 
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Set<Role> roles) {
-            return roles.stream()
-                    .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
-                    .collect(Collectors.toList());
+    private Collection<? extends GrantedAuthority> mapRoleToAuthorities(Role role) {
+        if (role == null) {
+            return Set.of(new SimpleGrantedAuthority("ROLE_GUEST"));
         }
+        return Set.of(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
     }
+
+
+}
 

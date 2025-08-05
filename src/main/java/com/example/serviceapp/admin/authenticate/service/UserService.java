@@ -1,8 +1,6 @@
 package com.example.serviceapp.admin.authenticate.service;
 
-import com.example.serviceapp.admin.authenticate.repository.RoleRepository;
 import com.example.serviceapp.admin.authenticate.repository.UserRepository;
-import com.example.serviceapp.common.entity.Employee;
 import com.example.serviceapp.common.entity.User;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -40,12 +38,6 @@ public class UserService {
         String activationCode = UUID.randomUUID().toString();
         user.setActivationCode(activationCode);
 
-        // Thiết lập liên kết 2 chiều
-        Employee employee = user.getEmployee();
-        if (employee != null) {
-            employee.setUser(user);
-        }
-
         userRepo.save(user);
 
         sendActivationEmail(user.getEmail(), activationCode);
@@ -56,10 +48,32 @@ public class UserService {
         String link = appHost + "/activate?code=" + code;
 
         String content = """
-                <p>Chào bạn,</p>
-                <p>Vui lòng nhấn vào liên kết sau để kích hoạt tài khoản:</p>
-                <p><a href="%s">Kích hoạt ngay</a></p>
-                """.formatted(link);
+        <html>
+            <body style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+                <p>Xin chào,</p>
+                
+                <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>Service App</strong>.</p>
+                
+                <p>Vui lòng nhấn vào nút bên dưới để kích hoạt tài khoản của bạn:</p>
+                
+                <p>
+                    <a href="%s" style="
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #007bff;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 5px;
+                    ">Kích hoạt tài khoản</a>
+                </p>
+                
+                <p>Nếu bạn không yêu cầu tạo tài khoản, vui lòng bỏ qua email này.</p>
+                
+                <p>Trân trọng,<br/>Đội ngũ hỗ trợ Service App</p>
+            </body>
+        </html>
+        """.formatted(link);
+
 
         MimeMessage message = mailSender.createMimeMessage();
         try {
@@ -102,10 +116,33 @@ public class UserService {
         String resetLink = appHost + "/reset-password?token=" + token;
 
         String content = """
-            <p>Bạn đã yêu cầu khôi phục mật khẩu.</p>
-            <p>Nhấn vào liên kết dưới đây để đặt lại mật khẩu:</p>
-            <p><a href="%s">Đặt lại mật khẩu</a></p>
-            """.formatted(resetLink);
+        <html>
+            <body style="font-family: Arial, sans-serif; font-size: 14px; color: #333; line-height: 1.6;">
+                <p>Xin chào,</p>
+
+                <p>Bạn đã yêu cầu khôi phục mật khẩu cho tài khoản của mình.</p>
+
+                <p>Vui lòng nhấn vào nút bên dưới để đặt lại mật khẩu:</p>
+
+                <p>
+                    <a href="%s" style="
+                        display: inline-block;
+                        padding: 10px 20px;
+                        background-color: #28a745;
+                        color: white;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        font-weight: bold;
+                    ">Đặt lại mật khẩu</a>
+                </p>
+
+                <p>Nếu bạn không yêu cầu thao tác này, vui lòng bỏ qua email này.</p>
+
+                <p>Trân trọng,<br/>Đội ngũ hỗ trợ Service App</p>
+            </body>
+        </html>
+        """.formatted(resetLink);
+
 
         MimeMessage message = mailSender.createMimeMessage();
         try {

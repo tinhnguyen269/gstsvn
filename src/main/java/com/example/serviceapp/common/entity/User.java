@@ -12,17 +12,24 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    private String fullName;
+
+    private String phoneNumber;
+
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Transient
     private String passwordConfirmation;
 
     @Column(nullable = false, unique = true, length = 150)
     private String email;
+
+    @Column(nullable = false)
+    private String address;
 
     private boolean enabled = false;
 
@@ -32,22 +39,40 @@ public class User {
     private LocalDateTime createdAt = LocalDateTime.now();
 
     // Quan hệ với role
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Employee employee;
 
     @Column(length = 64)
     private String resetPasswordToken;
 
     // Getters, setters, constructors
 
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getPasswordConfirmation() {
         return passwordConfirmation;
@@ -121,19 +146,11 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

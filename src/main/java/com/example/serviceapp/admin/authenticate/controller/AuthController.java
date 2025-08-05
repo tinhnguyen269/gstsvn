@@ -1,7 +1,6 @@
 package com.example.serviceapp.admin.authenticate.controller;
 
 import com.example.serviceapp.admin.authenticate.service.UserService;
-import com.example.serviceapp.common.entity.Employee;
 import com.example.serviceapp.common.entity.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +20,6 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         User user = new User();
-        user.setEmployee(new Employee());
         model.addAttribute("user", user);
         return "admin/authenticate/register";
     }
