@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-sm-12 d-flex justify-content-end">
                                 <div class="input-group me-2" style="width: 250px;">
-                                    <form th:action="@{/employee/list}" method="get" class="d-flex me-2"
+                                    <form th:action="@{/user/list}" method="get" class="d-flex me-2"
                                           style="width: 300px;">
                                         <input class="form-control me-2" type="text" name="keyword"
                                                placeholder="Tìm nhân viên ..."
@@ -30,8 +30,6 @@
                                         </button>
                                     </form>
                                 </div>
-                                <a href="#addEmployeeModal" class="btn btn-success" data-toggle="modal"><i
-                                        class="material-icons">&#xE147;</i> <span>Thêm mới</span></a>
                             </div>
                         </div>
                     </div>
@@ -44,30 +42,31 @@
                             <th>Email</th>
                             <th>Số điện thoại</th>
                             <th>Địa chỉ</th>
-                            <th>Vị trí</th>
+                            <th>Quyền tài khoản</th>
                             <th>Ngày tạo</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="customer : ${customerPage.content}">
-                            <td th:text="${employee.employeeId}"></td>
-                            <td th:text="${employee.name}"></td>
-                            <td th:text="${employee.phoneNumber}"></td>
-                            <td th:text="${serviceMap[customer.serviceId]}"></td>
-                            <td th:text="${customer.context}"></td>
-                            <td th:text="${customer.status}"></td>
-                            <td th:text="${#temporals.format(customer.updateAt != null ? customer.updateAt : customer.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                        <tr th:each="user : ${userPage.content}">
+                            <td th:text="${user.userId}"></td>
+                            <td th:text="${user.fullName}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phoneNumber}"></td>
+                            <td th:text="${user.address}"></td>
+                            <td th:text="${user.role != null ? user.role.roleName : 'Không có'}"></td>
+                            <td th:text="${#temporals.format(user.updateAt != null ? user.updateAt : user.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>
-                                <a href="#editEmployeeModal"
+                                <a href="#editUserModal"
                                    class="edit"
-                                   th:data-id="${customer.customerId}"
+                                   th:data-id="${user.userId}"
                                    data-toggle="modal">
                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                 </a>
 
-                                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"
-                                   th:data-id="${customer.customerId}"
+                                <a href="#deleteUserModal" class="delete" data-toggle="modal"
+                                   th:data-id="${user.userId}"
                                 ><i
                                         class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
@@ -77,22 +76,22 @@
                     <nav>
                         <ul class="pagination justify-content-center">
                             <!-- Previous -->
-                            <li class="page-item" th:classappend="${customerPage.first} ? 'disabled'">
+                            <li class="page-item" th:classappend="${userPage.first} ? 'disabled'">
                                 <a class="page-link"
-                                   th:href="@{'/employee/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
+                                   th:href="@{'/user/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
                             </li>
                             <li class="page-item"
-                                th:each="i : ${#numbers.sequence(0, customerPage.totalPages-1)}"
+                                th:each="i : ${#numbers.sequence(0, userPage.totalPages-1)}"
                                 th:classappend="${i} == ${currentPage} ? 'active'">
                                 <a class="page-link"
-                                   th:href="@{'/employee/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
+                                   th:href="@{'/user/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
                                    th:text="${i+1}">1</a>
                             </li>
 
                             <!-- Next -->
-                            <li class="page-item" th:classappend="${customerPage.last} ? 'disabled'">
+                            <li class="page-item" th:classappend="${userPage.last} ? 'disabled'">
                                 <a class="page-link"
-                                   th:href="@{'/employee/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
+                                   th:href="@{'/user/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
                             </li>
 
                         </ul>
@@ -101,89 +100,48 @@
                 </div>
             </div>
             <!-- Edit Modal HTML -->
-            <div id="addEmployeeModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form method="post" th:action="@{/employee/add}" th:object="${customerNew}">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Thêm khách hàng</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Tên</label>
-                                    <input th:field="*{name}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Số điện thoại</label>
-                                    <input th:field="*{phoneNumber}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Dịch vụ</label>
-                                    <select th:field="*{serviceId}" class="form-control" required>
-                                        <option value="">-- Chọn dịch vụ --</option>
-                                        <option th:each="service : ${services}"
-                                                th:value="${service.serviceId}"
-                                                th:text="${service.serviceName}">
-                                        </option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Ghi chú</label>
-                                    <textarea th:field="*{context}" class="form-control" required></textarea>
-                                </div>
-
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Add"
-                                       th:action="@{/employee/add}">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Edit Modal HTML -->
-            <div id="editEmployeeModal" class="modal fade">
+            <div id="editUserModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form id="editForm">
                             <div class="modal-header">
-                                <h4 class="modal-title">Chỉnh sửa khách hàng</h4>
+                                <h4 class="modal-title">Chỉnh sửa nhân viên</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" name="editCustomerId" id="editCustomerId">
+                                <input type="hidden" name="editUserId" id="editUserId">
                                 <div class="form-group">
                                     <label>Tên</label>
-                                    <input name="editName" id="editName" class="form-control" required>
+                                    <input name="editFullName" id="editFullName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tài khoản</label>
+                                    <input name="editUserName" id="editUserName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input name="editEmail" id="editEmail" class="form-control" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
                                     <input name="editPhoneNumber" id="editPhoneNumber" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Dịch vụ</label>
-                                    <select name="editServiceId" id="editServiceId" class="form-control" required>
-                                        <option th:each="service : ${services}"
-                                                th:value="${service.serviceId}"
-                                                th:text="${service.serviceName}"></option>
-                                    </select>
+                                    <label>Địa chỉ</label>
+                                    <input name="editAddress" id="editAddress" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Ghi chú</label>
-                                    <textarea name="editContext" id="editContext" class="form-control"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>Trạng thái</label>
-                                    <select name="editStatus" id="editStatus" class="form-control">
-                                        <option value="Chờ liên hệ">Chờ liên hệ</option>
-                                        <option value="Đã liên hệ">Đã liên hệ</option>
-                                        <option value="Hủy bỏ">Hủy bỏ</option>
+                                    <label>Vị trí (quyền đăng nhập)</label>
+                                    <select name="editRoleId" id="editRoleId" class="form-control" required>
+                                        <option th:each="role : ${allRoles}"
+                                                th:value="${role.roleId}"
+                                                th:text="${role.roleName}">
+                                        </option>
                                     </select>
+
+
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -193,13 +151,13 @@
                     </div>
                 </div>
             </div>
-            <div id="deleteEmployeeModal" class="modal fade">
+            <div id="deleteUserModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form id="deleteForm">
-                            <input type="hidden" id="deleteCustomerId" name="deleteCustomerId">
+                            <input type="hidden" id="deleteUserId" name="deleteUserId">
                             <div class="modal-header">
-                                <h4 class="modal-title">Xóa khách hàng</h4>
+                                <h4 class="modal-title">Xóa nhân viên</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
                                 </button>
                             </div>
@@ -222,18 +180,19 @@
     $(document).ready(function () {
         // Khi bấm vào nút sửa
         $('.edit').on('click', function () {
-            var customerId = $(this).data('id');
+            var userId = $(this).data('id');
             $.ajax({
-                url: '/employee/edit/' + customerId,
+                url: '/user/edit/' + userId,
                 type: 'GET',
                 success: function (data) {
                     // Fill data vào form
-                    $('#editCustomerId').val(data.customerId);
-                    $('#editName').val(data.name);
+                    $('#editUserId').val(data.userId);
+                    $('#editFullName').val(data.fullName);
+                    $('#editUserName').val(data.username);
+                    $('#editEmail').val(data.email);
                     $('#editPhoneNumber').val(data.phoneNumber);
-                    $('#editServiceId').val(data.serviceId);
-                    $('#editContext').val(data.context);
-                    $('#editStatus').val(data.status);
+                    $('#editAddress').val(data.address);
+                    $('#editRoleId').val(data.roleId);
                 },
                 error: function () {
                     alert('Không thể lấy dữ liệu khách hàng.');
@@ -242,19 +201,19 @@
         });
 
         $('.delete').on('click', function () {
-            var customerId = $(this).data('id');
-            $('#deleteCustomerId').val(customerId);
+            var userId = $(this).data('id');
+            $('#deleteUserId').val(userId);
         });
 
 
         $('#deleteForm').on('submit', function (e) {
             e.preventDefault(); // tránh submit form thật
-            var customerId = $('#deleteCustomerId').val();
+            var userId = $('#deleteUserId').val();
             $.ajax({
-                url: '/employee/delete/' + customerId,
+                url: '/user/delete/' + userId,
                 type: 'POST',
                 success: function () {
-                    $('#deleteEmployeeModal').modal('hide');
+                    $('#deleteUserModal').modal('hide');
                     location.reload();
                 },
                 error: function () {
@@ -267,23 +226,25 @@
         $('#editForm').on('submit', function (e) {
             e.preventDefault();
 
-            var customerData = {
-                customerId: $('#editCustomerId').val(),
-                name: $('#editName').val(),
+            var userData = {
+                userId: $('#editUserId').val(),
+                fullName: $('#editFullName').val(),
+                username: $('#editUserName').val(),
+                email: $('#editEmail').val(),
                 phoneNumber: $('#editPhoneNumber').val(),
-                serviceId: $('#editServiceId').val(),
-                context: $('#editContext').val(),
-                status: $('#editStatus').val()
+                address: $('#editAddress').val(),
+                roleId: $('#editRoleId').val()
             };
 
+
             $.ajax({
-                url: '/employee/update/' + customerData.customerId,
+                url: '/user/update/' + userData.userId,
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(customerData),
+                data: JSON.stringify(userData),
                 success: function () {
-                    $('#editEmployeeModal').modal('hide');
-                    location.reload(); // hoặc load lại dữ liệu bằng AJAX
+                    $('#editUserModal').modal('hide');
+                    location.reload();
                 },
                 error: function () {
                     alert('Cập nhật thất bại.');

@@ -27,12 +27,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                // Tắt CSRF cho các API không cần bảo vệ CSRF
+                .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register", "/activate", "/login",
                                 "/admin/css/**", "/customer/css/**",
                                 "/js/**", "/images/**", "/webjars/**","/forgot-password","/reset-password"
                                 , "/home/**").permitAll()
-                        .requestMatchers("/employee").hasRole("ADMIN")
+                        .requestMatchers("/user/**").hasRole("ADMIN")
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN", "EMPLOYEE")
                         .anyRequest().authenticated()
                 )

@@ -36,7 +36,19 @@ public class User {
     @Column(length = 64)
     private String activationCode;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+    private int deleteFlag;
+    @PrePersist
+    protected void onCreate() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
 
     // Quan hệ với role
     @ManyToOne
@@ -49,6 +61,30 @@ public class User {
 
     // Getters, setters, constructors
 
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public int getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
 
     public String getAddress() {
         return address;
@@ -136,14 +172,6 @@ public class User {
 
     public void setActivationCode(String activationCode) {
         this.activationCode = activationCode;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Role getRole() {

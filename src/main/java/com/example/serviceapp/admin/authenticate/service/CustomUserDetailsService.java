@@ -26,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy người dùng: " + username));
+        
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
@@ -39,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (role == null) {
             return Set.of(new SimpleGrantedAuthority("ROLE_GUEST"));
         }
-        return Set.of(new SimpleGrantedAuthority("ROLE_" + role.getRoleName()));
+        return Set.of(new SimpleGrantedAuthority(role.getRoleName()));
     }
 
 

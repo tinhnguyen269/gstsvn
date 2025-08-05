@@ -2,27 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>403 - Không có quyền</title>
-    <!-- Bootstrap CDN hoặc dùng file nội bộ -->
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <style>
         body {
             background-color: #f8f9fa;
         }
         .access-denied-box {
-            margin-top: 100px;
-            padding: 40px;
+            padding: 30px;
             background: white;
             border-radius: 12px;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
+        @media (max-width: 576px) {
+            .access-denied-box h1 {
+                font-size: 3rem;
+            }
+            .access-denied-box h4 {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
-<div class="container d-flex justify-content-center">
-    <div class="access-denied-box text-center">
+<div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="access-denied-box text-center col-11 col-sm-10 col-md-8 col-lg-6 col-xl-4">
         <h1 class="text-danger display-4">403</h1>
-        <h4 class="mb-4">Bạn không có quyền truy cập trang này</h4>
+        <h4 class="mb-3">Bạn không có quyền truy cập trang này</h4>
         <p class="text-muted mb-4">Vui lòng liên hệ quản trị viên.</p>
         <a class="btn btn-primary px-4" href="javascript:history.back()">Quay về</a>
     </div>

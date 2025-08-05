@@ -52,7 +52,7 @@ public class UserService {
             <body style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
                 <p>Xin chào,</p>
                 
-                <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>Service App</strong>.</p>
+                <p>Cảm ơn bạn đã đăng ký tài khoản tại <strong>GSTS</strong>.</p>
                 
                 <p>Vui lòng nhấn vào nút bên dưới để kích hoạt tài khoản của bạn:</p>
                 
@@ -69,7 +69,7 @@ public class UserService {
                 
                 <p>Nếu bạn không yêu cầu tạo tài khoản, vui lòng bỏ qua email này.</p>
                 
-                <p>Trân trọng,<br/>Đội ngũ hỗ trợ Service App</p>
+                <p>Trân trọng,<br/>Đội ngũ hỗ trợ GSTS</p>
             </body>
         </html>
         """.formatted(link);
@@ -138,7 +138,7 @@ public class UserService {
 
                 <p>Nếu bạn không yêu cầu thao tác này, vui lòng bỏ qua email này.</p>
 
-                <p>Trân trọng,<br/>Đội ngũ hỗ trợ Service App</p>
+                <p>Trân trọng,<br/>Đội ngũ hỗ trợ GSTS</p>
             </body>
         </html>
         """.formatted(resetLink);
