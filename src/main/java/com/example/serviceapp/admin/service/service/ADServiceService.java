@@ -14,4 +14,6 @@ public interface ADServiceService {
     Page<Services> findAll(Pageable pageable);
 
     Page<Services> searchServices(String keyword, Pageable pageable);
+
+    boolean isServiceIdExists(Long serviceId);
 }

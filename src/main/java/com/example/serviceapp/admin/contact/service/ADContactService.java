@@ -21,4 +21,7 @@ public interface ADContactService {
     void delete(Customer customer);
 
     List<Services> getAllServices();
+
+    boolean isPhoneNumberExists(String phoneNumber);
+
 }

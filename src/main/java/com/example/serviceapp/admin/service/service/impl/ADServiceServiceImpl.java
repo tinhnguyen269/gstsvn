@@ -39,4 +39,9 @@ public class ADServiceServiceImpl implements ADServiceService {
     public Page<Services> searchServices(String keyword, Pageable pageable) {
         return serviceRepository.searchServices(keyword, pageable);
     }
+
+    @Override
+    public boolean isServiceIdExists(Long serviceId) {
+        return serviceRepository.existsById(serviceId);
+    }
 }

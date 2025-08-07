@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
         if (keyword != null && !keyword.isEmpty()) {
             return userRepository.findByFullNameContainingIgnoreCase(keyword, PageRequest.of(page, size));
         }
-        return userRepository.findAll(PageRequest.of(page, size));
+        return userRepository.findAllUser(PageRequest.of(page, size));
     }
 
     @Override

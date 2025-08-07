@@ -2,7 +2,7 @@ package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "user")
@@ -12,22 +12,37 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @NotBlank(message = "Họ và tên không được để trống")
+    @Size(max = 100, message = "Họ và tên tối đa 100 ký tự")
     private String fullName;
 
+    @NotBlank(message = "Số điện thoại không được để trống")
+    @Pattern(regexp = "^(0[0-9]{9})$", message = "Số điện thoại không hợp lệ")
+    @Size(max = 10, message = "Số điện thoại tối đa 10 ký tự")
     private String phoneNumber;
 
+    @NotBlank(message = "Tên đăng nhập không được để trống")
+    @Size(max = 100, message = "Tên đăng nhập tối đa 100 ký tự")
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
+    @NotBlank(message = "Mật khẩu không được để trống")
+    @Size(min = 6, max = 20, message = "Mật khẩu phải từ 6 đến 20 ký tự")
     @Column(nullable = false)
     private String password;
 
     @Transient
+    @NotBlank(message = "Vui lòng nhập lại mật khẩu")
     private String passwordConfirmation;
 
+    @NotBlank(message = "Email không được để trống")
+    @Email(message = "Email không hợp lệ")
+    @Size(max = 150, message = "Email tối đa 150 ký tự")
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
+    @NotBlank(message = "Địa chỉ không được để trống")
+    @Size(max = 255, message = "Địa chỉ tối đa 255 ký tự")
     @Column(nullable = false)
     private String address;
 

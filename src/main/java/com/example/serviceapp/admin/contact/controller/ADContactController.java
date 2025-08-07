@@ -1,9 +1,11 @@
 package com.example.serviceapp.admin.contact.controller;
 
+import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.constants.CONTACT_STATUS;
 import com.example.serviceapp.admin.contact.service.ADContactService;
 import com.example.serviceapp.common.entity.Customer;
 import com.example.serviceapp.common.entity.Services;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -11,8 +13,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,13 +26,29 @@ import java.util.stream.Collectors;
 public class ADContactController {
 
     public final ADContactService contactService;
-    public ADContactController(ADContactService contactService) {
+
+    public final ADServiceService serviceService;
+
+    public ADContactController(ADContactService contactService, ADServiceService serviceService) {
         this.contactService = contactService;
+        this.serviceService = serviceService;
     }
 
 
     @PostMapping("/contact/add")
-    public String doAdd(Customer customer) {
+    public String doAdd(@Valid Customer customer, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "admin/contact/contact";
+        }
+        if(contactService.isPhoneNumberExists(customer.getPhoneNumber())) {
+            model.addAttribute("phoneError", "Số điện thoại đã tồn tại!");
+            return "admin/contact/contact";
+        }
+        if (!serviceService.isServiceIdExists(customer.getServiceId())) {
+            model.addAttribute("serviceError", "Dịch vụ không tồn tại!");
+            return "admin/contact/contact";
+        }
+
         customer.setStatus(CONTACT_STATUS.PENDING.getStatus());
         contactService.addCustomer(customer);
         return "redirect:/admin/contact/list";
@@ -77,7 +97,20 @@ public class ADContactController {
 
     @PostMapping("/contact/update/{id}")
     @ResponseBody
-    public ResponseEntity<?> updateCustomer(@PathVariable Long id, @RequestBody Customer updatedCustomer) {
+    public ResponseEntity<?> updateCustomer(
+            @PathVariable Long id,
+            @RequestBody @Valid Customer updatedCustomer,
+            BindingResult result) {
+
+        if (result.hasErrors()) {
+            // Trả về danh sách lỗi dạng Map để hiển thị ở phía client
+            Map<String, String> errors = new HashMap<>();
+            result.getFieldErrors().forEach(error -> {
+                errors.put(error.getField(), error.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(errors); // HTTP 400 + lỗi
+        }
+
         Customer existing = contactService.findById(id);
         if (existing != null) {
             existing.setName(updatedCustomer.getName());
@@ -91,6 +124,7 @@ public class ADContactController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @PostMapping("/contact/delete/{id}")
     public String deleteCustomer(@PathVariable Long id) {

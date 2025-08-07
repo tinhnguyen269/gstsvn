@@ -2,8 +2,10 @@ package com.example.serviceapp.admin.authenticate.controller;
 
 import com.example.serviceapp.admin.authenticate.service.UserService;
 import com.example.serviceapp.common.entity.User;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -26,11 +28,25 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute User user, Model model) {
+    public String registerUser(@Valid @ModelAttribute("user") User user,
+                               BindingResult result,
+                               Model model) {
+        // Kiểm tra lỗi validate
+        if (result.hasErrors()) {
+            return "admin/authenticate/register";
+        }
+
+        // Kiểm tra xác nhận mật khẩu
+        if (!user.getPassword().equals(user.getPasswordConfirmation())) {
+            model.addAttribute("passwordError", "Mật khẩu xác nhận không khớp!");
+            return "admin/authenticate/register";
+        }
+
         userService.registerUser(user);
         model.addAttribute("message", "Đăng ký thành công! Vui lòng kiểm tra email để kích hoạt.");
         return "admin/authenticate/login";
     }
+
 
     @GetMapping("/activate")
     public String activate(@RequestParam("code") String code, Model model) {
@@ -48,7 +64,7 @@ public class AuthController {
 
     @GetMapping("/access-denied")
     public String accessDenied() {
-        return "admin/error/access-denied"; // file .html trong templates/error/
+        return "admin/error/access-denied";
     }
 
     @GetMapping("/forgot-password")
@@ -57,7 +73,12 @@ public class AuthController {
         return "admin/authenticate/forgot-password";
     }
     @PostMapping("/forgot-password")
-    public String processForgotPassword(@ModelAttribute("user") User user, Model model) {
+    public String processForgotPassword(@Valid @ModelAttribute("user") User user,BindingResult bindingResult, Model model) {
+
+        // Kiểm tra lỗi validate
+        if (bindingResult.hasErrors()) {
+            return "admin/authenticate/forgot-password";
+        }
         Optional<User> userOpt = userService.findByEmail(user.getEmail());
         if (userOpt.isPresent()) {
             userService.sendResetPasswordToken(userOpt.get());
