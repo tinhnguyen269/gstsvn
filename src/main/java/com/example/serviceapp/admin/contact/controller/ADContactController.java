@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -36,23 +37,37 @@ public class ADContactController {
 
 
     @PostMapping("/contact/add")
-    public String doAdd(@Valid Customer customer, BindingResult bindingResult, Model model) {
-        if (bindingResult.hasErrors()) {
-            return "admin/contact/contact";
-        }
-        if(contactService.isPhoneNumberExists(customer.getPhoneNumber())) {
-            model.addAttribute("phoneError", "Số điện thoại đã tồn tại!");
-            return "admin/contact/contact";
-        }
-        if (!serviceService.isServiceIdExists(customer.getServiceId())) {
-            model.addAttribute("serviceError", "Dịch vụ không tồn tại!");
-            return "admin/contact/contact";
+    @ResponseBody
+    public ResponseEntity<?> addCustomer(@RequestBody @Validated Customer customer, BindingResult result) {
+        Map<String, String> errors = new HashMap<>();
+
+        if (result.hasErrors()) {
+            result.getFieldErrors().forEach(error ->
+                    errors.put(error.getField(), error.getDefaultMessage())
+            );
+            return ResponseEntity.badRequest().body(errors);
         }
 
+        if (contactService.isPhoneNumberExists(customer.getPhoneNumber())) {
+            errors.put("phoneNumber", "Số điện thoại đã tồn tại.");
+        }
+
+        if (!serviceService.isServiceIdExists(customer.getServiceId())) {
+            errors.put("serviceId", "Dịch vụ không tồn tại.");
+        }
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.badRequest().body(errors);
+        }
         customer.setStatus(CONTACT_STATUS.PENDING.getStatus());
+
         contactService.addCustomer(customer);
-        return "redirect:/admin/contact/list";
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Thêm khách hàng thành công");
+        return ResponseEntity.ok(response);
     }
+
 
 
     @GetMapping("/contact/list")
@@ -101,17 +116,30 @@ public class ADContactController {
             @PathVariable Long id,
             @RequestBody @Valid Customer updatedCustomer,
             BindingResult result) {
+        Map<String, String> errors = new HashMap<>();
 
         if (result.hasErrors()) {
-            // Trả về danh sách lỗi dạng Map để hiển thị ở phía client
-            Map<String, String> errors = new HashMap<>();
             result.getFieldErrors().forEach(error -> {
                 errors.put(error.getField(), error.getDefaultMessage());
             });
-            return ResponseEntity.badRequest().body(errors); // HTTP 400 + lỗi
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        if (contactService.isPhoneNumberUpdateExists(updatedCustomer.getPhoneNumber(), updatedCustomer.getCustomerId())) {
+            errors.put("phoneNumber", "Số điện thoại đã được sử dụng bởi khách hàng khác.");
+        }
+
+        if (!serviceService.isServiceIdExists(updatedCustomer.getServiceId())) {
+            errors.put("serviceId", "Dịch vụ không tồn tại.");
+        }
+
+        if (!errors.isEmpty()) {
+            return ResponseEntity.badRequest().body(errors);
         }
 
         Customer existing = contactService.findById(id);
+        Map<String, String> response = new HashMap<>();
+
         if (existing != null) {
             existing.setName(updatedCustomer.getName());
             existing.setPhoneNumber(updatedCustomer.getPhoneNumber());
@@ -119,8 +147,10 @@ public class ADContactController {
             existing.setContext(updatedCustomer.getContext());
             existing.setStatus(updatedCustomer.getStatus());
             contactService.save(existing);
-            return ResponseEntity.ok().build();
+            response.put("message", "Sửa khách hàng thành công");
+            return ResponseEntity.ok(response);
         } else {
+            response.put("message", "Khách hàng không tồn tại");
             return ResponseEntity.notFound().build();
         }
     }

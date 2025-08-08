@@ -8,41 +8,44 @@ import jakarta.validation.constraints.*;
 @Table(name = "user")
 public class User {
 
+    public interface OnCreate {}
+    public interface OnUpdate {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NotBlank(message = "Họ và tên không được để trống")
-    @Size(max = 100, message = "Họ và tên tối đa 100 ký tự")
+    @NotBlank(message = "Họ và tên không được để trống" , groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 100, message = "Họ và tên tối đa 100 ký tự" , groups = {OnCreate.class, OnUpdate.class})
     private String fullName;
 
-    @NotBlank(message = "Số điện thoại không được để trống")
-    @Pattern(regexp = "^(0[0-9]{9})$", message = "Số điện thoại không hợp lệ")
-    @Size(max = 10, message = "Số điện thoại tối đa 10 ký tự")
+    @NotBlank(message = "Số điện thoại không được để trống" , groups = {OnCreate.class, OnUpdate.class})
+    @Pattern(regexp = "^(0[0-9]{9})$", message = "Số điện thoại không hợp lệ" , groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 10, message = "Số điện thoại tối đa 10 ký tự" , groups = {OnCreate.class, OnUpdate.class})
     private String phoneNumber;
 
-    @NotBlank(message = "Tên đăng nhập không được để trống")
-    @Size(max = 100, message = "Tên đăng nhập tối đa 100 ký tự")
+    @NotBlank(message = "Tên đăng nhập không được để trống", groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 100, message = "Tên đăng nhập tối đa 100 ký tự", groups = {OnCreate.class, OnUpdate.class})
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
-    @NotBlank(message = "Mật khẩu không được để trống")
-    @Size(min = 6, max = 20, message = "Mật khẩu phải từ 6 đến 20 ký tự")
+    @NotBlank(message = "Mật khẩu không được để trống", groups = OnCreate.class)
+    @Size(min = 6, max = 20, message = "Mật khẩu phải từ 6 đến 20 ký tự", groups = OnCreate.class)
     @Column(nullable = false)
     private String password;
 
     @Transient
-    @NotBlank(message = "Vui lòng nhập lại mật khẩu")
+    @NotBlank(message = "Vui lòng nhập lại mật khẩu", groups = OnCreate.class)
     private String passwordConfirmation;
 
-    @NotBlank(message = "Email không được để trống")
-    @Email(message = "Email không hợp lệ")
-    @Size(max = 150, message = "Email tối đa 150 ký tự")
+    @NotBlank(message = "Email không được để trống", groups = {OnCreate.class, OnUpdate.class})
+    @Email(message = "Email không hợp lệ", groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 150, message = "Email tối đa 150 ký tự", groups = {OnCreate.class, OnUpdate.class})
     @Column(nullable = false, unique = true, length = 150)
     private String email;
 
-    @NotBlank(message = "Địa chỉ không được để trống")
-    @Size(max = 255, message = "Địa chỉ tối đa 255 ký tự")
+    @NotBlank(message = "Địa chỉ không được để trống", groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 255, message = "Địa chỉ tối đa 255 ký tự", groups = {OnCreate.class, OnUpdate.class})
     @Column(nullable = false)
     private String address;
 

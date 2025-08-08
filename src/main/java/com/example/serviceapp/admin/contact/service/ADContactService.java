@@ -24,4 +24,5 @@ public interface ADContactService {
 
     boolean isPhoneNumberExists(String phoneNumber);
 
+    boolean isPhoneNumberUpdateExists(String phoneNumber, Long id);
 }

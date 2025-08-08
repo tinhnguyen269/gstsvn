@@ -64,4 +64,9 @@ public class ADContactServiceImpl implements ADContactService {
         return contactRepository.isPhoneNumberExists(phoneNumber);
     }
 
+    @Override
+    public boolean isPhoneNumberUpdateExists(String phoneNumber, Long id) {
+        return contactRepository.isPhoneNumberUpdateExists(phoneNumber, id);
+    }
+
 }

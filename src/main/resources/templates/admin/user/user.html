@@ -214,6 +214,7 @@
                 type: 'POST',
                 success: function () {
                     $('#deleteUserModal').modal('hide');
+                    alert('Xóa thành công!');
                     location.reload();
                 },
                 error: function () {
@@ -244,12 +245,23 @@
                 data: JSON.stringify(userData),
                 success: function () {
                     $('#editUserModal').modal('hide');
+                    alert('Cập nhật thành công!');
                     location.reload();
                 },
-                error: function () {
-                    alert('Cập nhật thất bại.');
+                error: function (xhr) {
+                    if (xhr.status === 400) {
+                        const errors = xhr.responseJSON;
+                        let errorMsg = 'Lỗi xác thực:\n';
+                        for (const key in errors) {
+                            errorMsg += `- ${errors[key]}\n`;
+                        }
+                        alert(errorMsg);
+                    } else {
+                        alert('Cập nhật thất bại.');
+                    }
                 }
             });
+
         });
     });
 </script>

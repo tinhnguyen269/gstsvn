@@ -1,12 +1,16 @@
 package com.example.serviceapp.admin.user.controller;
 
 import com.example.serviceapp.admin.authenticate.repository.RoleRepository;
+import com.example.serviceapp.admin.user.dto.UserUpdateDTO;
 import com.example.serviceapp.admin.user.service.UserService;
 import com.example.serviceapp.common.entity.Role;
 import com.example.serviceapp.common.entity.User;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -61,23 +65,37 @@ public class UserController {
 
     @PostMapping("/update/{id}")
     @ResponseBody
-    public String updateUser(@PathVariable Long id, @RequestBody Map<String, Object> payload) {
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long id,
+            @RequestBody @Validated(User.OnUpdate.class) UserUpdateDTO userFromClient,
+            BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach(error -> {
+                errors.put(error.getField(), error.getDefaultMessage());
+            });
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        // Convert DTO -> Entity
         User user = new User();
         user.setUserId(id);
-        user.setFullName((String) payload.get("fullName"));
-        user.setUsername((String) payload.get("username"));
-        user.setEmail((String) payload.get("email"));
-        user.setPhoneNumber((String) payload.get("phoneNumber"));
-        user.setAddress((String) payload.get("address"));
+        user.setFullName(userFromClient.getFullName());
+        user.setUsername(userFromClient.getUsername());
+        user.setEmail(userFromClient.getEmail());
+        user.setPhoneNumber(userFromClient.getPhoneNumber());
+        user.setAddress(userFromClient.getAddress());
 
-        Long roleId = Long.valueOf(payload.get("roleId").toString());
         Role role = new Role();
-        role.setRoleId(roleId);
+        role.setRoleId(userFromClient.getRoleId());
         user.setRole(role);
 
         userService.updateUser(user);
-        return "success";
+
+        return ResponseEntity.ok("success");
     }
+
 
     @PostMapping("/delete/{id}")
     @ResponseBody
