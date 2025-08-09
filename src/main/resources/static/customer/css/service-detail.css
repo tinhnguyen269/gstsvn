@@ -142,3 +142,27 @@ CSS tùy chỉnh cho content
     --bs-breadcrumb-divider: '»';
 }
 
+
+/* Cho tất cả ảnh trong nội dung co dãn theo màn hình */
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Video iframe (YouTube, Vimeo...) co dãn */
+.article-content iframe {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+/* Bảng cuộn ngang nếu quá rộng */
+.article-content table {
+    width: 100%;
+    border-collapse: collapse;
+    overflow-x: auto;
+    display: block;
+}
+
+

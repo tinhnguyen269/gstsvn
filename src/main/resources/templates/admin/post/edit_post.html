@@ -5,7 +5,7 @@
     <th:block th:replace="admin/common/header :: header"></th:block>
 
     <!-- CKEditor -->
-    <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -67,30 +67,59 @@
 
 <!-- CKEditor Config -->
 <script>
+    ClassicEditor
+        .create(document.querySelector('#contentEditor'), {
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', 'underline', 'link', '|',
+                'bulletedList', 'numberedList', '|',
+                'blockQuote', 'insertTable', 'imageUpload', 'mediaEmbed', '|',
+                'undo', 'redo'
+            ]
+        })
+        .then(editor => {
+            editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+                return new MyUploadAdapter(loader);
+            };
+        })
+        .catch(error => {
+            console.error(error);
+        })
 
-    CKEDITOR.replace('contentEditor', {
-        language: 'vi',
-        height: 400,
-        filebrowserUploadUrl: '/admin/post/uploadImage',
-        filebrowserUploadMethod: 'form',
-        removeButtons: '',
-        toolbarGroups: [
-            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-            { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-            { name: 'links' },
-            { name: 'insert' },
-            { name: 'forms' },
-            { name: 'tools' },
-            { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
-            { name: 'others' },
-            '/',
-            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align' ] },
-            { name: 'styles' },
-            { name: 'colors' },
-            { name: 'about' }
-        ]
-    });
+
+    class MyUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+
+        upload() {
+            return this.loader.file
+                .then(file => new Promise((resolve, reject) => {
+                    const formData = new FormData();
+                    formData.append('upload', file);
+
+                    fetch('/admin/uploadImage', {
+                        method: 'POST',
+                        body: formData
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.uploaded === 1) {
+                                resolve({
+                                    default: data.url
+                                });
+                            } else {
+                                reject(data.error?.message || 'Upload thất bại');
+                            }
+                        })
+                        .catch(err => {
+                            reject('Lỗi upload: ' + err);
+                        });
+                }));
+        }
+    }
+
+    // Upload ảnh ngoài CKEditor (preview ảnh bìa)
     function uploadImage(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -104,14 +133,12 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.uploaded === 1) {
-                    // Hiển thị ảnh preview mới
+                if (data.url) {
                     document.getElementById("previewImage").src = data.url;
                     document.getElementById("previewImage").style.display = "block";
-                    // Gán URL vào input hidden
                     document.getElementById("imageUrl").value = data.url;
                 } else {
-                    alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
+                    alert("Upload thất bại: " + (data.error || "Không rõ nguyên nhân"));
                 }
             })
             .catch(error => {
@@ -119,7 +146,6 @@
                 alert("Có lỗi khi upload ảnh.");
             });
     }
-
 
     function confirmBack() {
         if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {

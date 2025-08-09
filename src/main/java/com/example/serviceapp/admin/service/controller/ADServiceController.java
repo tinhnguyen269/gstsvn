@@ -82,6 +82,7 @@ public class ADServiceController {
         existingService.setServiceName(service.getServiceName());
         existingService.setContent(service.getContent());
         existingService.setIcon(service.getIcon());
+        existingService.setImgPrice(service.getImgPrice());
         existingService.setUpdateAt(LocalDateTime.now());
 
         serviceService.save(existingService);

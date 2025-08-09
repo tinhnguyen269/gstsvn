@@ -4,7 +4,7 @@
     <title>Thêm bài viết mới</title>
     <th:block th:replace="admin/common/header :: header"></th:block>
     <!-- CKEditor -->
-    <script src="https://cdn.ckeditor.com/4.22.1/full-all/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
 
 </head>
 <body class="sb-nav-fixed">
@@ -37,8 +37,9 @@
                                      th:if="${service.icon != null}"
                                      th:src="${service.icon}"
                                      alt="Icon preview"
-                                     style="width: 150px; height: auto; border: 1px solid #ddd; border-radius: 8px;"
-                                     class="shadow-sm"/>
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-width: 150px; height: auto; border: 1px solid #ddd;">
+
                             </div>
                             <input type="hidden" th:field="*{icon}" id="iconUrl"/>
                         </div>
@@ -53,8 +54,9 @@
                                      th:if="${service.imgPrice != null}"
                                      th:src="${service.imgPrice}"
                                      alt="Bảng giá preview"
-                                     style="width: 150px; height: auto; border: 1px solid #ddd; border-radius: 8px;"
-                                     class="shadow-sm"/>
+                                     class="img-fluid rounded shadow-sm"
+                                     style="max-width: 250px;">
+
                             </div>
                             <input type="hidden" th:field="*{imgPrice}" id="priceUrl"/>
                         </div>
@@ -83,30 +85,58 @@
 
 <!-- CKEditor Config -->
 <script>
+    class MyUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
 
-    CKEDITOR.replace('contentEditor', {
-        language: 'vi',
-        height: 400,
-        filebrowserUploadUrl: '/admin/service/uploadImage',
-        filebrowserUploadMethod: 'form',
-        removeButtons: '',
-        toolbarGroups: [
-            { name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-            { name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-            { name: 'links' },
-            { name: 'insert' },
-            { name: 'forms' },
-            { name: 'tools' },
-            { name: 'document',    groups: [ 'mode', 'document', 'doctools' ] },
-            { name: 'others' },
-            '/',
-            { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-            { name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align' ] },
-            { name: 'styles' },
-            { name: 'colors' },
-            { name: 'about' }
-        ]
-    });
+        upload() {
+            return this.loader.file.then(file => new Promise((resolve, reject) => {
+                const formData = new FormData();
+                formData.append('upload', file);
+
+                fetch('/admin/uploadImage', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.url) {
+                            resolve({ default: data.url });
+                        } else {
+                            reject(data.error?.message || 'Upload thất bại');
+                        }
+                    })
+                    .catch(err => reject('Lỗi upload: ' + err));
+            }));
+        }
+        abort() {
+            // Có thể thêm xử lý hủy upload nếu cần
+        }
+    }
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = loader => {
+            return new MyUploadAdapter(loader);
+        };
+    }
+
+    ClassicEditor
+        .create(document.querySelector('#contentEditor'), {
+            extraPlugins: [MyCustomUploadAdapterPlugin],
+            toolbar: [
+                'heading', '|',
+                'bold', 'italic', 'underline', 'link', '|',
+                'bulletedList', 'numberedList', '|',
+                'blockQuote', 'insertTable', 'imageUpload', 'mediaEmbed', '|',
+                'undo', 'redo'
+            ],
+            language: 'vi'
+        })
+        .catch(error => console.error(error));
+
+
+    // Upload ảnh ngoài CKEditor (icon, bảng giá)
     function uploadImage(event) {
         const file = event.target.files[0];
         if (!file) return;
@@ -123,14 +153,15 @@
         })
             .then(response => response.json())
             .then(data => {
-                if (data.uploaded === 1) {
+                if (data.url) {
                     const previewImg = document.getElementById(previewId);
+                    const hiddenInput = document.getElementById(urlInputId);
+
                     previewImg.src = data.url;
                     previewImg.style.display = "block";
-
-                    document.getElementById(urlInputId).value = data.url;
+                    hiddenInput.value = data.url;
                 } else {
-                    alert("Upload thất bại: " + (data.error?.message || "Không rõ nguyên nhân"));
+                    alert("Upload thất bại: " + (data.error || "Không rõ nguyên nhân"));
                 }
             })
             .catch(error => {
@@ -140,11 +171,10 @@
     }
 
     function confirmBack() {
-        if (confirm("Bạn có chắc muốn quay lại mà không lưu dịch vụ?")) {
+        if (confirm("Bạn có chắc muốn quay lại mà không lưu bài viết?")) {
             window.location.href = "/admin/service/list";
         }
     }
-
 </script>
 
 <!-- Optional Custom JS -->
