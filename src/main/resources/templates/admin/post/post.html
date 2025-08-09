@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
+    <title>Bài viết </title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
     <script>
         $(document).ready(function () {
@@ -144,6 +147,9 @@
 <script src="admin/js/datatables-simple-demo.js"></script>
 
 <script>
+    // Lấy CSRF token và header name từ meta
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
     let postIdToDelete = null;
 
     function openDeleteModal(postId) {
@@ -155,7 +161,10 @@
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
         if (postIdToDelete) {
             fetch(`/admin/post/delete/${postIdToDelete}`, {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                }
             })
                 .then(response => {
                     if (response.ok) {

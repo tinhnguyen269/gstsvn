@@ -57,6 +57,16 @@ public class User {
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
     private int deleteFlag;
+
+    // Quan hệ với role
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
+
+    @Column(length = 64)
+    private String resetPasswordToken;
+
+    // Getters, setters, constructors
     @PrePersist
     protected void onCreate() {
         this.createAt = LocalDateTime.now();
@@ -67,18 +77,6 @@ public class User {
     protected void onUpdate() {
         this.updateAt = LocalDateTime.now();
     }
-
-    // Quan hệ với role
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
-
-
-    @Column(length = 64)
-    private String resetPasswordToken;
-
-    // Getters, setters, constructors
-
 
     public LocalDateTime getCreateAt() {
         return createAt;

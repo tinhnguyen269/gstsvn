@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thêm bài viết mới</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
 
     <!-- CKEditor -->
@@ -67,6 +69,9 @@
 
 <!-- CKEditor Config -->
 <script>
+    // Lấy CSRF token và header name từ meta
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
     ClassicEditor
         .create(document.querySelector('#contentEditor'), {
             toolbar: [
@@ -100,7 +105,10 @@
 
                     fetch('/admin/uploadImage', {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        headers: {
+                            [csrfHeader]: csrfToken // Gửi CSRF token
+                        }
                     })
                         .then(response => response.json())
                         .then(data => {
@@ -129,7 +137,10 @@
 
         fetch("/admin/uploadImage", {
             method: "POST",
-            body: formData
+            body: formData,
+            headers: {
+                [csrfHeader]: csrfToken // Gửi CSRF token
+            }
         })
             .then(response => response.json())
             .then(data => {

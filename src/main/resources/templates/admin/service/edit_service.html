@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Thêm bài viết mới</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
     <!-- CKEditor -->
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
@@ -21,6 +23,7 @@
                 </div>
                 <div class="card-body">
                     <form th:action="@{'/admin/service/update/' + ${service.serviceId}}" th:object="${service}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 
                         <div class="mb-3">
                             <label for="title" class="form-label">Tên dịch vụ</label>
@@ -85,6 +88,10 @@
 
 <!-- CKEditor Config -->
 <script>
+    // Lấy CSRF token và header name từ meta
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
     class MyUploadAdapter {
         constructor(loader) {
             this.loader = loader;
@@ -97,7 +104,10 @@
 
                 fetch('/admin/uploadImage', {
                     method: 'POST',
-                    body: formData
+                    body: formData,
+                    headers: {
+                        [csrfHeader]: csrfToken // Gửi kèm CSRF token
+                    }
                 })
                     .then(response => response.json())
                     .then(data => {
@@ -110,6 +120,7 @@
                     .catch(err => reject('Lỗi upload: ' + err));
             }));
         }
+
         abort() {
             // Có thể thêm xử lý hủy upload nếu cần
         }
@@ -135,7 +146,6 @@
         })
         .catch(error => console.error(error));
 
-
     // Upload ảnh ngoài CKEditor (icon, bảng giá)
     function uploadImage(event) {
         const file = event.target.files[0];
@@ -149,7 +159,10 @@
 
         fetch("/admin/uploadImage", {
             method: "POST",
-            body: formData
+            body: formData,
+            headers: {
+                [csrfHeader]: csrfToken // Gửi CSRF token
+            }
         })
             .then(response => response.json())
             .then(data => {
@@ -175,6 +188,7 @@
             window.location.href = "/admin/service/list";
         }
     }
+
 </script>
 
 <!-- Optional Custom JS -->

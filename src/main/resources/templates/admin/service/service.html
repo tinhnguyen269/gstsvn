@@ -3,6 +3,8 @@
 <head>
 
     <title>GSTS-Quản lí</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
 
     <script>
@@ -146,6 +148,9 @@
 <script src="admin/js/datatables-simple-demo.js"></script>
 
 <script>
+    // Lấy CSRF token và header name từ meta
+    const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
     let serviceIdToDelete = null;
 
     function openDeleteModal(serviceId) {
@@ -157,7 +162,10 @@
     document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
         if (serviceIdToDelete) {
             fetch(`/admin/service/delete/${serviceIdToDelete}`, {
-                method: 'POST'
+                method: 'POST',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                }
             })
                 .then(response => {
                     if (response.ok) {

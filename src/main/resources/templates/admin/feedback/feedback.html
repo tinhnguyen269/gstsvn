@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <title>Admin-phản hồi</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
 
 </head>
@@ -186,12 +188,18 @@
 </div>
 <script>
     $(document).ready(function () {
+        // Lấy CSRF token và header name từ meta
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
         // Khi bấm vào nút sửa
         $('.edit').on('click', function () {
             var feedbackId = $(this).data('id');
             $.ajax({
                 url: '/admin/feedback/edit/' + feedbackId,
                 type: 'GET',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function (data) {
                     // Fill data vào form
                     $('#editFeedbackId').val(data.feedbackId);
@@ -217,6 +225,9 @@
             $.ajax({
                 url: '/admin/feedback/delete/' + feedbackId,
                 type: 'POST',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function () {
                     $('#deleteFeedbackModal').modal('hide');
                     location.reload();
@@ -236,16 +247,19 @@
                 nameCustomer: $('#editNameCustomer').val(),
                 content: $('#editContent').val(),
                 linkYoutube: $('#editLinkYoutube').val(),
-            };
+            };s
 
             $.ajax({
                 url: '/admin/feedback/update/' + feedbackData.feedbackId,
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(feedbackData),
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function () {
                     $('#editFeedbackModal').modal('hide');
-                    location.reload(); // hoặc load lại dữ liệu bằng AJAX
+                    location.reload();
                 },
                 error: function () {
                     alert('Cập nhật thất bại.');
