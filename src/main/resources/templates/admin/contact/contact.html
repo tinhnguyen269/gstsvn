@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Dashboard - SB Admin</title>
-    <head th:replace="admin/common/header :: header"></head>
+    <th:block th:replace="admin/common/header :: header"></th:block>
 
 </head>
 <body class="sb-nav-fixed">
@@ -55,7 +55,7 @@
                             <td th:text="${customer.phoneNumber}"></td>
                             <td th:text="${serviceMap[customer.serviceId]}"></td>
                             <td th:text="${customer.context}"></td>
-                            <td th:text="${customer.status}"></td>
+                            <td th:text="${customer.status.status}"></td>
                             <td th:text="${#temporals.format(customer.updateAt != null ? customer.updateAt : customer.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>
                                 <a href="#editContactModal"
@@ -99,46 +99,65 @@
 
                 </div>
             </div>
-            <!-- Edit Modal HTML -->
+            <!-- Add Modal HTML -->
             <div id="addContactModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <form method="post" th:action="@{/admin/contact/add}" th:object="${customerNew}">
+                        <form id="addForm">
                             <div class="modal-header">
                                 <h4 class="modal-title">Thêm khách hàng</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                                </button>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             </div>
                             <div class="modal-body">
+                                <!-- Tên -->
                                 <div class="form-group">
                                     <label>Tên</label>
-                                    <input th:field="*{name}" class="form-control" required>
+                                    <input name="addName" id="addName" class="form-control"
+                                           required maxlength="100"
+                                           title="Tên không được để trống và tối đa 100 ký tự.">
                                 </div>
+
+                                <!-- Số điện thoại -->
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
-                                    <input th:field="*{phoneNumber}" class="form-control" required>
+                                    <input name="addPhoneNumber" id="addPhoneNumber" class="form-control"
+                                           required pattern="^0\d{9}$"
+                                           title="Số điện thoại phải bắt đầu bằng 0 và có đúng 10 chữ số.">
                                 </div>
+
+                                <!-- Dịch vụ -->
                                 <div class="form-group">
                                     <label>Dịch vụ</label>
-                                    <select th:field="*{serviceId}" class="form-control" required>
+                                    <select name="addServiceId" id="addServiceId" class="form-control" required>
                                         <option value="">-- Chọn dịch vụ --</option>
                                         <option th:each="service : ${services}"
                                                 th:value="${service.serviceId}"
-                                                th:text="${service.serviceName}">
-                                        </option>
+                                                th:text="${service.serviceName}"></option>
                                     </select>
                                 </div>
 
+                                <!-- Ghi chú -->
                                 <div class="form-group">
                                     <label>Ghi chú</label>
-                                    <textarea th:field="*{context}" class="form-control" required></textarea>
+                                    <textarea name="addContext" id="addContext" class="form-control"
+                                              maxlength="1000"
+                                              title="Nội dung không được vượt quá 1000 ký tự."></textarea>
                                 </div>
 
+                                <!-- Trạng thái -->
+                                <div class="form-group">
+                                    <label>Trạng thái</label>
+                                    <select name="addStatus" id="addStatus" class="form-control" required>
+                                        <option value="">-- Chọn trạng thái --</option>
+                                        <option th:value="PENDING">Chờ liên hệ</option>
+                                        <option th:value="APPROVED">Đã liên hệ</option>
+                                        <option th:value="REJECTED">Hủy bỏ</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                                <input type="submit" class="btn btn-success" value="Add"
-                                       th:action="@{/admin/contact/add}">
+                                <input type="submit" class="btn btn-success" value="Add">
                             </div>
                         </form>
                     </div>
@@ -157,12 +176,14 @@
                                 <input type="hidden" name="editCustomerId" id="editCustomerId">
                                 <div class="form-group">
                                     <label>Tên</label>
-                                    <input name="editName" id="editName" class="form-control" required>
-                                </div>
+                                    <input name="editName" id="editName" class="form-control"
+                                           required maxlength="100"
+                                           title="Tên không được để trống và tối đa 100 ký tự."></div>
                                 <div class="form-group">
                                     <label>Số điện thoại</label>
-                                    <input name="editPhoneNumber" id="editPhoneNumber" class="form-control" required>
-                                </div>
+                                    <input name="editPhoneNumber" id="editPhoneNumber" class="form-control"
+                                           required pattern="^\d{10,11}$"
+                                           title="Số điện thoại phải có 10 đến 11 chữ số."></div>
                                 <div class="form-group">
                                     <label>Dịch vụ</label>
                                     <select name="editServiceId" id="editServiceId" class="form-control" required>
@@ -173,14 +194,16 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Ghi chú</label>
-                                    <textarea name="editContext" id="editContext" class="form-control"></textarea>
-                                </div>
+                                    <textarea name="editContext" id="editContext" class="form-control"
+                                              maxlength="1000"
+                                              title="Nội dung không được vượt quá 1000 ký tự."></textarea></div>
                                 <div class="form-group">
                                     <label>Trạng thái</label>
-                                    <select name="editStatus" id="editStatus" class="form-control">
-                                        <option value="Chờ liên hệ">Chờ liên hệ</option>
-                                        <option value="Đã liên hệ">Đã liên hệ</option>
-                                        <option value="Hủy bỏ">Hủy bỏ</option>
+                                    <select name="editStatus" id="editStatus" class="form-control" required>
+                                        <option value="">-- Chọn trạng thái --</option>
+                                        <option value="PENDING">Chờ liên hệ</option>
+                                        <option value="APPROVED">Đã liên hệ</option>
+                                        <option value="REJECTED">Hủy bỏ</option>
                                     </select>
                                 </div>
                             </div>
@@ -219,6 +242,43 @@
 </div>
 <script>
     $(document).ready(function () {
+        // Submit form add
+        $('#addForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var customerData = {
+                name: $('#addName').val(),
+                phoneNumber: $('#addPhoneNumber').val(),
+                serviceId: $('#addServiceId').val(),
+                context: $('#addContext').val(),
+                status: $('#addStatus').val()
+            };
+
+            $.ajax({
+                url: '/admin/contact/add',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(customerData),
+                success: function () {
+                    $('#addContactModal').modal('hide');
+                    alert('Thêm khách hàng thành công!');
+                    location.reload();
+                },
+                error: function (xhr) {
+                    if (xhr.status === 400) {
+                        const errors = xhr.responseJSON;
+                        let errorMsg = 'Lỗi xác thực:\n';
+                        for (const key in errors) {
+                            errorMsg += `- ${errors[key]}\n`;
+                        }
+                        alert(errorMsg);
+                    } else {
+                        alert('Thêm khách hàng thất bại.');
+                    }
+                }
+            });
+        });
+
         // Khi bấm vào nút sửa
         $('.edit').on('click', function () {
             var customerId = $(this).data('id');
@@ -262,7 +322,7 @@
             });
         });
 
-        // Submit form
+        // Submit form edit
         $('#editForm').on('submit', function (e) {
             e.preventDefault();
 
@@ -280,12 +340,20 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(customerData),
-                success: function () {
+                success: function (res) {
                     $('#editContactModal').modal('hide');
-                    location.reload(); // hoặc load lại dữ liệu bằng AJAX
+                    alert('Cập nhật khách hàng thành công!');
+                    location.reload();
                 },
-                error: function () {
-                    alert('Cập nhật thất bại.');
+                error: function (xhr) {
+                    if (xhr.status === 400 && xhr.responseJSON) {
+                        // Hiển thị lỗi từ server
+                        let errors = xhr.responseJSON;
+                        let messages = Object.values(errors).join('\n');
+                        alert("Cập nhật thất bại:\n" + messages);
+                    } else {
+                        alert('Đã xảy ra lỗi khi cập nhật.');
+                    }
                 }
             });
         });
@@ -294,9 +362,6 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script src="/admin/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/admin/assets/demo/chart-area-demo.js"></script>
-<script src="/admin/assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
         crossorigin="anonymous"></script>
 <script src="/admin/js/datatables-simple-demo.js"></script>

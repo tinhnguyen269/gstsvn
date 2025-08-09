@@ -74,7 +74,7 @@ public class ADServiceController {
         return "admin/service/edit_service";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/service/update/{id}")
     public String updateService(@PathVariable Long id, @ModelAttribute Services service) {
         Services existingService = serviceService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid Service ID: " + id));

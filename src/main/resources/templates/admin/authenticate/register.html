@@ -18,7 +18,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-7">
                         <div class="card shadow-lg border-0 rounded-lg mt-5">
-                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Create Account</h3>
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Đăng kí</h3>
                             </div>
                             <div class="card-body">
                                 <form th:action="@{/register}" method="post" th:object="${user}">
@@ -26,59 +26,73 @@
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputUserName" type="text"
                                                th:field="*{username}" placeholder="Username" required/>
-                                        <label for="inputUserName">User Name</label>
+                                        <label for="inputUserName">Tên đăng nhập</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('username')}"
+                                             th:errors="*{username}"></div>
                                     </div>
 
                                     <!-- Email -->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputEmail" type="email"
                                                th:field="*{email}" placeholder="name@example.com" required/>
-                                        <label for="inputEmail">Email address</label>
+                                        <label for="inputEmail">Email</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('email')}"
+                                             th:errors="*{email}"></div>
                                     </div>
 
                                     <!-- Password -->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputPassword" type="password"
                                                th:field="*{password}" placeholder="Create a password" required/>
-                                        <label for="inputPassword">Password</label>
+                                        <label for="inputPassword">Mật khẩu</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('password')}"
+                                             th:errors="*{password}"></div>
                                     </div>
 
                                     <!-- Password -->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputPasswordConfirmation" type="password"
                                                th:field="*{passwordConfirmation}" placeholder="Password confirm" required/>
-                                        <label for="inputPasswordConfirmation">Password Confirmation</label>
+                                        <label for="inputPasswordConfirmation">Mật khẩu xác nhận</label>
+                                        <div class="text-danger" th:text="${passwordError}"></div>
+
                                     </div>
 
                                     <!-- Full Name (Employee) -->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputFullName" type="text"
-                                               th:field="*{employee.fullName}" placeholder="Họ tên" required/>
+                                               th:field="*{fullName}" placeholder="Họ tên" required/>
                                         <label for="inputFullName">Họ tên</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('fullName')}"
+                                             th:errors="*{fullName}"></div>
                                     </div>
 
                                     <!-- Phone (Employee) -->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputPhone" type="text"
-                                               th:field="*{employee.phoneNumber}" placeholder="Số điện thoại" required/>
+                                               th:field="*{phoneNumber}" placeholder="Số điện thoại" required/>
                                         <label for="inputPhone">Số điện thoại</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
+                                             th:errors="*{phoneNumber}"></div>
                                     </div>
 
                                     <!-- Address (Employee) -->
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputAddress" type="text"
-                                               th:field="*{employee.address}" placeholder="Địa chỉ" required/>
+                                               th:field="*{address}" placeholder="Địa chỉ" required/>
                                         <label for="inputAddress">Địa chỉ</label>
+                                        <div class="text-danger" th:if="${#fields.hasErrors('address')}"
+                                             th:errors="*{address}"></div>
                                     </div>
 
                                     <div class="mt-4 mb-0">
-                                        <button class="btn btn-primary" type="submit">Register</button>
+                                        <button class="btn btn-primary" type="submit">Đăng kí</button>
                                     </div>
                                 </form>
 
                             </div>
                             <div class="card-footer text-center py-3">
-                                <div class="small"><a href="login.html">Have an account? Go to login</a></div>
+                                <div class="small"><a th:href="@{/login}">Bạn đã có tài khoản? Đăng nhập</a></div>
                             </div>
                         </div>
                     </div>

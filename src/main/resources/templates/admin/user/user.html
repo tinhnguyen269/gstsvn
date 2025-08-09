@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Admin-phản hồi</title>
+    <title>Dashboard - SB Admin</title>
     <th:block th:replace="admin/common/header :: header"></th:block>
 
 </head>
@@ -16,22 +16,20 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-6">
-                                <h2>Quản lí <b>phản hồi</b></h2>
+                                <h2>Quản lí <b>khách hàng</b></h2>
                             </div>
                             <div class="col-sm-12 d-flex justify-content-end">
                                 <div class="input-group me-2" style="width: 250px;">
-                                    <form th:action="@{/admin/feedback/list}" method="get" class="d-flex me-2"
+                                    <form th:action="@{/user/list}" method="get" class="d-flex me-2"
                                           style="width: 300px;">
                                         <input class="form-control me-2" type="text" name="keyword"
-                                               placeholder="Tìm khách hàng..."
+                                               placeholder="Tìm nhân viên ..."
                                                th:value="${keyword}" aria-label="Search">
                                         <button class="btn btn-primary" type="submit">
                                             <i class="fas fa-search"></i>
                                         </button>
                                     </form>
                                 </div>
-                                <a href="#addFeedbackModal" class="btn btn-success" data-toggle="modal"><i
-                                        class="material-icons">&#xE147;</i> <span>Thêm mới</span></a>
                             </div>
                         </div>
                     </div>
@@ -39,30 +37,36 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên khách hàng</th>
-                            <th>Nội dung đánh giá</th>
-                            <th>Link youtube</th>
+                            <th>Tên</th>
+                            <th>Tài khoản</th>
+                            <th>Email</th>
+                            <th>Số điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Quyền tài khoản</th>
                             <th>Ngày tạo</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="feedback : ${feedbackPage.content}">
-                            <td th:text="${feedback.feedbackId}"></td>
-                            <td th:text="${feedback.nameCustomer}"></td>
-                            <td th:text="${feedback.content}"></td>
-                            <td th:text="${feedback.linkYoutube}"></td>
-                            <td th:text="${#temporals.format(feedback.updateAt != null ? feedback.updateAt : feedback.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                        <tr th:each="user : ${userPage.content}">
+                            <td th:text="${user.userId}"></td>
+                            <td th:text="${user.fullName}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.phoneNumber}"></td>
+                            <td th:text="${user.address}"></td>
+                            <td th:text="${user.role != null ? user.role.roleName : 'Không có'}"></td>
+                            <td th:text="${#temporals.format(user.updateAt != null ? user.updateAt : user.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>
-                                <a href="#editFeedbackModal"
+                                <a href="#editUserModal"
                                    class="edit"
-                                   th:data-id="${feedback.feedbackId}"
+                                   th:data-id="${user.userId}"
                                    data-toggle="modal">
                                     <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
                                 </a>
 
-                                <a href="#deleteFeedbackModal" class="delete" data-toggle="modal"
-                                   th:data-id="${feedback.feedbackId}"
+                                <a href="#deleteUserModal" class="delete" data-toggle="modal"
+                                   th:data-id="${user.userId}"
                                 ><i
                                         class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                             </td>
@@ -72,22 +76,22 @@
                     <nav>
                         <ul class="pagination justify-content-center">
                             <!-- Previous -->
-                            <li class="page-item" th:classappend="${feedbackPage.first} ? 'disabled'">
+                            <li class="page-item" th:classappend="${userPage.first} ? 'disabled'">
                                 <a class="page-link"
-                                   th:href="@{'/admin/feedback/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
+                                   th:href="@{'/user/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
                             </li>
                             <li class="page-item"
-                                th:each="i : ${#numbers.sequence(0, feedbackPage.totalPages-1)}"
+                                th:each="i : ${#numbers.sequence(0, userPage.totalPages-1)}"
                                 th:classappend="${i} == ${currentPage} ? 'active'">
                                 <a class="page-link"
-                                   th:href="@{'/admin/feedback/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
+                                   th:href="@{'/user/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
                                    th:text="${i+1}">1</a>
                             </li>
 
                             <!-- Next -->
-                            <li class="page-item" th:classappend="${feedbackPage.last} ? 'disabled'">
+                            <li class="page-item" th:classappend="${userPage.last} ? 'disabled'">
                                 <a class="page-link"
-                                   th:href="@{'/admin/feedback/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
+                                   th:href="@{'/user/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
                             </li>
 
                         </ul>
@@ -96,60 +100,48 @@
                 </div>
             </div>
             <!-- Edit Modal HTML -->
-            <div id="addFeedbackModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form method="post" th:action="@{/admin/feedback/add}" th:object="${feedbackNew}">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Thêm phản hồi</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div class="form-group">
-                                    <label>Tên khách hàng</label>
-                                    <input th:field="*{nameCustomer}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Nội dung đánh giá</label>
-                                    <input th:field="*{content}" class="form-control" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Link youtube</label>
-                                    <input th:field="*{linkYoutube}" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-                                <input type="submit" class="btn btn-success" value="Thêm">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <!-- Edit Modal HTML -->
-            <div id="editFeedbackModal" class="modal fade">
+            <div id="editUserModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form id="editForm">
                             <div class="modal-header">
-                                <h4 class="modal-title">Chỉnh sửa phản hồi</h4>
+                                <h4 class="modal-title">Chỉnh sửa nhân viên</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" name="editFeedbackId" id="editFeedbackId">
+                                <input type="hidden" name="editUserId" id="editUserId">
                                 <div class="form-group">
-                                    <label>Tên khách hàng</label>
-                                    <input name="editNameCustomer" id="editNameCustomer" class="form-control" required>
+                                    <label>Tên</label>
+                                    <input name="editFullName" id="editFullName" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Nội dung</label>
-                                    <input name="editContent" id="editContent" class="form-control" required>
+                                    <label>Tài khoản</label>
+                                    <input name="editUserName" id="editUserName" class="form-control" required>
                                 </div>
                                 <div class="form-group">
-                                    <label>Link youtube</label>
-                                    <input name="editLinkYoutube" id="editLinkYoutube" class="form-control" required>
+                                    <label>Email</label>
+                                    <input name="editEmail" id="editEmail" class="form-control" required>
                                 </div>
+                                <div class="form-group">
+                                    <label>Số điện thoại</label>
+                                    <input name="editPhoneNumber" id="editPhoneNumber" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Địa chỉ</label>
+                                    <input name="editAddress" id="editAddress" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Vị trí (quyền đăng nhập)</label>
+                                    <select name="editRoleId" id="editRoleId" class="form-control" required>
+                                        <option th:each="role : ${allRoles}"
+                                                th:value="${role.roleId}"
+                                                th:text="${role.roleName}">
+                                        </option>
+                                    </select>
+
+
+                                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -159,23 +151,23 @@
                     </div>
                 </div>
             </div>
-            <div id="deleteFeedbackModal" class="modal fade">
+            <div id="deleteUserModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form id="deleteForm">
-                            <input type="hidden" id="deleteFeedbackId" name="deleteFeedbackId">
+                            <input type="hidden" id="deleteUserId" name="deleteUserId">
                             <div class="modal-header">
-                                <h4 class="modal-title">Xóa phản hồi</h4>
+                                <h4 class="modal-title">Xóa nhân viên</h4>
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>Bạn có chắc muốn xóa phản hòi này không?</p>
-                                <p class="text-warning"><small>Đây là hành động không thể khôi phục.</small></p>
+                                <p>Are you sure you want to delete these Records?</p>
+                                <p class="text-warning"><small>This action cannot be undone.</small></p>
                             </div>
                             <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-                                <input type="submit" class="btn btn-danger" value="Xóa">
+                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                                <input type="submit" class="btn btn-danger" value="Delete">
                             </div>
                         </form>
                     </div>
@@ -188,16 +180,19 @@
     $(document).ready(function () {
         // Khi bấm vào nút sửa
         $('.edit').on('click', function () {
-            var feedbackId = $(this).data('id');
+            var userId = $(this).data('id');
             $.ajax({
-                url: '/admin/feedback/edit/' + feedbackId,
+                url: '/user/edit/' + userId,
                 type: 'GET',
                 success: function (data) {
                     // Fill data vào form
-                    $('#editFeedbackId').val(data.feedbackId);
-                    $('#editNameCustomer').val(data.nameCustomer);
-                    $('#editContent').val(data.content);
-                    $('#editLinkYoutube').val(data.linkYoutube);
+                    $('#editUserId').val(data.userId);
+                    $('#editFullName').val(data.fullName);
+                    $('#editUserName').val(data.username);
+                    $('#editEmail').val(data.email);
+                    $('#editPhoneNumber').val(data.phoneNumber);
+                    $('#editAddress').val(data.address);
+                    $('#editRoleId').val(data.roleId);
                 },
                 error: function () {
                     alert('Không thể lấy dữ liệu khách hàng.');
@@ -206,23 +201,24 @@
         });
 
         $('.delete').on('click', function () {
-            var feedbackId = $(this).data('id');
-            $('#deleteFeedbackId').val(feedbackId);
+            var userId = $(this).data('id');
+            $('#deleteUserId').val(userId);
         });
 
 
         $('#deleteForm').on('submit', function (e) {
-            e.preventDefault();
-            var feedbackId = $('#deleteFeedbackId').val();
+            e.preventDefault(); // tránh submit form thật
+            var userId = $('#deleteUserId').val();
             $.ajax({
-                url: '/admin/feedback/delete/' + feedbackId,
+                url: '/user/delete/' + userId,
                 type: 'POST',
                 success: function () {
-                    $('#deleteFeedbackModal').modal('hide');
+                    $('#deleteUserModal').modal('hide');
+                    alert('Xóa thành công!');
                     location.reload();
                 },
                 error: function () {
-                    alert('Không thể xóa dữ liệu phản hồi.');
+                    alert('Không thể xóa dữ liệu khách hàng.');
                 }
             });
         });
@@ -231,26 +227,41 @@
         $('#editForm').on('submit', function (e) {
             e.preventDefault();
 
-            var feedbackData = {
-                feedbackId: $('#editFeedbackId').val(),
-                nameCustomer: $('#editNameCustomer').val(),
-                content: $('#editContent').val(),
-                linkYoutube: $('#editLinkYoutube').val(),
+            var userData = {
+                userId: $('#editUserId').val(),
+                fullName: $('#editFullName').val(),
+                username: $('#editUserName').val(),
+                email: $('#editEmail').val(),
+                phoneNumber: $('#editPhoneNumber').val(),
+                address: $('#editAddress').val(),
+                roleId: $('#editRoleId').val()
             };
 
+
             $.ajax({
-                url: '/admin/feedback/update/' + feedbackData.feedbackId,
+                url: '/user/update/' + userData.userId,
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify(feedbackData),
+                data: JSON.stringify(userData),
                 success: function () {
-                    $('#editFeedbackModal').modal('hide');
-                    location.reload(); // hoặc load lại dữ liệu bằng AJAX
+                    $('#editUserModal').modal('hide');
+                    alert('Cập nhật thành công!');
+                    location.reload();
                 },
-                error: function () {
-                    alert('Cập nhật thất bại.');
+                error: function (xhr) {
+                    if (xhr.status === 400) {
+                        const errors = xhr.responseJSON;
+                        let errorMsg = 'Lỗi xác thực:\n';
+                        for (const key in errors) {
+                            errorMsg += `- ${errors[key]}\n`;
+                        }
+                        alert(errorMsg);
+                    } else {
+                        alert('Cập nhật thất bại.');
+                    }
                 }
             });
+
         });
     });
 </script>

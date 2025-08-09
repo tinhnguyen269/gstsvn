@@ -2,52 +2,131 @@ package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "user")
 public class User {
 
+    public interface OnCreate {}
+    public interface OnUpdate {}
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @NotBlank(message = "Họ và tên không được để trống" , groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 100, message = "Họ và tên tối đa 100 ký tự" , groups = {OnCreate.class, OnUpdate.class})
+    private String fullName;
+
+    @NotBlank(message = "Số điện thoại không được để trống" , groups = {OnCreate.class, OnUpdate.class})
+    @Pattern(regexp = "^(0[0-9]{9})$", message = "Số điện thoại không hợp lệ" , groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 10, message = "Số điện thoại tối đa 10 ký tự" , groups = {OnCreate.class, OnUpdate.class})
+    private String phoneNumber;
+
+    @NotBlank(message = "Tên đăng nhập không được để trống", groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 100, message = "Tên đăng nhập tối đa 100 ký tự", groups = {OnCreate.class, OnUpdate.class})
     @Column(nullable = false, unique = true, length = 100)
     private String username;
 
+    @NotBlank(message = "Mật khẩu không được để trống", groups = OnCreate.class)
+    @Size(min = 6, max = 20, message = "Mật khẩu phải từ 6 đến 20 ký tự", groups = OnCreate.class)
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Transient
+    @NotBlank(message = "Vui lòng nhập lại mật khẩu", groups = OnCreate.class)
     private String passwordConfirmation;
 
+    @NotBlank(message = "Email không được để trống", groups = {OnCreate.class, OnUpdate.class})
+    @Email(message = "Email không hợp lệ", groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 150, message = "Email tối đa 150 ký tự", groups = {OnCreate.class, OnUpdate.class})
     @Column(nullable = false, unique = true, length = 150)
     private String email;
+
+    @NotBlank(message = "Địa chỉ không được để trống", groups = {OnCreate.class, OnUpdate.class})
+    @Size(max = 255, message = "Địa chỉ tối đa 255 ký tự", groups = {OnCreate.class, OnUpdate.class})
+    @Column(nullable = false)
+    private String address;
 
     private boolean enabled = false;
 
     @Column(length = 64)
     private String activationCode;
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createAt;
+    private LocalDateTime updateAt;
+    private int deleteFlag;
+    @PrePersist
+    protected void onCreate() {
+        this.createAt = LocalDateTime.now();
+        this.updateAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updateAt = LocalDateTime.now();
+    }
 
     // Quan hệ với role
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Employee employee;
 
     @Column(length = 64)
     private String resetPasswordToken;
 
     // Getters, setters, constructors
 
+
+    public LocalDateTime getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(LocalDateTime createAt) {
+        this.createAt = createAt;
+    }
+
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public int getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(int deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getPasswordConfirmation() {
         return passwordConfirmation;
@@ -113,27 +192,11 @@ public class User {
         this.activationCode = activationCode;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public Role getRole() {
+        return role;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
