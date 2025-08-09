@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Dashboard - SB Admin</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
 
 </head>
@@ -242,6 +244,9 @@
 </div>
 <script>
     $(document).ready(function () {
+        // Lấy CSRF token và header name từ meta
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
         // Submit form add
         $('#addForm').on('submit', function (e) {
             e.preventDefault();
@@ -259,6 +264,9 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(customerData),
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function () {
                     $('#addContactModal').modal('hide');
                     alert('Thêm khách hàng thành công!');
@@ -285,6 +293,9 @@
             $.ajax({
                 url: '/admin/contact/edit/' + customerId,
                 type: 'GET',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function (data) {
                     // Fill data vào form
                     $('#editCustomerId').val(data.customerId);
@@ -312,8 +323,12 @@
             $.ajax({
                 url: '/admin/contact/delete/' + customerId,
                 type: 'POST',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function () {
                     $('#deleteContactModal').modal('hide');
+                    alert('Xóa khách hàng thành công!');
                     location.reload();
                 },
                 error: function () {
@@ -340,6 +355,9 @@
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(customerData),
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function (res) {
                     $('#editContactModal').modal('hide');
                     alert('Cập nhật khách hàng thành công!');

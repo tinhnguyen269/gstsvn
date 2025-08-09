@@ -1,11 +1,13 @@
 package com.example.serviceapp.admin.authenticate.controller;
 
+import com.example.serviceapp.admin.authenticate.dto.ForgotPasswordDTO;
+import com.example.serviceapp.admin.authenticate.dto.ResetPasswordDTO;
 import com.example.serviceapp.admin.authenticate.service.UserService;
 import com.example.serviceapp.common.entity.User;
-import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -28,7 +30,7 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public String registerUser(@Valid @ModelAttribute("user") User user,
+    public String registerUser(@Validated(User.OnCreate.class) @ModelAttribute("user") User user,
                                BindingResult result,
                                Model model) {
         // Kiểm tra lỗi validate
@@ -73,7 +75,8 @@ public class AuthController {
         return "admin/authenticate/forgot-password";
     }
     @PostMapping("/forgot-password")
-    public String processForgotPassword(@Valid @ModelAttribute("user") User user,BindingResult bindingResult, Model model) {
+    public String processForgotPassword(@Validated @ModelAttribute("user") ForgotPasswordDTO user,
+                                        BindingResult bindingResult, Model model) {
 
         // Kiểm tra lỗi validate
         if (bindingResult.hasErrors()) {
@@ -97,15 +100,29 @@ public class AuthController {
             return "admin/authenticate/login";
         }
         model.addAttribute("token", token);
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new ResetPasswordDTO());
         return "admin/authenticate/reset-password";
     }
 
     @PostMapping("/reset-password")
     public String handleResetPassword(
             @RequestParam("token") String token,
-            @ModelAttribute("user") User user,
-            Model model) {
+            @Validated @ModelAttribute("user") ResetPasswordDTO user
+           ,BindingResult bindingResult,Model model) {
+
+        // Kiểm tra lỗi validate
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("user", user);
+            model.addAttribute("token", token);
+            return "admin/authenticate/reset-password";
+        }
+        // Kiểm tra xác nhận mật khẩu
+        if (!user.getPassword().equals(user.getPasswordConfirmation())) {
+            bindingResult.rejectValue("passwordConfirmation", "error.passwordConfirmation", "Mật khẩu xác nhận không khớp!");
+            model.addAttribute("user", user);
+            model.addAttribute("token", token);
+            return "admin/authenticate/reset-password";
+        }
 
         boolean success = userService.resetPassword(token, user.getPassword());
 
