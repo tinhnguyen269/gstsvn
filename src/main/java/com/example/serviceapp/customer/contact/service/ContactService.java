@@ -4,4 +4,8 @@ import com.example.serviceapp.common.entity.Customer;
 
 public interface ContactService {
     void addCustomer(Customer customer);
+
+    boolean isServiceIdExists(Long serviceId);
+
+    boolean isPhoneNumberExists(String phoneNumber);
 }

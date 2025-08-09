@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class ADContactController {
         }
 
         if (contactService.isPhoneNumberExists(customer.getPhoneNumber())) {
-            errors.put("phoneNumber", "Số điện thoại đã tồn tại.");
+            errors.put("phoneNumber", "Số điện thoại đã được sử dụng.");
         }
 
         if (!serviceService.isServiceIdExists(customer.getServiceId())) {
@@ -59,7 +60,8 @@ public class ADContactController {
         if (!errors.isEmpty()) {
             return ResponseEntity.badRequest().body(errors);
         }
-        customer.setStatus(CONTACT_STATUS.PENDING.getStatus());
+
+        customer.setStatus(CONTACT_STATUS.PENDING);
 
         contactService.addCustomer(customer);
 
@@ -132,10 +134,14 @@ public class ADContactController {
         if (!serviceService.isServiceIdExists(updatedCustomer.getServiceId())) {
             errors.put("serviceId", "Dịch vụ không tồn tại.");
         }
+        if (!EnumSet.allOf(CONTACT_STATUS.class).contains(updatedCustomer.getStatus())) {
+            errors.put("status", "Trạng thái không tồn tại.");
+        }
 
         if (!errors.isEmpty()) {
             return ResponseEntity.badRequest().body(errors);
         }
+
 
         Customer existing = contactService.findById(id);
         Map<String, String> response = new HashMap<>();

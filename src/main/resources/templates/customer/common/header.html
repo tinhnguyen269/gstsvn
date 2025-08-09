@@ -1,63 +1,65 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-lg bg-light fixed-top shadow-lg" th:fragment="header">
-        <div class="container">
-            <a class="navbar-brand" th:href="@{/home}">GSTS <span class="tooplate-red">Vietnam</span></a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<nav class="navbar navbar-expand-lg fixed-top shadow-lg" style="background-color: #198754;" th:fragment="header">
+    <div class="container">
+        <a class="navbar-brand fw-bold fs-2" style="color: #ffc107;" th:href="@{/home}">
+            GSTS <span style="color: #ffc107;">Vietnam</span>
+        </a>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link [[${currentRequestURI  == '/home'} ? 'active' : '']]"
-                           th:href="@{/home}">Trang chủ</a>
-                    </li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
 
-                    <li class="nav-item">
-                        <a class="nav-link [[${currentRequestURI  == '/company-info'} ? 'active' : '']]"
-                           th:href="@{/home/company-info}">Giới thiệu</a>
-                    </li>
-
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"
-                           href="#"
-                           id="navbarLightDropdownMenuLink"
-                           role="button"
-                           data-bs-toggle="dropdown"
-                           aria-expanded="false">Dịch vụ</a>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li th:each="service : ${serviceAdvice}">
-                                <a class="dropdown-item"
-                                   th:classappend="${currentRequestURI  == '/services/' + service.serviceId ? 'active' : ''}"
-                                   th:href="@{/home/services/{id}(id=${service.serviceId})}"
-                                   th:text="${service.serviceName}"></a>
-                            </li>
-                        </ul>
-                    </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link [[${currentRequestURI  == '/price-list'} ? 'active' : '']]"
-                           th:href="@{/home/price-list}">Báo giá dịch vụ</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link [[${currentRequestURI  == '/post'} ? 'active' : '']]"
-                           th:href="@{/home/post/list}">Tin tức</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home'} ? 'active' : '']]"
+                            th:href="@{/home}">
+                        Trang chủ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home/company-info'} ? 'active' : '']]"
+                            th:href="@{/home/company-info}">
+                        Giới thiệu
+                    </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link fw-bold d-flex align-items-center dropdown-toggle mx-3"
+                       href="#"
+                       id="navbarLightDropdownMenuLink"
+                       role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false"
+                       style="color: white;">
+                        Dịch vụ
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                        <li th:each="service : ${serviceAdvice}">
+                            <a class="dropdown-item fw-bold"
+                               th:classappend="${currentRequestURI == '/home/services/' + service.serviceId ? 'active' : ''}"
+                               th:href="@{/home/services/{id}(id=${service.serviceId})}"
+                               th:text="${service.serviceName}"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home/price-list'} ? 'active' : '']]"
+                            th:href="@{/home/price-list}">
+                        Báo giá dịch vụ
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home/post'} ? 'active' : '']]"
+                            th:href="@{/home/post/list}">
+                        Tin tức
+                    </a>
+                </li>
+            </ul>
         </div>
-    </nav>
-</header>
-
-</body>
-</html>
+    </div>
+</nav>

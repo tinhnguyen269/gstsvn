@@ -100,6 +100,10 @@ public class UserController {
     @PostMapping("/delete/{id}")
     @ResponseBody
     public String deleteUser(@PathVariable Long id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            return "User not found";
+        }
         userService.deleteUser(id);
         return "success";
     }

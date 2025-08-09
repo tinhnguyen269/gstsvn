@@ -19,7 +19,8 @@ public class CustomerControllerAdvice {
     }
     @ModelAttribute("currentRequestURI")
     public String currentRequestURI(HttpServletRequest request) {
-        return request.getRequestURI();
+        String a =  request.getRequestURI();
+        return a;
     }
 
     @ModelAttribute("postAdvice")

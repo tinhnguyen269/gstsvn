@@ -1,6 +1,7 @@
 
 package com.example.serviceapp.common.entity;
 
+import com.example.serviceapp.common.constants.CONTACT_STATUS;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -22,7 +23,7 @@ public class Customer {
     private String name;
 
     @NotBlank(message = "Số điện thoại không được để trống")
-    @Pattern(regexp = "^\\d{10,11}$", message = "Số điện thoại phải có 10 đến 11 chữ số")
+    @Pattern(regexp = "^\\d{10}$", message = "Số điện thoại phải có 10 chữ số")
     private String phoneNumber;
 
     @NotNull(message = "Dịch vụ không được để trống")
@@ -32,9 +33,8 @@ public class Customer {
     @Column(columnDefinition = "TEXT")
     private String context;
 
-    @NotBlank(message = "Trạng thái không được để trống")
-    @Size(max = 50, message = "Trạng thái không được vượt quá 50 ký tự")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CONTACT_STATUS status;
 
     private LocalDateTime createAt;
     private Long createBy;
@@ -94,11 +94,11 @@ public class Customer {
         this.context = context;
     }
 
-    public String getStatus() {
+    public CONTACT_STATUS getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(CONTACT_STATUS status) {
         this.status = status;
     }
 
