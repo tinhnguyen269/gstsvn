@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <meta name="description" content="Dịch vụ vệ sinh chuyên nghiệp GSTS">
     <meta name="author" content="GSTS Team">
 
@@ -298,6 +299,10 @@
 <div th:replace="customer/common/footer:: footer"></div>
 <script>
     document.getElementById("contactForm").addEventListener("submit", function (e) {
+        // Lấy CSRF token và header name từ meta
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
         e.preventDefault();
 
         // Xóa lỗi cũ
@@ -307,7 +312,10 @@
 
         fetch("/home/contact/add", {
             method: "POST",
-            body: formData
+            body: formData,
+            headers: {
+                [csrfHeader]: csrfToken // Gửi CSRF token
+            }
         })
             .then(res => res.json())
             .then(data => {
