@@ -2,6 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Dashboard - SB Admin</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
 
 </head>
@@ -178,12 +180,18 @@
 </div>
 <script>
     $(document).ready(function () {
+        // Lấy CSRF token và header name từ meta
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
         // Khi bấm vào nút sửa
         $('.edit').on('click', function () {
             var userId = $(this).data('id');
             $.ajax({
                 url: '/user/edit/' + userId,
                 type: 'GET',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function (data) {
                     // Fill data vào form
                     $('#editUserId').val(data.userId);
@@ -212,6 +220,9 @@
             $.ajax({
                 url: '/user/delete/' + userId,
                 type: 'POST',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 success: function () {
                     $('#deleteUserModal').modal('hide');
                     alert('Xóa thành công!');
@@ -241,6 +252,9 @@
             $.ajax({
                 url: '/user/update/' + userData.userId,
                 type: 'POST',
+                headers: {
+                    [csrfHeader]: csrfToken // Gửi CSRF token
+                },
                 contentType: 'application/json',
                 data: JSON.stringify(userData),
                 success: function () {

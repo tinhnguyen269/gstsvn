@@ -3,6 +3,7 @@ package com.example.serviceapp.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,8 +28,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Tắt CSRF cho các API không cần bảo vệ CSRF
-                .csrf().disable()
+
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/register", "/activate", "/login",
                                 "/admin/css/**", "/customer/css/**",
