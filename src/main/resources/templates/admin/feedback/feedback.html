@@ -230,6 +230,7 @@
                 },
                 success: function () {
                     $('#deleteFeedbackModal').modal('hide');
+                    alert('Xóa phản hồi thành công!');
                     location.reload();
                 },
                 error: function () {
@@ -247,7 +248,7 @@
                 nameCustomer: $('#editNameCustomer').val(),
                 content: $('#editContent').val(),
                 linkYoutube: $('#editLinkYoutube').val(),
-            };s
+            };
 
             $.ajax({
                 url: '/admin/feedback/update/' + feedbackData.feedbackId,
@@ -259,6 +260,7 @@
                 },
                 success: function () {
                     $('#editFeedbackModal').modal('hide');
+                    alert('Cập nhật phản hồi thành công!');
                     location.reload();
                 },
                 error: function () {
