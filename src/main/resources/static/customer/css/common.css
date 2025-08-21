@@ -94,3 +94,9 @@
     font-weight: 700;
     background-color: #e2d3a5;
 }
+
+/* Hiển thị dropdown khi hover */
+.nav-item.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; /* tránh bị lệch xuống */
+}
