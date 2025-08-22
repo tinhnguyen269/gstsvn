@@ -6,8 +6,9 @@
 
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dyeje8mx3/image/upload/v1755924095/gsts-logo_ll5vaz.png">
 
-    <title>Moso Interior - Product Detail Page</title>
+    <title>Tin tức</title>
 
     <!-- CSS FILES -->
     <link href="/customer/css/home.css" rel="stylesheet">
@@ -18,10 +19,10 @@
 
 <body class="shop-detail-page">
 
-<di th:replace="customer/common/header::header"></di>
-<main class="col-12 order-2 order-md-1 mb-4">
-    <section class="container my-5">
-        <nav aria-label="breadcrumb" class="pt-5 mt-5">
+<div th:replace="customer/common/header::header"></div>
+<div class="col-12 order-2 order-md-1 mb-4">
+    <div class="container mt-5 pt-4">
+        <nav aria-label="breadcrumb" class="pt-4 mt-1">
             <ol class="breadcrumb bg-transparent p-0 mb-3">
                 <li class="breadcrumb-item"><a th:href="@{/home}" class="text-decoration-none text-dark">Trang chủ</a></li>
                 <li class="breadcrumb-item active text-dark" aria-current="page">Tin tức</li>
@@ -38,13 +39,55 @@
                     <div class="p-3">
                         <h6 th:text="${post.title}" class="fw-bold mb-2"></h6>
                         <p th:text="${#temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}" class="text-muted small mb-2"></p>
-                        <a th:href="@{/home/post/list/{id}(id=${post.postId})}" class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
+                        <a th:href="@{/home/post/list/{id}(id=${post.postId})}"
+                           class="btn btn-outline-success btn-sm rounded-pill">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</main>
+
+        <!-- PHÂN TRANG -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+
+                <!-- Previous -->
+                <li class="page-item mx-1" th:classappend="${currentPage == 1} ? 'disabled'">
+                    <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                       style="width:40px; height:40px;"
+                       th:href="@{/home/post/list(page=${currentPage - 2})}"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                <!-- Pages -->
+                <li class="page-item mx-1"
+                    th:each="page : ${#numbers.sequence(1, totalPages)}"
+                    th:classappend="${page == currentPage} ? 'active'">
+                    <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                       style="width:40px; height:40px;"
+                       th:href="@{/home/post/list(page=${page - 1})}"
+                       th:text="${page}">1</a>
+                </li>
+
+                <!-- Next -->
+                <li class="page-item mx-1" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                    <a class="page-link rounded-circle d-flex align-items-center justify-content-center"
+                       style="width:40px; height:40px;"
+                       th:href="@{/home/post/list(page=${currentPage})}"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+
+
+
+    </div>
+    </div>
+</div>
 
 <div th:replace="customer/common/footer::footer"></div>
 

@@ -1,9 +1,8 @@
 package com.example.serviceapp.config;
 
-import lombok.RequiredArgsConstructor;
+import jakarta.servlet.RequestDispatcher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -28,16 +27,24 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/register", "/activate", "/login",
-                                "/admin/css/**", "/customer/css/**",
-                                "/js/**", "/images/**", "/webjars/**","/forgot-password","/reset-password"
-                                , "/home/**").permitAll()
+                        // Static resources => luôn cho phép
+                        .requestMatchers(
+                                "/admin/css/**", "/admin/js/**", "/admin/assets/**",
+                                "/customer/css/**", "/customer/js/**", "/customer/images/**", "/customer/fonts/**",
+                                "/webjars/**"
+                        ).permitAll()
+
+                        // Chỉ ADMIN mới vào được
                         .requestMatchers("/user/**").hasRole("ADMIN")
+
+                        // ADMIN hoặc EMPLOYEE đều vào được
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN", "EMPLOYEE")
-                        .anyRequest().authenticated()
+
+                        // Các endpoint còn lại => mở
+                        .anyRequest().permitAll()
                 )
+
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
@@ -49,22 +56,19 @@ public class SecurityConfig {
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
-                )
-                .exceptionHandling(exception -> exception
-                        .accessDeniedPage("/access-denied")
                 );
 
         return http.build();
     }
 
+
     @Bean
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(new BCryptPasswordEncoder())
-                .and()
-                .build();
+        AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authBuilder.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        return authBuilder.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
