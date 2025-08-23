@@ -168,5 +168,9 @@ public class UserService {
         return false;
     }
 
+    public Optional<User> findByUsername(String username) {
+        return userRepo.findByUsername(username);
+    }
+
 }
 
