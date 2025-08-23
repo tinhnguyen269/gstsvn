@@ -6,8 +6,9 @@
 
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dyeje8mx3/image/upload/v1755924095/gsts-logo_ll5vaz.png">
 
-    <title>Moso Interior - Product Detail Page</title>
+    <title>Tin tức</title>
 
     <!-- CSS FILES -->
 
@@ -21,11 +22,11 @@
 
 
 <!-- Content + Sidebar -->
-<div class="container">
+<div class="container mt-5 pt-4">
     <div class="row ">
         <!-- Nội dung chính -->
-        <main class="col-12 col-md-8 mb-5 mb-md-0">
-            <nav aria-label="breadcrumb" class="pt-4 mt-5">
+        <div class="col-12 col-md-8 mb-5 mb-md-0">
+            <nav aria-label="breadcrumb" class="pt-4 mt-1">
                 <ol class="breadcrumb bg-transparent p-0 mb-3">
                     <li class="breadcrumb-item"><a th:href="@{/home/post/list}" class="text-decoration-none text-dark"> Tin tức</a></li>
                     <li class="breadcrumb-item active text-dark" aria-current="page">Chi tiết</li>
@@ -41,7 +42,7 @@
             <!-- Nội dung bài viết -->
             <div class="article-content" th:utext="${post.content}"></div>
 
-        </main>
+        </div>
         <!-- Sidebar -->
         <aside class="col-12 col-md-4 order-1 order-md-2" th:replace="customer/common/sidebar :: sidebar"></aside>
 

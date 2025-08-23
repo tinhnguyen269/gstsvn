@@ -2,11 +2,13 @@ package com.example.serviceapp.customer.post.controller;
 
 import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.customer.post.service.PostService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -21,11 +23,20 @@ public class PostController {
     }
 
     @GetMapping("/post/list")
-    public String showPostForCustomer(Model model) {
-        List<Post> Post = postService.findAll();
-        model.addAttribute("Post", Post);
+    public String showPostForCustomer(Model model,
+                                      @RequestParam(defaultValue = "0") int page) {
+        int pageSize = 9;
+        Page<Post> postPage = postService.findAll(page, pageSize);
+
+        model.addAttribute("Post", postPage.getContent());
+        model.addAttribute("postPage", postPage);
+        model.addAttribute("currentPage", page + 1); // để hiển thị bắt đầu từ 1
+        model.addAttribute("totalPages", postPage.getTotalPages());
+
         return "customer/post/post_list";
     }
+
+
 
     @GetMapping("/post/list/{id}")
     public String viewPost(@PathVariable Long id, Model model) {

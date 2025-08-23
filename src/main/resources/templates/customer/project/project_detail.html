@@ -6,8 +6,9 @@
 
     <meta name="description" content="">
     <meta name="author" content="Tooplate">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dyeje8mx3/image/upload/v1755924095/gsts-logo_ll5vaz.png">
 
-    <title>Moso Interior - Product Detail Page</title>
+    <title>Dự án</title>
 
     <!-- CSS FILES -->
     <link href="/customer/css/post-detail.css" rel="stylesheet">
@@ -20,11 +21,11 @@
 
 <div th:replace="customer/common/header::header"></div>
 
-<div class="container">
+<div class="container mt-4 pt-4">
     <div class="row">
-        <main class="col-12 col-md-8 order-2 order-md-1 mb-4">
+        <div class="col-12 col-md-8 order-2 order-md-1 mb-4">
             <div class="container my-5 service-detail">
-                <nav aria-label="breadcrumb" class="pt-4 mt-5">
+                <nav aria-label="breadcrumb" >
                     <ol class="breadcrumb bg-transparent p-0 mb-3">
                         <li class="breadcrumb-item"><a th:href="@{/home}" class="text-decoration-none text-dark">Trang chủ</a></li>
                         <li class="breadcrumb-item active text-dark" aria-current="page">Dự án đã hoàn thành</li>
@@ -41,7 +42,7 @@
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
 
         <!-- Sidebar -->
         <div th:replace="customer/common/sidebar :: sidebar"></div>

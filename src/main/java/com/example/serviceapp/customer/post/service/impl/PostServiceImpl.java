@@ -2,6 +2,10 @@ package com.example.serviceapp.customer.post.service.impl;
 
 import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.customer.post.repositoty.PostRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import com.example.serviceapp.customer.post.service.PostService;
 
@@ -19,12 +23,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Optional<Post> findById(Long id) {
         return postRepository.findById(id);
-
     }
 
     @Override
-    public List<Post> findAll() {
-        return postRepository.findAllActivePosts();
+    public Page<Post> findAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createAt").descending());
+        return postRepository.findAll(pageable);
     }
 
 }
