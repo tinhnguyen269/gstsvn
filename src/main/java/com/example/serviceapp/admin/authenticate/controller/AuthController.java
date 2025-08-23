@@ -38,6 +38,16 @@ public class AuthController {
             return "admin/authenticate/register";
         }
 
+        if(userService.findByUsername(user.getUsername()).isPresent()) {
+            model.addAttribute("usernameError", "Tên đăng nhập đã được sử dụng!");
+            return "admin/authenticate/register";
+        }
+
+        if( userService.findByEmail(user.getEmail()).isPresent()) {
+            model.addAttribute("emailError", "Email đã được sử dụng!");
+            return "admin/authenticate/register";
+        }
+
         // Kiểm tra xác nhận mật khẩu
         if (!user.getPassword().equals(user.getPasswordConfirmation())) {
             model.addAttribute("passwordError", "Mật khẩu xác nhận không khớp!");

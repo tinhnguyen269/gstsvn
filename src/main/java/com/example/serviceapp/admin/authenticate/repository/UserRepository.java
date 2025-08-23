@@ -22,7 +22,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByResetPasswordToken(String token);
 
-    @Query("SELECT u FROM User u WHERE u.deleteFlag = 0 AND LOWER(u.fullName) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query("SELECT u FROM User u WHERE u.deleteFlag = 0 AND u.enabled = true AND LOWER(u.fullName) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     Page<User> findByFullNameContainingIgnoreCase(@Param("keyword") String keyword, Pageable pageable);
 
     @Modifying
@@ -32,7 +32,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.userId = :id AND u.deleteFlag = 0")
     Optional<User> findUserByIdById(Long id);
 
-    @Query("SELECT u FROM User u WHERE u.deleteFlag = 0")
+    @Query("SELECT u FROM User u WHERE u.deleteFlag = 0 AND u.enabled = true ")
     Page<User> findAllUser(Pageable pageable);
 
 }
