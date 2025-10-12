@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/dich-vu")
 public class ServiceController {
 
     private final ServiceService serviceService;
@@ -18,10 +18,10 @@ public class ServiceController {
         this.serviceService = serviceService;
     }
 
-    @GetMapping("/services/{id}")
-    public String viewPost(@PathVariable Long id, Model model) {
-        Services services = serviceService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
+    @GetMapping("/{slug}")
+    public String viewPost(@PathVariable String slug, Model model) {
+        Services services = serviceService.findBySlug(slug)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post slug: " + slug));
         model.addAttribute("services", services);
 
         return "customer/service/service_detail";

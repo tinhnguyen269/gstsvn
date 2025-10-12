@@ -22,6 +22,7 @@ public class Post {
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+    private String slug;
 
     @PrePersist
     protected void onCreate() {
@@ -103,5 +104,11 @@ public class Post {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+    public String getSlug() {
+        return slug;
+    }
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }

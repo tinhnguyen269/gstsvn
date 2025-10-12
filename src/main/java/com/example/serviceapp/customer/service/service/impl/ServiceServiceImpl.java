@@ -18,8 +18,8 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public Optional<Services> findById(Long id) {
-        return servicesRepository.findById(id);
+    public Optional<Services> findBySlug(String slug) {
+        return servicesRepository.findBySlug(slug);
 
     }
 

@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-
+import java.util.List;
 
 
 @Controller
@@ -84,7 +84,7 @@ public class ADServiceController {
         existingService.setIcon(service.getIcon());
         existingService.setImgPrice(service.getImgPrice());
         existingService.setUpdateAt(LocalDateTime.now());
-
+        existingService.setSlug(service.getSlug());
         serviceService.save(existingService);
         return "redirect:/admin/service/list";
     }
@@ -97,6 +97,11 @@ public class ADServiceController {
         existingService.setUpdateAt(LocalDateTime.now());
         serviceService.save(existingService);
 
+        return "redirect:/admin/service/list";
+    }
+    @PostMapping("/service/delSelected")
+    public String deleteListServices(@RequestParam("ids") List<Long> ids) {
+        serviceService.softDeleteServices(ids);
         return "redirect:/admin/service/list";
     }
 }

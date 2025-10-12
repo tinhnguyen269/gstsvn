@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/bang-gia-dich-vu")
 public class PriceListController {
 
-    @GetMapping("/price-list")
+    @GetMapping("")
     public String doInit(){
         return "customer/price/price-list";
     }

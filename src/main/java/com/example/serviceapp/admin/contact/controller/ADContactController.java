@@ -36,10 +36,10 @@ public class ADContactController {
         this.serviceService = serviceService;
     }
 
-
     @PostMapping("/contact/add")
     @ResponseBody
-    public ResponseEntity<?> addCustomer(@RequestBody @Validated Customer customer, BindingResult result) {
+    public ResponseEntity<?> addCustomer(@ModelAttribute @Validated Customer customer,
+                                         BindingResult result) {
         Map<String, String> errors = new HashMap<>();
 
         if (result.hasErrors()) {
@@ -62,15 +62,12 @@ public class ADContactController {
         }
 
         customer.setStatus(CONTACT_STATUS.PENDING);
-
         contactService.addCustomer(customer);
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "Thêm khách hàng thành công");
         return ResponseEntity.ok(response);
     }
-
-
 
     @GetMapping("/contact/list")
     public String listCustomer(Model model,
@@ -116,8 +113,9 @@ public class ADContactController {
     @ResponseBody
     public ResponseEntity<?> updateCustomer(
             @PathVariable Long id,
-            @RequestBody @Valid Customer updatedCustomer,
+            @ModelAttribute @Valid Customer updatedCustomer,
             BindingResult result) {
+
         Map<String, String> errors = new HashMap<>();
 
         if (result.hasErrors()) {
@@ -134,6 +132,7 @@ public class ADContactController {
         if (!serviceService.isServiceIdExists(updatedCustomer.getServiceId())) {
             errors.put("serviceId", "Dịch vụ không tồn tại.");
         }
+
         if (!EnumSet.allOf(CONTACT_STATUS.class).contains(updatedCustomer.getStatus())) {
             errors.put("status", "Trạng thái không tồn tại.");
         }
@@ -141,7 +140,6 @@ public class ADContactController {
         if (!errors.isEmpty()) {
             return ResponseEntity.badRequest().body(errors);
         }
-
 
         Customer existing = contactService.findById(id);
         Map<String, String> response = new HashMap<>();
@@ -162,6 +160,7 @@ public class ADContactController {
     }
 
 
+
     @PostMapping("/contact/delete/{id}")
     public String deleteCustomer(@PathVariable Long id) {
         Customer customer = contactService.findById(id);
@@ -169,8 +168,11 @@ public class ADContactController {
             contactService.delete(customer);
         }
         return "redirect:/admin/contact/list";
-
-
+    }
+    @PostMapping("/contact/delSelected")
+    public String deleteListContacts(@RequestParam("ids") List<Long> ids) {
+        contactService.softDeleteContacts(ids);
+        return "redirect:/admin/contact/list";
     }
 }
 

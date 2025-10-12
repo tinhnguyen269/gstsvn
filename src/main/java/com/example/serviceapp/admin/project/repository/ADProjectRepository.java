@@ -5,6 +5,7 @@ import com.example.serviceapp.common.entity.Project;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -20,4 +21,8 @@ public interface ADProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("SELECT p FROM Project p WHERE p.deleteFlag = 0 ORDER BY p.createAt DESC limit 9")
     List<Project> findTop9ByOrderByCreateAtDesc();
+
+    @Modifying
+    @Query("UPDATE Project p SET p.deleteFlag = 1 WHERE p.projectId IN :ids")
+    void softDeleteProjects(List<Long> ids);
 }

@@ -1,0 +1,90 @@
+<!-- Add Modal HTML -->
+<div id="addContactModal" class="modal fade" th:fragment="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="addForm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thêm khách hàng</h4>
+                    <button type="button" class="btn-close" data-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Tên -->
+                    <div class="form-group mb-3">
+                        <label>Tên</label>
+                        <input
+                                type="text"
+                                name="name"
+                                id="name"
+                                class="form-control"
+                                required
+                                maxlength="100"
+                                placeholder="Nhập tên khách hàng"
+                                title="Tên không được để trống và tối đa 100 ký tự.">
+                    </div>
+
+                    <!-- Số điện thoại -->
+                    <div class="form-group mb-3">
+                        <label>Số điện thoại</label>
+                        <input
+                                type="text"
+                                name="phoneNumber"
+                                id="phoneNumber"
+                                class="form-control"
+                                required
+                                pattern="^\d{10,11}$"
+                                placeholder="VD: 0912345678"
+                                title="Số điện thoại phải có 10 đến 11 chữ số.">
+                    </div>
+
+                    <!-- Dịch vụ -->
+                    <div class="form-group mb-3">
+                        <label>Dịch vụ</label>
+                        <select
+                                name="serviceId"
+                                id="serviceId"
+                                class="form-control"
+                                required>
+                            <option value="">-- Chọn dịch vụ --</option>
+                            <option th:each="service : ${services}"
+                                    th:value="${service.serviceId}"
+                                    th:text="${service.serviceName}"></option>
+                        </select>
+                    </div>
+
+                    <!-- Ghi chú -->
+                    <div class="form-group mb-3">
+                        <label>Ghi chú</label>
+                        <textarea
+                                name="context"
+                                id="context"
+                                class="form-control"
+                                maxlength="1000"
+                                placeholder="Ghi chú (không bắt buộc)"
+                                title="Nội dung không được vượt quá 1000 ký tự."></textarea>
+                    </div>
+
+                    <!-- Trạng thái -->
+                    <div class="form-group mb-3">
+                        <label>Trạng thái</label>
+                        <select
+                                name="status"
+                                id="status"
+                                class="form-control"
+                                required>
+                            <option value="">-- Chọn trạng thái --</option>
+                            <option value="PENDING">Chờ liên hệ</option>
+                            <option value="APPROVED">Đã liên hệ</option>
+                            <option value="REJECTED">Hủy bỏ</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-success">Thêm mới</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

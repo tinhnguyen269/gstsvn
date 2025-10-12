@@ -1,96 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-
 <head>
-    <title>Dự án </title>
+    <title>Quản lý Dự án</title>
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
-    <script>
-        $(document).ready(function () {
-            // Activate tooltip
-            $('[data-toggle="tooltip"]').tooltip();
-
-            // Select/Deselect checkboxes
-            var checkbox = $('table tbody input[type="checkbox"]');
-            $("#selectAll").click(function () {
-                if (this.checked) {
-                    checkbox.each(function () {
-                        this.checked = true;
-                    });
-                } else {
-                    checkbox.each(function () {
-                        this.checked = false;
-                    });
-                }
-            });
-            checkbox.click(function () {
-                if (!this.checked) {
-                    $("#selectAll").prop("checked", false);
-                }
-            });
-        });
-    </script>
 </head>
 <body class="sb-nav-fixed">
+
+<!-- Navbar -->
 <div th:replace="admin/common/navbar :: navbar"></div>
 
 <div id="layoutSidenav">
-    <div th:replace="admin/common/sidebar:: sidebar"></div>
+    <!-- Sidebar -->
+    <div th:replace="admin/common/sidebar :: sidebar"></div>
+
+    <!-- Main Content -->
     <div id="layoutSidenav_content">
         <main>
             <div class="table-responsive">
                 <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Quản lí <b>dự án</b></h2>
-                            </div>
-                            <div class="col-sm-12 d-flex justify-content-end">
-                                <div class="input-group me-2" style="width: 250px;">
-                                    <form th:action="@{/admin/project/list}" method="get" class="d-flex me-2" style="width: 300px;">
-                                        <input class="form-control me-2" type="text" name="keyword" placeholder="Tìm dự án..."
-                                               th:value="${keyword}" aria-label="Search">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                                <a th:href="@{/admin/project/add}" class="btn btn-success">
-                                    <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
-                                </a>
-                            </div>
-
-
+                    <!-- Tiêu đề & Thanh công cụ -->
+                    <div class="table-title d-flex justify-content-between align-items-center flex-wrap">
+                        <h2>Quản lý <b>Dự án</b></h2>
+                        <div class="d-flex align-items-center">
+                            <!-- Tìm kiếm -->
+                            <form th:action="@{/admin/project/list}" method="get" class="d-flex me-2" style="width: 300px;">
+                                <input class="form-control me-2" type="text" name="keyword" placeholder="Tìm dự án..."
+                                       th:value="${keyword}">
+                                <button class="btn btn-primary" type="submit">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
+                            <!-- Nút thêm -->
+                            <a th:href="@{/admin/project/add}" class="btn btn-success me-2">
+                                <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
+                            </a>
+                            <!-- Nút xóa nhiều -->
+                            <button type="submit" form="deleteSelectedForm" class="btn btn-danger">
+                                <i class="material-icons">delete</i> <span>Xoá</span>
+                            </button>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Tên dự án</th>
-                            <th>Ngày tạo</th>
-                            <th>Hành động</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="project : ${projectPage.content}">
-                            <td th:text="${project.projectId}"></td>
-                            <td th:text="${project.projectName}"></td>
-                            <td th:text="${#temporals.format(project.updateAt != null ? project.updateAt : project.createAt, 'dd/MM/yyyy HH:mm')}"></td>
-                            <td>
-                                <a th:href="@{'/admin/project/edit/' + ${project.projectId}}" class="edit"><i
-                                        class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                <a href="#deleteProjectModal" class="delete" data-toggle="modal"
-                                   th:onclick="'openDeleteModal(' + ${project.projectId} + ')'"><i
-                                        class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+
+                    <!-- Form xóa nhiều -->
+                    <form th:action="@{/admin/project/delSelected}" method="post" id="deleteSelectedForm">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="checkAll"></th>
+                                <th>ID</th>
+                                <th>Tên dự án</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="project : ${projectPage.content}">
+                                <td><input type="checkbox" name="ids" th:value="${project.projectId}"></td>
+                                <td th:text="${project.projectId}"></td>
+                                <td th:text="${project.projectName}"></td>
+                                <td th:text="${#temporals.format(project.updateAt != null ? project.updateAt : project.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                <td>
+                                    <a th:href="@{'/admin/project/edit/' + ${project.projectId}}" class="edit">
+                                        <i class="material-icons" data-toggle="tooltip" title="Sửa">&#xE254;</i>
+                                    </a>
+                                    <a href="javascript:void(0)" class="delete"
+                                       th:onclick="'deleteProject(' + ${project.projectId} + ')'">
+                                        <i class="material-icons" data-toggle="tooltip" title="Xóa">&#xE872;</i>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+
+                    <!-- Phân trang -->
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <!-- Previous -->
                             <li class="page-item" th:classappend="${projectPage.first} ? 'disabled'">
                                 <a class="page-link"
                                    th:href="@{'/admin/project/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
@@ -100,88 +87,96 @@
                                 th:classappend="${i} == ${currentPage} ? 'active'">
                                 <a class="page-link"
                                    th:href="@{'/admin/project/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
-                                   th:text="${i+1}">1</a>
+                                   th:text="${i+1}"></a>
                             </li>
-
-                            <!-- Next -->
                             <li class="page-item" th:classappend="${projectPage.last} ? 'disabled'">
                                 <a class="page-link"
                                    th:href="@{'/admin/project/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
                             </li>
-
                         </ul>
                     </nav>
-
-                </div>
-            </div>
-            <!-- Delete Modal HTML -->
-            <div id="deleteProjectModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Xóa bài viết </h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Bạn có chắc chắn muốn xóa bài viết không ?</p>
-                            <p class="text-warning"><small>Hành động này không thể phục hồi.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
-                            <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </main>
     </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-<script src="admin/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="admin/assets/demo/chart-area-demo.js"></script>
-<script src="admin/assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
-<script src="admin/js/datatables-simple-demo.js"></script>
 
+<!-- Script -->
 <script>
-    // Lấy CSRF token và header name từ meta
     const csrfToken = document.querySelector('meta[name="_csrf"]').content;
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-    let projectIdToDelete = null;
 
-    function openDeleteModal(projectId) {
-        projectIdToDelete = projectId;
-        const deleteModal = new bootstrap.Modal(document.getElementById('deleteProjectModal'));
-        deleteModal.show();
-    }
-
-    document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
-        if (projectIdToDelete) {
-            fetch(`/admin/project/delete/${projectIdToDelete}`, {
+    // ----- Xóa 1 dự án (dùng confirm alert) -----
+    function deleteProject(projectId) {
+        if (confirm("Bạn có chắc chắn muốn xóa dự án này? Hành động này không thể hoàn tác.")) {
+            fetch(`/admin/project/delete/${projectId}`, {
                 method: 'POST',
-                headers: {
-                    [csrfHeader]: csrfToken // Gửi CSRF token
-                }
+                headers: { [csrfHeader]: csrfToken }
             })
                 .then(response => {
                     if (response.ok) {
+                        selectedIds.delete(projectId);
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify([...selectedIds]));
                         window.location.reload();
                     } else {
                         alert("Xóa thất bại!");
                     }
                 })
-                .catch(error => {
-                    console.error(error);
-                    alert("Có lỗi xảy ra!");
-                });
+                .catch(() => alert("Có lỗi xảy ra!"));
         }
+    }
+
+    // ----- Xóa nhiều -----
+    const STORAGE_KEY = 'selectedProjectIds';
+    let selectedIds = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY)) || []);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkboxes = document.querySelectorAll('input[name="ids"]');
+        const checkAll = document.getElementById('checkAll');
+
+        // Load trạng thái checkbox từ localStorage
+        checkboxes.forEach(cb => {
+            const id = parseInt(cb.value);
+            if (selectedIds.has(id)) cb.checked = true;
+
+            cb.addEventListener('change', () => {
+                cb.checked ? selectedIds.add(id) : selectedIds.delete(id);
+                localStorage.setItem(STORAGE_KEY, JSON.stringify([...selectedIds]));
+            });
+        });
+
+        // Chọn tất cả
+        checkAll.addEventListener('click', e => {
+            checkboxes.forEach(cb => {
+                cb.checked = e.target.checked;
+                const id = parseInt(cb.value);
+                e.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify([...selectedIds]));
+        });
     });
 
-</script>
+    // Xác nhận xóa nhiều
+    document.getElementById('deleteSelectedForm').addEventListener('submit', function (e) {
+        if (selectedIds.size === 0) {
+            alert("Vui lòng chọn ít nhất 1 dự án để xóa.");
+            e.preventDefault();
+            return;
+        }
+        if (!confirm("Bạn có chắc chắn muốn xóa các dự án đã chọn?\nHành động này không thể phục hồi.")) {
+            e.preventDefault();
+            return;
+        }
 
+        selectedIds.forEach(id => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'ids';
+            input.value = id;
+            this.appendChild(input);
+        });
+        localStorage.removeItem(STORAGE_KEY);
+    });
+</script>
 </body>
 </html>

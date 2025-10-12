@@ -4,44 +4,36 @@
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <th:block th:replace="admin/common/header :: header"></th:block>
-
 </head>
 <body class="sb-nav-fixed">
 <div th:replace="admin/common/navbar :: navbar"></div>
 <div id="layoutSidenav">
-    <div th:replace="admin/common/sidebar:: sidebar"></div>
+    <div th:replace="admin/common/sidebar :: sidebar"></div>
     <div id="layoutSidenav_content">
         <main>
             <div class="table-responsive">
                 <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <h2>Quản lí <b>phản hồi</b></h2>
-                            </div>
-                            <div class="col-sm-12 d-flex justify-content-end">
-                                <div class="input-group me-2" style="width: 250px;">
-                                    <form th:action="@{/admin/feedback/list}" method="get" class="d-flex me-2"
-                                          style="width: 300px;">
-                                        <input class="form-control me-2" type="text" name="keyword"
-                                               placeholder="Tìm khách hàng..."
-                                               th:value="${keyword}" aria-label="Search">
-                                        <button class="btn btn-primary" type="submit">
-                                            <i class="fas fa-search"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                                <a href="#addFeedbackModal" class="btn btn-success" data-toggle="modal"><i
-                                        class="material-icons">&#xE147;</i> <span>Thêm mới</span></a>
-                            </div>
+                    <div class="table-title d-flex justify-content-between align-items-center">
+                        <h2>Quản lí <b>phản hồi</b></h2>
+                        <div class="d-flex">
+                            <form th:action="@{/admin/feedback/list}" method="get" class="d-flex me-2" style="width: 300px;">
+                                <input class="form-control me-2" type="text" name="keyword" placeholder="Tìm khách hàng..."
+                                       th:value="${keyword}" aria-label="Search">
+                                <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addFeedbackModal">
+                                <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
+                            </button>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
+
+                    <!-- Bảng -->
+                    <table class="table table-striped table-hover mt-3">
                         <thead>
                         <tr>
                             <th>ID</th>
                             <th>Tên khách hàng</th>
-                            <th>Nội dung đánh giá</th>
+                            <th>Nội dung</th>
                             <th>Link youtube</th>
                             <th>Ngày tạo</th>
                             <th>Actions</th>
@@ -55,128 +47,97 @@
                             <td th:text="${feedback.linkYoutube}"></td>
                             <td th:text="${#temporals.format(feedback.updateAt != null ? feedback.updateAt : feedback.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>
-                                <a href="#editFeedbackModal"
-                                   class="edit"
-                                   th:data-id="${feedback.feedbackId}"
-                                   data-toggle="modal">
-                                    <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i>
+                                <a href="#" class="edit" th:data-id="${feedback.feedbackId}" data-bs-toggle="modal" data-bs-target="#editFeedbackModal">
+                                    <i class="material-icons" title="Sửa">&#xE254;</i>
                                 </a>
-
-                                <a href="#deleteFeedbackModal" class="delete" data-toggle="modal"
-                                   th:data-id="${feedback.feedbackId}"
-                                ><i
-                                        class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                <a href="#" class="delete" th:data-id="${feedback.feedbackId}">
+                                    <i class="material-icons" title="Xóa">&#xE872;</i>
+                                </a>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <!-- Phân trang -->
                     <nav>
                         <ul class="pagination justify-content-center">
-                            <!-- Previous -->
                             <li class="page-item" th:classappend="${feedbackPage.first} ? 'disabled'">
-                                <a class="page-link"
-                                   th:href="@{'/admin/feedback/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
+                                <a class="page-link" th:href="@{'/admin/feedback/list'(page=${currentPage-1}, size=${pageSize}, keyword=${keyword})}">Previous</a>
                             </li>
                             <li class="page-item"
                                 th:each="i : ${#numbers.sequence(0, feedbackPage.totalPages-1)}"
                                 th:classappend="${i} == ${currentPage} ? 'active'">
                                 <a class="page-link"
                                    th:href="@{'/admin/feedback/list'(page=${i}, size=${pageSize}, keyword=${keyword})}"
-                                   th:text="${i+1}">1</a>
+                                   th:text="${i+1}"></a>
                             </li>
-
-                            <!-- Next -->
                             <li class="page-item" th:classappend="${feedbackPage.last} ? 'disabled'">
-                                <a class="page-link"
-                                   th:href="@{'/admin/feedback/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
+                                <a class="page-link" th:href="@{'/admin/feedback/list'(page=${currentPage+1}, size=${pageSize}, keyword=${keyword})}">Next</a>
                             </li>
-
                         </ul>
                     </nav>
-
                 </div>
             </div>
-            <!-- Edit Modal HTML -->
+
+            <!-- Modal thêm -->
             <div id="addFeedbackModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form method="post" th:action="@{/admin/feedback/add}" th:object="${feedbackNew}">
                             <div class="modal-header">
                                 <h4 class="modal-title">Thêm phản hồi</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                                </button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <div class="form-group">
+                                <div class="form-group mb-2">
                                     <label>Tên khách hàng</label>
                                     <input th:field="*{nameCustomer}" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Nội dung đánh giá</label>
+                                <div class="form-group mb-2">
+                                    <label>Nội dung</label>
                                     <input th:field="*{content}" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Link youtube</label>
+                                <div class="form-group mb-2">
+                                    <label>Link Youtube</label>
                                     <input th:field="*{linkYoutube}" class="form-control" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-                                <input type="submit" class="btn btn-success" value="Thêm">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-success">Thêm</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            <!-- Edit Modal HTML -->
+
+            <!-- Modal sửa -->
             <div id="editFeedbackModal" class="modal fade">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <form id="editForm">
                             <div class="modal-header">
                                 <h4 class="modal-title">Chỉnh sửa phản hồi</h4>
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
                             <div class="modal-body">
-                                <input type="hidden" name="editFeedbackId" id="editFeedbackId">
-                                <div class="form-group">
+                                <input type="hidden" id="editFeedbackId">
+                                <div class="form-group mb-2">
                                     <label>Tên khách hàng</label>
-                                    <input name="editNameCustomer" id="editNameCustomer" class="form-control" required>
+                                    <input id="editNameCustomer" class="form-control" required>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group mb-2">
                                     <label>Nội dung</label>
-                                    <input name="editContent" id="editContent" class="form-control" required>
+                                    <input id="editContent" class="form-control" required>
                                 </div>
-                                <div class="form-group">
-                                    <label>Link youtube</label>
-                                    <input name="editLinkYoutube" id="editLinkYoutube" class="form-control" required>
+                                <div class="form-group mb-2">
+                                    <label>Link Youtube</label>
+                                    <input id="editLinkYoutube" class="form-control" required>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
                                 <button type="submit" class="btn btn-primary">Lưu</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div id="deleteFeedbackModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <form id="deleteForm">
-                            <input type="hidden" id="deleteFeedbackId" name="deleteFeedbackId">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Xóa phản hồi</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <p>Bạn có chắc muốn xóa phản hòi này không?</p>
-                                <p class="text-warning"><small>Đây là hành động không thể khôi phục.</small></p>
-                            </div>
-                            <div class="modal-footer">
-                                <input type="button" class="btn btn-default" data-dismiss="modal" value="Hủy">
-                                <input type="submit" class="btn btn-danger" value="Xóa">
                             </div>
                         </form>
                     </div>
@@ -185,98 +146,83 @@
         </main>
     </div>
 </div>
+
+<!-- ====================== SCRIPT ====================== -->
 <script>
-    $(document).ready(function () {
-        // Lấy CSRF token và header name từ meta
-        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-        // Khi bấm vào nút sửa
+    $(function () {
+        const csrfToken = $('meta[name="_csrf"]').attr('content');
+        const csrfHeader = $('meta[name="_csrf_header"]').attr('content');
+
+        function showAlert(msg) {
+            alert(msg);
+        }
+
+        // Xử lý click sửa
         $('.edit').on('click', function () {
-            var feedbackId = $(this).data('id');
+            const id = $(this).data('id');
             $.ajax({
-                url: '/admin/feedback/edit/' + feedbackId,
-                type: 'GET',
-                headers: {
-                    [csrfHeader]: csrfToken // Gửi CSRF token
-                },
-                success: function (data) {
-                    // Fill data vào form
+                url: `/admin/feedback/edit/${id}`,
+                headers: { [csrfHeader]: csrfToken },
+                success: data => {
                     $('#editFeedbackId').val(data.feedbackId);
                     $('#editNameCustomer').val(data.nameCustomer);
                     $('#editContent').val(data.content);
                     $('#editLinkYoutube').val(data.linkYoutube);
                 },
-                error: function () {
-                    alert('Không thể lấy dữ liệu khách hàng.');
-                }
+                error: () => showAlert('❌ Không thể tải dữ liệu phản hồi.')
             });
         });
 
-        $('.delete').on('click', function () {
-            var feedbackId = $(this).data('id');
-            $('#deleteFeedbackId').val(feedbackId);
-        });
-
-
-        $('#deleteForm').on('submit', function (e) {
+        // Xử lý xóa
+        $('.delete').on('click', function (e) {
             e.preventDefault();
-            var feedbackId = $('#deleteFeedbackId').val();
-            $.ajax({
-                url: '/admin/feedback/delete/' + feedbackId,
-                type: 'POST',
-                headers: {
-                    [csrfHeader]: csrfToken // Gửi CSRF token
-                },
-                success: function () {
-                    $('#deleteFeedbackModal').modal('hide');
-                    alert('Xóa phản hồi thành công!');
-                    location.reload();
-                },
-                error: function () {
-                    alert('Không thể xóa dữ liệu phản hồi.');
-                }
-            });
+            const id = $(this).data('id');
+            if (confirm('Bạn có chắc muốn xóa phản hồi này không?')) {
+                $.ajax({
+                    url: `/admin/feedback/delete/${id}`,
+                    type: 'POST',
+                    headers: { [csrfHeader]: csrfToken },
+                    success: () => {
+                        showAlert('✅ Xóa phản hồi thành công!');
+                        location.reload();
+                    },
+                    error: () => showAlert('❌ Xóa phản hồi thất bại.')
+                });
+            }
         });
 
-        // Submit form
+        // Xử lý lưu chỉnh sửa
         $('#editForm').on('submit', function (e) {
             e.preventDefault();
-
-            var feedbackData = {
+            const feedbackData = {
                 feedbackId: $('#editFeedbackId').val(),
                 nameCustomer: $('#editNameCustomer').val(),
                 content: $('#editContent').val(),
-                linkYoutube: $('#editLinkYoutube').val(),
+                linkYoutube: $('#editLinkYoutube').val()
             };
-
             $.ajax({
-                url: '/admin/feedback/update/' + feedbackData.feedbackId,
+                url: `/admin/feedback/update/${feedbackData.feedbackId}`,
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(feedbackData),
-                headers: {
-                    [csrfHeader]: csrfToken // Gửi CSRF token
-                },
-                success: function () {
+                headers: { [csrfHeader]: csrfToken },
+                success: () => {
                     $('#editFeedbackModal').modal('hide');
-                    alert('Cập nhật phản hồi thành công!');
+                    showAlert('✅ Cập nhật phản hồi thành công!');
                     location.reload();
                 },
-                error: function () {
-                    alert('Cập nhật thất bại.');
-                }
+                error: () => showAlert('❌ Cập nhật thất bại.')
             });
         });
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/admin/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="/admin/assets/demo/chart-area-demo.js"></script>
 <script src="/admin/assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="/admin/js/datatables-simple-demo.js"></script>
 </body>
 </html>

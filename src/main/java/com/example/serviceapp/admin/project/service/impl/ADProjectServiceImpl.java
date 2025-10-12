@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,6 +41,12 @@ public class ADProjectServiceImpl implements ADProjectService {
     @Override
     public Page<Project> searchProjects(String keyword, Pageable pageable) {
         return projectRepository.searchProjects(keyword, pageable);
+    }
+
+    @Override
+    @Transactional
+    public void softDeleteProjects(List<Long> ids) {
+        projectRepository.softDeleteProjects(ids);
     }
 
 }

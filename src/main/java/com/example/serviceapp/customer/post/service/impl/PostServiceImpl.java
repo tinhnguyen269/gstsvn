@@ -21,8 +21,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Optional<Post> findById(Long id) {
-        return postRepository.findById(id);
+    public Optional<Post> findBySlug(String slug) {
+        return postRepository.findBySlug(slug);
     }
 
     @Override

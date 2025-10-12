@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Long> {
-//    @Query("SELECT p FROM Post p WHERE p.deleteFlag = 0 ORDER BY p.createAt DESC")
-//    List<Post> findAllActivePosts();
 
     @Query("SELECT p FROM Post p WHERE p.deleteFlag = 0 ORDER BY p.createAt DESC LIMIT 10")
     List<Post> findTop10NewestPosts();
+
+    Optional<Post> findBySlug(String slug);
 }
 

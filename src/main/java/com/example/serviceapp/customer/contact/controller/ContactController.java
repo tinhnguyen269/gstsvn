@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/lien-he")
 public class ContactController {
 
     private final ContactService contactService;
@@ -30,7 +30,7 @@ public class ContactController {
         this.homeService = homeService;
     }
 
-    @PostMapping("/contact/add")
+    @PostMapping("/them-moi")
     @ResponseBody
     public Map<String, Object> doAdd(@Validated Customer customer,
                                      BindingResult bindingResult) {

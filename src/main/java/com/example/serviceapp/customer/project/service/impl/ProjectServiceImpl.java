@@ -16,8 +16,8 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Optional<Project> findAllImageByProject(Long projectId) {
-        return projectRepository.findById(projectId);
+    public Optional<Project> findAllImageBySlug(String slug) {
+        return projectRepository.findBySlug(slug);
     }
 
 }

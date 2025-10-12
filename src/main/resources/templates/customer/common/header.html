@@ -1,7 +1,7 @@
 
 <nav class="navbar navbar-expand-lg fixed-top shadow-lg" style="background-color: #198754;" th:fragment="header">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-2 d-flex align-items-center" style="color: #ffc107;" th:href="@{/home}">
+        <a class="navbar-brand fw-bold fs-2 d-flex align-items-center" style="color: #ffc107;" th:href="@{/}">
             <!-- Logo -->
             <img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1755924095/gsts-logo_ll5vaz.png" class="me-2" style="height: 40px;">
             <!-- Text -->
@@ -17,15 +17,15 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home'} ? 'active' : '']]"
-                            th:href="@{/home}">
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/'} ? 'active' : '']]"
+                            th:href="@{/}">
                         Trang chủ
                     </a>
                 </li>
                 <li class="nav-item">
                     <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home/company-info'} ? 'active' : '']]"
-                            th:href="@{/home/company-info}">
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/gioi-thieu'} ? 'active' : '']]"
+                            th:href="@{/gioi-thieu}">
                         Giới thiệu
                     </a>
                 </li>
@@ -42,23 +42,23 @@
                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
                         <li th:each="service : ${serviceAdvice}">
                             <a class="dropdown-item fw-bold"
-                               th:classappend="${currentRequestURI == '/home/services/' + service.serviceId ? 'active' : ''}"
-                               th:href="@{/home/services/{id}(id=${service.serviceId})}"
+                               th:classappend="${currentRequestURI == '/dich-vu/' + service.slug ? 'active' : ''}"
+                               th:href="@{/dich-vu/{slug}(slug=${service.slug})}"
                                th:text="${service.serviceName}"></a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home/price-list'} ? 'active' : '']]"
-                            th:href="@{/home/price-list}">
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/bang-gia-dich-vu'} ? 'active' : '']]"
+                            th:href="@{/bang-gia-dich-vu}">
                         Báo giá dịch vụ
                     </a>
                 </li>
                 <li class="nav-item">
                     <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/home/post'} ? 'active' : '']]"
-                            th:href="@{/home/post/list}">
+                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/tin-tuc'} ? 'active' : '']]"
+                            th:href="@{/tin-tuc}">
                         Tin tức
                     </a>
                 </li>

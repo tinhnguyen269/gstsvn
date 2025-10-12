@@ -7,5 +7,5 @@ import java.util.Optional;
 
 public interface ServiceService {
 
-    Optional<Services> findById(Long id);
+    Optional<Services> findBySlug(String slug);
 }

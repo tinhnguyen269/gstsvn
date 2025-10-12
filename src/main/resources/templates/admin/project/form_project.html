@@ -31,6 +31,11 @@
                                    id="title" placeholder="Nhập tên dự án" required>
                         </div>
                         <div class="mb-3">
+                            <label for="slug" class="form-label">Url</label>
+                            <input type="text" th:field="*{slug}" class="form-control form-control-lg rounded-3"
+                                   id="slug" placeholder="ten-du-an" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="thumbnailUpload" class="form-label">Ảnh nền dự án</label>
                             <input class="form-control" type="file" id="thumbnailUpload" accept="image/*" onchange="uploadThumbnail(event)">
 

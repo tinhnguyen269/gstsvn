@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/")
 public class HomeController {
     private final HomeService homeService;
 
