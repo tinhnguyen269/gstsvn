@@ -30,6 +30,11 @@
                                    id="title" placeholder="Nhập tên dịch vụ" required>
                         </div>
                         <div class="mb-3">
+                            <label for="slug" class="form-label">Url</label>
+                            <input type="text" th:field="*{slug}" class="form-control form-control-lg rounded-3"
+                                   id="slug" placeholder="ten-dich-vu" required/>
+                        </div>
+                        <div class="mb-3">
                             <label for="iconUpload" class="form-label">Icon dịch vụ</label>
                             <input class="form-control" type="file" id="iconUpload" accept="image/*"
                                    onchange="uploadImage(event)"

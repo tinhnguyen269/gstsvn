@@ -3,10 +3,12 @@ package com.example.serviceapp.admin.service.service.impl;
 import com.example.serviceapp.admin.service.repository.ADServiceRepository;
 import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.entity.Services;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +45,11 @@ public class ADServiceServiceImpl implements ADServiceService {
     @Override
     public boolean isServiceIdExists(Long serviceId) {
         return serviceRepository.existsById(serviceId);
+    }
+
+    @Override
+    @Transactional
+    public void softDeleteServices(List<Long> ids) {
+        serviceRepository.softDeleteServices(ids);
     }
 }

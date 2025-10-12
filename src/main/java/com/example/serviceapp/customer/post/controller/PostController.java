@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("home")
+@RequestMapping("/tin-tuc")
 public class PostController {
 
     private final PostService postService;
@@ -22,7 +22,7 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping("/post/list")
+    @GetMapping("")
     public String showPostForCustomer(Model model,
                                       @RequestParam(defaultValue = "0") int page) {
         int pageSize = 9;
@@ -38,10 +38,10 @@ public class PostController {
 
 
 
-    @GetMapping("/post/list/{id}")
-    public String viewPost(@PathVariable Long id, Model model) {
-        Post post = postService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
+    @GetMapping("/{slug}")
+    public String viewPost(@PathVariable String slug, Model model) {
+        Post post = postService.findBySlug(slug)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid post slug: " + slug));
         model.addAttribute("post", post);
 
         return "customer/post/post_detail";

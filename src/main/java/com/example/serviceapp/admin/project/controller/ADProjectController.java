@@ -112,7 +112,8 @@
                     .orElseThrow(() -> new IllegalArgumentException("Invalid project ID: " + project.getProjectId()));
 
             existingProject.setProjectName(project.getProjectName());
-            existingProject.setThumbnailUrl(thumbnailUrl); // ✅ lưu ảnh nền
+            existingProject.setThumbnailUrl(thumbnailUrl);
+            existingProject.setSlug(project.getSlug());
 
             // Parse danh sách ảnh dự án
             ObjectMapper mapper = new ObjectMapper();
@@ -144,7 +145,11 @@
 
             return ResponseEntity.ok().build();
         }
-
+        @PostMapping("/project/delSelected")
+        public String deleteListproject(@RequestParam("ids") List<Long> ids) {
+            projectService.softDeleteProjects(ids);
+            return "redirect:/admin/project/list";
+        }
 
 
     }

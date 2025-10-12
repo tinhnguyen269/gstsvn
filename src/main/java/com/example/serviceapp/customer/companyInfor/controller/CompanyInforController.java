@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/gioi-thieu")
 public class CompanyInforController {
-    @GetMapping("/company-info")
+    @GetMapping("")
     public String doInit() {
         return "customer/company-info/company_info";
     }

@@ -4,6 +4,7 @@ import com.example.serviceapp.common.entity.Services;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,8 @@ public interface ADServiceRepository extends JpaRepository<Services,Long> {
 
     @Query(value = "SELECT * FROM services WHERE delete_flag = 0 ORDER BY create_at DESC", nativeQuery = true)
     List<Services> getAllService();
+
+    @Modifying
+    @Query("UPDATE Services s SET s.deleteFlag = 1 WHERE s.serviceId IN :ids")
+    void softDeleteServices(@Param("ids") List<Long> ids);
 }

@@ -1,0 +1,66 @@
+<!-- Edit Modal HTML -->
+<div id="editContactModal" class="modal fade" th:fragment="editModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="editForm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Chỉnh sửa khách hàng</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="editCustomerId" id="editCustomerId">
+
+                    <div class="form-group mb-3">
+                        <label>Tên</label>
+                        <input name="name" id="editName" class="form-control"
+                               required maxlength="100"
+                               title="Tên không được để trống và tối đa 100 ký tự.">
+                        <div class="invalid-feedback" id="editNameError"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Số điện thoại</label>
+                        <input name="phoneNumber" id="editPhoneNumber" class="form-control"
+                               required pattern="^\d{10,11}$"
+                               title="Số điện thoại phải có 10 đến 11 chữ số.">
+                        <div class="invalid-feedback" id="editPhoneNumberError"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Dịch vụ</label>
+                        <select name="serviceId" id="editServiceId" class="form-control" required>
+                            <option th:each="service : ${services}"
+                                    th:value="${service.serviceId}"
+                                    th:text="${service.serviceName}"></option>
+                        </select>
+                        <div class="invalid-feedback" id="editServiceIdError"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Ghi chú</label>
+                        <textarea name="context" id="editContext" class="form-control"
+                                  maxlength="1000"
+                                  title="Nội dung không được vượt quá 1000 ký tự."></textarea>
+                        <div class="invalid-feedback" id="editContextError"></div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label>Trạng thái</label>
+                        <select name="status" id="editStatus" class="form-control" required>
+                            <option value="">-- Chọn trạng thái --</option>
+                            <option value="PENDING">Chờ liên hệ</option>
+                            <option value="APPROVED">Đã liên hệ</option>
+                            <option value="REJECTED">Hủy bỏ</option>
+                        </select>
+                        <div class="invalid-feedback" id="editStatusError"></div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

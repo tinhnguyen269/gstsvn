@@ -11,6 +11,7 @@
     import org.springframework.web.bind.annotation.*;
 
     import java.time.LocalDateTime;
+    import java.util.List;
 
 
     @Controller
@@ -75,6 +76,7 @@
             existingPost.setTitle(post.getTitle());
             existingPost.setContent(post.getContent());
             existingPost.setImageUrl(post.getImageUrl());
+            existingPost.setSlug(post.getSlug());
 
             postService.save(existingPost);
             return "redirect:/admin/post/list";
@@ -89,6 +91,10 @@
 
             return "redirect:/admin/post/list";
         }
-
+        @PostMapping("/post/delSelected")
+        public String deleteListPost(@RequestParam("ids") List<Long> ids) {
+            postService.softDeletePosts(ids);
+            return "redirect:/admin/post/list";
+        }
 
     }

@@ -5,5 +5,5 @@ import com.example.serviceapp.common.entity.Project;
 import java.util.Optional;
 
 public interface ProjectService {
-    Optional<Project> findAllImageByProject(Long projectId);
+    Optional<Project> findAllImageBySlug(String slug);
 }

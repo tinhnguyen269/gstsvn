@@ -32,6 +32,11 @@
                                    id="title" placeholder="Nhập tiêu đề bài viết" required>
                         </div>
                         <div class="mb-3">
+                            <label for="slug" class="form-label">Url</label>
+                            <input type="text" th:field="*{slug}" class="form-control form-control-lg rounded-3"
+                                   id="slug" placeholder="ten-tin-tuc" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="imageUpload" class="form-label">Ảnh bài viết</label>
                             <input class="form-control" type="file" id="imageUpload" accept="image/*" onchange="uploadImage(event)">
                             <div class="mt-3">

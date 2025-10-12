@@ -5,6 +5,7 @@ import com.example.serviceapp.admin.contact.service.ADContactService;
 import com.example.serviceapp.admin.service.repository.ADServiceRepository;
 import com.example.serviceapp.common.entity.Customer;
 import com.example.serviceapp.common.entity.Services;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -67,6 +68,12 @@ public class ADContactServiceImpl implements ADContactService {
     @Override
     public boolean isPhoneNumberUpdateExists(String phoneNumber, Long id) {
         return contactRepository.isPhoneNumberUpdateExists(phoneNumber, id);
+    }
+
+    @Override
+    @Transactional
+    public void softDeleteContacts(List<Long> ids) {
+        contactRepository.softDeleteContacts(ids);
     }
 
 }

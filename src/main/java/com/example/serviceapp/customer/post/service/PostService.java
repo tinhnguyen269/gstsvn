@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
-    Optional<Post> findById(Long id);
 
 
     Page<Post> findAll(int page, int pageSize);
+    Optional<Post> findBySlug(String slug);
 }

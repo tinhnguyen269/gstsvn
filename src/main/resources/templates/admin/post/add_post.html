@@ -14,7 +14,6 @@
 
     <!-- Custom CSS -->
     <link href="/admin/css/styles.css" rel="stylesheet"/>
-
 </head>
 <body class="sb-nav-fixed">
 
@@ -40,6 +39,13 @@
                             <input type="text" th:field="*{title}" class="form-control form-control-lg rounded-3"
                                    id="title" placeholder="Nhập tiêu đề bài viết" required>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="slug" class="form-label">Url</label>
+                            <input type="text" th:field="*{slug}" class="form-control form-control-lg rounded-3"
+                                   id="slug" placeholder="ten-tin-tuc" required>
+                        </div>
+
                         <div class="mb-3">
                             <label for="imageUpload" class="form-label">Ảnh bài viết</label>
                             <input class="form-control" type="file" id="imageUpload" accept="image/*" onchange="uploadImage(event)">
@@ -48,7 +54,6 @@
                             </div>
                             <input type="hidden" th:field="*{imageUrl}" id="imageUrl"/>
                         </div>
-
 
                         <div class="mb-3">
                             <label for="contentEditor" class="form-label">Nội dung</label>
@@ -73,18 +78,60 @@
 
 <!-- CKEditor Config -->
 <script>
-    // Lấy CSRF token và header name từ meta
     const csrfToken = document.querySelector('meta[name="_csrf"]').content;
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
     ClassicEditor
         .create(document.querySelector('#contentEditor'), {
-            toolbar: [
-                'heading', '|',
-                'bold', 'italic', 'underline', 'link', '|',
-                'bulletedList', 'numberedList', '|',
-                'blockQuote', 'insertTable', 'imageUpload', 'mediaEmbed', '|',
-                'undo', 'redo'
-            ]
+            toolbar: {
+                items: [
+                    'heading', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
+                    'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+                    'alignment', 'highlight', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'link', 'blockQuote', 'code', 'codeBlock', 'horizontalLine', '|',
+                    'insertTable', 'imageUpload', 'mediaEmbed', '|',
+                    'undo', 'redo'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 24, 28, 32]
+            },
+            alignment: {
+                options: ['left', 'center', 'right', 'justify']
+            },
+            image: {
+                toolbar: [
+                    'imageStyle:inline',
+                    'imageStyle:block',
+                    'imageStyle:side',
+                    '|',
+                    'toggleImageCaption',
+                    'imageTextAlternative',
+                    'linkImage'
+                ],
+                styles: [
+                    'inline', 'block', 'side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn', 'tableRow', 'mergeTableCells'
+                ]
+            },
+            mediaEmbed: {
+                previewsInData: true
+            },
+            highlight: {
+                options: [
+                    { model: 'yellowMarker', class: 'marker-yellow', title: 'Vàng', color: 'var(--ck-highlight-marker-yellow)', type: 'marker' },
+                    { model: 'greenMarker', class: 'marker-green', title: 'Xanh lá', color: 'var(--ck-highlight-marker-green)', type: 'marker' },
+                    { model: 'pinkMarker', class: 'marker-pink', title: 'Hồng', color: 'var(--ck-highlight-marker-pink)', type: 'marker' },
+                    { model: 'blueMarker', class: 'marker-blue', title: 'Xanh dương', color: 'var(--ck-highlight-marker-blue)', type: 'marker' },
+                ]
+            }
         })
         .then(editor => {
             editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -110,15 +157,13 @@
                         method: 'POST',
                         body: formData,
                         headers: {
-                            [csrfHeader]: csrfToken // Gửi CSRF token
+                            [csrfHeader]: csrfToken
                         }
                     })
                         .then(response => response.json())
                         .then(data => {
                             if (data.uploaded === 1) {
-                                resolve({
-                                    default: data.url
-                                });
+                                resolve({ default: data.url });
                             } else {
                                 reject(data.error?.message || 'Upload thất bại');
                             }
@@ -141,7 +186,7 @@
             method: "POST",
             body: formData,
             headers: {
-                [csrfHeader]: csrfToken // Gửi CSRF token
+                [csrfHeader]: csrfToken
             }
         })
             .then(response => response.json())
@@ -167,7 +212,6 @@
     }
 </script>
 
-<!-- Optional Custom JS -->
 <script src="/admin/js/scripts.js"></script>
 
 </body>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/home")
+@RequestMapping("/du-an")
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -19,9 +19,9 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @GetMapping("/project/{projectId}")
-    public String findAllImageByProject(@PathVariable Long projectId, Model model) {
-        Optional<Project> project = projectService.findAllImageByProject(projectId);
+    @GetMapping("/{slug}")
+    public String findAllImageByProject(@PathVariable String slug, Model model) {
+        Optional<Project> project = projectService.findAllImageBySlug(slug);
         if (project.isPresent()) {
             model.addAttribute("project", project.get());
             model.addAttribute("images", project.get().getImageProjects());
