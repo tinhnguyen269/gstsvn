@@ -4,6 +4,7 @@ import com.example.serviceapp.common.advice.service.AdviceService;
 import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Services;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -34,3 +35,5 @@ public class CustomerControllerAdvice {
         return services;
     }
 }
+
+

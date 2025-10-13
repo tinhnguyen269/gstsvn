@@ -180,3 +180,164 @@
     }
 }
 
+/* khách hàng tiêu biểu */
+
+body {
+    font-family: Arial, sans-serif;
+    color: #555;
+}
+
+.customers-section {
+    background-color: #fff;
+}
+
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.section-subtitle {
+    color: #888;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.title-divider {
+    width: 60px;
+    height: 3px;
+    background-color: #ccc;
+    margin: 0 auto;
+}
+
+
+.stat-item .stat-number {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #4CAF50; /* Green color for the numbers */
+    margin-bottom: 0;
+    line-height: 1.2;
+}
+
+.stat-item .stat-label {
+    font-size: 1rem;
+    color: #777;
+    margin-top: 0;
+}
+
+
+.logo-grid .col-4, .logo-grid .col-md-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+
+/* đánh giá của khách hàng  */
+
+/* Title Styles */
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: #585858;
+    text-transform: uppercase;
+}
+
+.title-divider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.title-divider {
+    width: 100px;
+    height: 2px;
+    background-color: #8dc63f; /* Green color */
+    position: relative;
+}
+
+.title-divider::before,
+.title-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #8dc63f;
+    border-radius: 50%;
+}
+
+.title-divider::before {
+    left: -12px;
+}
+
+.title-divider::after {
+    right: -12px;
+}
+
+/* Aggregate Rating Styles */
+.rating-text {
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.facebook-logo {
+    height: 30px;
+    width: auto;
+}
+
+.stars {
+    color: #ffc107; /* Bootstrap's yellow for stars */
+}
+
+.review-count {
+    color: #777;
+    margin-bottom: 0.25rem;
+}
+
+.view-more-link {
+    color: #8dc63f;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.view-more-link:hover {
+    color: #6a9b30;
+}
+
+/* Testimonial Card Styles */
+.testimonial-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.profile-pic {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.customer-name {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.25rem;
+}
+
+.review-text {
+    color: #666;
+    font-style: italic;
+    line-height: 1.6;
+}
+
+.testimonial-content .stars {
+    font-size: 0.9rem;
+}

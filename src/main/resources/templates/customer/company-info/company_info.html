@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
-<head th:replace="customer/common/head :: head('Giới thiệu', ~{::styles})">
+<head th:replace="customer/common/head :: head('Giới thiệu về công ty GSTS', ~{::styles})">
     <styles>
         <link href="/customer/css/companyInfor.css" rel="stylesheet">
     </styles>
@@ -114,8 +114,10 @@
     </div>
 </section>
 
-<!--Button contact-->
-<div th:replace="customer/common/contact:: contact"></div>
+<!-- Nút liên hệ -->
+<div class="mt-5" th:replace="customer/common/contact :: contact"></div>
+<!--Button scroll head-->
+<div th:replace="customer/common/scroll_head:: scroll-head"></div>
 
 <div th:replace="customer/common/footer:: footer"></div>
 
@@ -132,5 +134,7 @@
     }
 
 </script>
+<script src="/customer/js/common.js"></script>
+
 </body>
 </html>
