@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
-    <th:block th:replace="admin/common/header :: header"></th:block>
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <!-- CKEditor -->
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
-
 </head>
 <body class="sb-nav-fixed">
 
-<div th:replace="admin/common/navbar :: navbar"></div>
+<!-- Header -->
+<div th:replace="admin/common/header :: header"></div>
+
 <div id="layoutSidenav">
     <!-- Sidebar -->
     <div th:replace="admin/common/sidebar :: sidebar"></div>
@@ -38,7 +37,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="imageUpload" class="form-label">Ảnh bài viết</label>
-                            <input class="form-control" type="file" id="imageUpload" accept="image/*" onchange="uploadImage(event)">
+                            <input class="form-control" type="file" id="imageUpload" accept="image/*"
+                                   onchange="uploadImage(event)">
                             <div class="mt-3">
                                 <img id="previewImage"
                                      th:src="${post.imageUrl}"
@@ -59,7 +59,8 @@
                         <div class="text-end">
                             <button type="submit" class="btn btn-success btn-sm rounded-pill px-4">💾 Cập nhật</button>
                             <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-4"
-                                    onclick="confirmBack()">⬅️ Quay lại</button>
+                                    onclick="confirmBack()">⬅️ Quay lại
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -76,15 +77,57 @@
     // Lấy CSRF token và header name từ meta
     const csrfToken = document.querySelector('meta[name="_csrf"]').content;
     const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-    ClassicEditor
+ ClassicEditor
         .create(document.querySelector('#contentEditor'), {
-            toolbar: [
-                'heading', '|',
-                'bold', 'italic', 'underline', 'link', '|',
-                'bulletedList', 'numberedList', '|',
-                'blockQuote', 'insertTable', 'imageUpload', 'mediaEmbed', '|',
-                'undo', 'redo'
-            ]
+            toolbar: {
+                items: [
+                    'heading', '|',
+                    'bold', 'italic', 'underline', 'strikethrough', 'subscript', 'superscript', '|',
+                    'fontSize', 'fontColor', 'fontBackgroundColor', '|',
+                    'alignment', 'highlight', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'link', 'blockQuote', 'code', 'codeBlock', 'horizontalLine', '|',
+                    'insertTable', 'imageUpload', 'mediaEmbed', '|',
+                    'undo', 'redo'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 24, 28, 32]
+            },
+            alignment: {
+                options: ['left', 'center', 'right', 'justify']
+            },
+            image: {
+                toolbar: [
+                    'imageStyle:inline',
+                    'imageStyle:block',
+                    'imageStyle:side',
+                    '|',
+                    'toggleImageCaption',
+                    'imageTextAlternative',
+                    'linkImage'
+                ],
+                styles: [
+                    'inline', 'block', 'side'
+                ]
+            },
+            table: {
+                contentToolbar: [
+                    'tableColumn', 'tableRow', 'mergeTableCells'
+                ]
+            },
+            mediaEmbed: {
+                previewsInData: true
+            },
+            highlight: {
+                options: [
+                    { model: 'yellowMarker', class: 'marker-yellow', title: 'Vàng', color: 'var(--ck-highlight-marker-yellow)', type: 'marker' },
+                    { model: 'greenMarker', class: 'marker-green', title: 'Xanh lá', color: 'var(--ck-highlight-marker-green)', type: 'marker' },
+                    { model: 'pinkMarker', class: 'marker-pink', title: 'Hồng', color: 'var(--ck-highlight-marker-pink)', type: 'marker' },
+                    { model: 'blueMarker', class: 'marker-blue', title: 'Xanh dương', color: 'var(--ck-highlight-marker-blue)', type: 'marker' },
+                ]
+            }
         })
         .then(editor => {
             editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
@@ -93,7 +136,7 @@
         })
         .catch(error => {
             console.error(error);
-        })
+        });
 
 
     class MyUploadAdapter {
@@ -171,14 +214,6 @@
 
 <!-- Optional Custom JS -->
 <script src="/admin/js/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        crossorigin="anonymous"></script>
-<script src="/admin/js/scripts.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-<script src="/admin/assets/demo/chart-area-demo.js"></script>
-<script src="/admin/assets/demo/chart-bar-demo.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
-        crossorigin="anonymous"></script>
-<script src="/admin/js/datatables-simple-demo.js"></script>
+
 </body>
 </html>
