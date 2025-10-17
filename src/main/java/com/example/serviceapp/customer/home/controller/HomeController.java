@@ -32,4 +32,9 @@ public class HomeController {
         return "customer/index";
     }
 
+    @GetMapping("/home")
+    public String home(){
+        return "redirect:/";
+    }
+
 }
