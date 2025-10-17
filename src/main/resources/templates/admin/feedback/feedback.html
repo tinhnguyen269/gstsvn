@@ -14,7 +14,7 @@
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title d-flex justify-content-between align-items-center">
-                        <h2>Quản lí <b>phản hồi</b></h2>
+                        <h2>Quản lí <b>dự án thực tế</b></h2>
                         <div class="d-flex">
                             <form th:action="@{/admin/feedback/list}" method="get" class="d-flex me-2" style="width: 300px;">
                                 <input class="form-control me-2" type="text" name="keyword" placeholder="Tìm khách hàng..."
@@ -32,7 +32,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Tên khách hàng</th>
+                            <th>Tiêu đề</th>
                             <th>Nội dung</th>
                             <th>Link youtube</th>
                             <th>Ngày tạo</th>
@@ -216,8 +216,6 @@
         });
     });
 </script>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/admin/js/scripts.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 <script src="/admin/assets/demo/chart-area-demo.js"></script>
