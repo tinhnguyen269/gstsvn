@@ -103,12 +103,14 @@
 /* Dropdown item hover */
 .dropdown-menu .dropdown-item:hover {
     color: #ffc107;
+    background-color: #e9ecef;
 }
 
 /* Dropdown item active */
 .dropdown-menu .dropdown-item.active {
     color: #ff6f00;
     font-weight: 700;
+    background-color: #e2d3a5;
 }
 
 /* Hiển thị dropdown khi hover */
@@ -224,24 +226,43 @@
   background-color: #145c32;
   transform: translateY(-3px);
 }
-
-/* video post và service */
 .video-responsive-container {
-    position: relative; /* Quan trọng để định vị iframe */
-    width: 100%; /* Đảm bảo nó chiếm toàn bộ chiều rộng có sẵn */
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* Tự động tính chiều cao theo tỷ lệ */
     overflow: hidden;
-
-    /* Tỷ lệ 16:9 (9 / 16 = 0.5625 = 56.25%) */
-    /* Dùng padding-top để tạo chiều cao tương đối với chiều rộng */
-    padding-top: 56.25%;
-    /* Nếu bạn muốn tỷ lệ 4:3, dùng padding-top: 75%; */
+    max-width: 100%;
 }
 
-/* Định nghĩa iframe bên trong container */
 .video-responsive-container iframe {
-    position: absolute; /* Đặt iframe lên trên container */
+    width: 100%;
+    height: 100%;
+    border: 0;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%; /* Chiếm 100% chiều rộng của container */
-    height: 100%; /* Chiếm 100% chiều cao đã tạo bằng padding-top */
+}
+
+/* Responsive - Tablet */
+@media (max-width: 992px) {
+    .scroll-head-buttons {
+        bottom: 20px;
+        right: 20px;
+    }
+    #backToTopBtn {
+        padding: 10px 12px;
+        font-size: 18px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 576px) {
+    .scroll-head-buttons {
+        bottom: 15px;
+        right: 15px;
+    }
+    #backToTopBtn {
+        padding: 8px 10px;
+        font-size: 16px;
+    }
 }
