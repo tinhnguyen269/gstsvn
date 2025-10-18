@@ -13,10 +13,11 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query("SELECT u FROM User u WHERE u.username = :username AND u.enabled = true AND u.deleteFlag = 0")
+    @Query("SELECT u FROM User u WHERE u.username = :username AND u.deleteFlag = 0")
     Optional<User> findByUsername(@Param("username") String username);
 
-    Optional<User> findByEmail(String email);
+    @Query("SELECT u FROM User u WHERE u.email = :email AND u.deleteFlag = 0")
+    Optional<User> findByEmail(@Param("email")String email);
 
     Optional<User> findByActivationCode(String activationCode);
 

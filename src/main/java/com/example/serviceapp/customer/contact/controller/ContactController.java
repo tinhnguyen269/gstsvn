@@ -63,7 +63,7 @@ public class ContactController {
         contactService.addCustomer(customer);
 
         response.put("status", "success");
-        response.put("message", "Đặt lịch thành công!");
+        response.put("message", "Đăng kí thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.");
         return response;
     }
 

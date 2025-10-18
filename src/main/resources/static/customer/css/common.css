@@ -52,12 +52,30 @@
 
 .echbay-sms-messenger {
     text-align: center;
-    right:20px;
+    left:20px;
     position: fixed;
     bottom: 20px;
     z-index: 999;
 }
+/* Hiệu ứng rung */
+@keyframes ring {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(25deg); }   /* tăng góc xoay */
+  20% { transform: rotate(-25deg); }
+  30% { transform: rotate(20deg); }
+  40% { transform: rotate(-20deg); }
+  50% { transform: rotate(15deg); }
+  60% { transform: rotate(-15deg); }
+  70% { transform: rotate(10deg); }
+  80% { transform: rotate(-10deg); }
+  90% { transform: rotate(5deg); }
+  100% { transform: rotate(0deg); }
+}
 
+.ring-animation {
+  animation: ring 1s ease-in-out infinite; /* giảm thời gian xuống 1s để rung nhanh hơn */
+  transform-origin: center;
+}
 
 /* Navbar link mặc định màu trắng */
 .navbar-nav .nav-link {
@@ -99,4 +117,133 @@
 .nav-item.dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0; /* tránh bị lệch xuống */
+}
+
+
+/* --- Thiết lập chung cho Sidebar --- */
+.sidebar {
+    background-color: #ffffff; /* Nền trắng sạch */
+    border: 1px solid #e0e0e0; /* Đường viền mỏng, tinh tế */
+    border-radius: 8px; /* Bo góc nhẹ nhàng */
+    padding: 20px;
+    margin-bottom: 25px; /* Khoảng cách với các thành phần bên dưới */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Bóng đổ nhẹ, tạo chiều sâu */
+}
+
+.sidebar h5 {
+    font-size: 1.25rem; /* Kích thước tiêu đề */
+    color: #333333; /* Màu chữ đậm */
+    border-bottom: 2px solid #007bff; /* Đường gạch chân màu xanh nổi bật */
+    padding-bottom: 10px; /* Khoảng cách giữa tiêu đề và đường gạch */
+    margin-bottom: 20px; /* Khoảng cách với các mục bên dưới */
+    font-weight: 600; /* Tiêu đề đậm hơn */
+    text-transform: uppercase; /* Chữ hoa */
+    letter-spacing: 0.5px; /* Tăng khoảng cách chữ */
+}
+
+/* --- Phong cách chung cho các mục trong sidebar --- */
+.post-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0; /* Đường phân cách mỏng */
+    display: flex; /* Sử dụng flexbox để căn chỉnh ảnh và chữ */
+    align-items: center; /* Căn giữa theo chiều dọc */
+}
+
+.post-item:last-child {
+    border-bottom: none; /* Bỏ đường phân cách ở mục cuối cùng */
+}
+
+.post-item a {
+    text-decoration: none; /* Bỏ gạch chân */
+    color: #555555; /* Màu chữ xám đậm */
+    font-size: 1rem;
+    line-height: 1.4;
+    transition: color 0.3s ease; /* Hiệu ứng chuyển màu mượt mà */
+    display: block; /* Đảm bảo liên kết chiếm đủ không gian */
+}
+
+.post-item a:hover {
+    color: #007bff; /* Màu xanh nổi bật khi di chuột */
+}
+
+/* --- Dịch vụ nổi bật (sidebarService) --- */
+/* Mục này không có ảnh, chỉ cần căn chỉnh text */
+.sidebarService .post-item {
+    padding-left: 15px; /* Tạo khoảng cách cho biểu tượng */
+    position: relative; /* Dùng để định vị biểu tượng */
+}
+
+.sidebarService .post-item::before {
+    content: "\2022"; /* Dấu chấm bullet hoặc biểu tượng khác */
+    color: #007bff; /* Màu xanh nổi bật */
+    font-weight: bold;
+    display: inline-block;
+    width: 1em; /* Căn chỉnh vị trí */
+    margin-left: -1em; /* Đưa dấu chấm ra ngoài */
+}
+
+
+/* --- Bài viết mới nhất (sidebarPost) --- */
+.sidebarPost .post-item img {
+    width: 60px; /* Kích thước ảnh thumbnail */
+    height: 60px;
+    object-fit: cover; /* Đảm bảo ảnh hiển thị đầy đủ và không bị biến dạng */
+    border-radius: 4px; /* Bo góc ảnh nhẹ */
+    margin-right: 15px; /* Khoảng cách giữa ảnh và tiêu đề */
+    flex-shrink: 0; /* Ngăn ảnh bị co lại */
+}
+
+.sidebarPost .post-item a {
+    /* Tiêu đề bài viết cần thêm tính linh hoạt để hiển thị nhiều dòng */
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Giới hạn chỉ hiển thị 2 dòng */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #333333; /* Màu chữ đậm hơn cho tiêu đề bài viết */
+    font-weight: 500; /* Hơi đậm để dễ đọc */
+}
+
+#backToTopBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  display: none; /* Ẩn mặc định */
+  background-color: #198754; /* xanh lá bootstrap */
+  color: white;
+  border: none;
+  outline: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+
+#backToTopBtn:hover {
+  background-color: #145c32;
+  transform: translateY(-3px);
+}
+
+/* video post và service */
+.video-responsive-container {
+    position: relative; /* Quan trọng để định vị iframe */
+    width: 100%; /* Đảm bảo nó chiếm toàn bộ chiều rộng có sẵn */
+    overflow: hidden;
+
+    /* Tỷ lệ 16:9 (9 / 16 = 0.5625 = 56.25%) */
+    /* Dùng padding-top để tạo chiều cao tương đối với chiều rộng */
+    padding-top: 56.25%;
+    /* Nếu bạn muốn tỷ lệ 4:3, dùng padding-top: 75%; */
+}
+
+/* Định nghĩa iframe bên trong container */
+.video-responsive-container iframe {
+    position: absolute; /* Đặt iframe lên trên container */
+    top: 0;
+    left: 0;
+    width: 100%; /* Chiếm 100% chiều rộng của container */
+    height: 100%; /* Chiếm 100% chiều cao đã tạo bằng padding-top */
 }

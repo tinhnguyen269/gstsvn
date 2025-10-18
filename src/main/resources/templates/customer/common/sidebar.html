@@ -1,6 +1,13 @@
+<div th:fragment="sidebarService">
+    <div class="sidebar">
+        <h5>Dịch vụ nổi bật</h5>
+        <div class="post-item" th:each="service : ${serviceAdvice}">
+            <a th:href="@{'/dich-vu/' + ${service.slug}}" th:text="${service.serviceName}"></a>
+        </div>
+    </div>
+</div>
 
-<!-- Sidebar -->
-<aside class="col-12 col-md-4 order-2 order-md-2 mb-4" th:fragment="sidebar">
+<div th:fragment="sidebarPost">
     <div class="sidebar">
         <h5>Bài viết mới nhất</h5>
         <div class="post-item" th:each="post : ${postAdvice}">
@@ -8,4 +15,4 @@
             <a th:href="@{'/tin-tuc/' + ${post.slug}}" th:text="${post.title}"></a>
         </div>
     </div>
-</aside>
+</div>

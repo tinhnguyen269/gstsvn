@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
-<head th:replace="customer/common/head :: head('Trang chủ', ~{::styles})">
+<head th:replace="customer/common/head :: head('Vệ sinh công nghiệp GSTS', ~{::styles})">
     <styles>
         <link href="/customer/css/home.css" rel="stylesheet">
         <link href="/customer/css/post-detail.css" rel="stylesheet">
@@ -46,7 +46,6 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </section>
-
 
     <!-- Dịch vụ nổi bật -->
     <section class="container py-5">
@@ -127,11 +126,109 @@
         </div>
     </section>
 
+    <!-- Đánh giá của khách hàng -->
+    <section class="customer-reviews-section py-5">
+        <div class="container text-center">
+            <h2 class="text-center text-success fw-bold mb-5">ĐÁNH GIÁ CỦA KHÁCH HÀNG</h2>
 
-    <!-- Phản hồi khách hàng -->
+            <div class="title-divider-container">
+                <div class="title-divider"></div>
+            </div>
+
+            <div class="aggregate-rating my-5">
+                <div class="d-flex justify-content-center align-items-center gap-3 mb-2">
+                    <span class="rating-text">Đánh giá: 4.9 trên 5</span>
+                    <img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760422781/image-28_upfzqd.png" alt="Facebook Logo" class="facebook-logo">
+                </div>
+                <div class="stars mb-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="review-count">Từ 1505 khách hàng đánh giá GSTS.</p>
+                <a href="#" class="view-more-link">Xem tại đây</a>
+            </div>
+
+            <div class="row text-start">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="testimonial-card">
+                        <img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760420514/ly-kieu-150x150_efg5zl.jpg" alt="Lý Kiều" class="profile-pic">
+                        <div class="testimonial-content">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="customer-name">Lý Kiều</h5>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">
+                                Tôi đã sử dụng và rất hài lòng về dịch vụ này. Cảm ơn Công Ty dịch vụ vệ sinh
+                                công nghiệp GSTS rất uy tín, giá cả hợp lý rất ok.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="testimonial-card">
+                        <img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760420514/nguyen-thoa-150x150_rzjjia.jpg" alt="Nguyễn Thoa" class="profile-pic">
+                        <div class="testimonial-content">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="customer-name">Nguyễn Thoa</h5>
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <p class="review-text">
+                                Dịch vụ vệ sinh công nghiệp công ty này rất chất lượng và chuyên nghiệp. Nhân
+                                viên làm việc chăm chỉ, nhiệt tình, vui vẻ.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
+
+    <!-- Dự án đã thực hiện -->
+    <section class="gallery-section py-5 bg-light" id="section_4">
+        <div class="container">
+            <h2 class="text-center text-success fw-bold mb-5">HÌNH ẢNH DỰ ÁN 2025</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}">
+                    <a th:href="@{/du-an/{slug}(slug=${project.slug})}"
+                       class="text-decoration-none text-dark">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden project-card h-100">
+                            <!-- Ảnh dự án -->
+                            <div class="ratio ratio-16x9 overflow-hidden">
+                                <img th:src="@{${project.thumbnailUrl}}" th:alt="${project.projectName}"
+                                     class="w-100 h-100 object-fit-cover">
+                            </div>
+                            <!-- Tên dự án -->
+                            <div class="card-body text-center p-3">
+                                <h6 th:text="${project.projectName}" class="fw-semibold mb-0 fs-6"></h6>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
+
+    <!-- Dự án thực tế 2025 -->
     <section class="video-list-section py-5 bg-light">
         <div class="container">
-            <h4 class="mb-4 text-success fw-bold text-center">Phản hồi của khách hàng</h4>
+            <h2 class="mb-5 text-success fw-bold text-center">DỰ ÁN THỰC TẾ 2025</h2>
             <div class="position-relative">
 
                 <!-- Danh sách video -->
@@ -158,34 +255,11 @@
             </div>
         </div>
     </section>
-    <!-- Dự án đã thực hiện -->
-    <section class="gallery-section py-5 bg-light" id="section_4">
-        <div class="container">
-            <h3 class="text-center text-success fw-bold mb-5">Dự án đã thực hiện</h3>
-            <div class="row g-4">
-                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}">
-                    <a th:href="@{/du-an/{slug}(slug=${project.slug})}"
-                       class="text-decoration-none text-dark">
-                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden project-card h-100">
-                            <!-- Ảnh dự án -->
-                            <div class="ratio ratio-16x9 overflow-hidden">
-                                <img th:src="@{${project.thumbnailUrl}}" th:alt="${project.projectName}"
-                                     class="w-100 h-100 object-fit-cover">
-                            </div>
-                            <!-- Tên dự án -->
-                            <div class="card-body text-center p-3">
-                                <h6 th:text="${project.projectName}" class="fw-semibold mb-0 fs-6"></h6>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Tin tức/Bài viết -->
     <section class="container my-5">
-        <h3 class="text-center text-success fw-bold mb-5">Bài viết tin tức</h3>
+        <h2 class="text-center text-success fw-bold mb-5">BÀI VIẾT MỚI</h2>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             <div th:each="post : ${Post}" class="col">
@@ -209,42 +283,70 @@
             </div>
         </div>
     </section>
+    <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
-    <!-- Liên hệ -->
-    <section class="contact-section section-padding" id="section_5">
-        <div class="container">
-            <div class="row">
-                <!-- Lịch làm việc và ảnh -->
-                <!--                <div class="col-lg-6 col-12 order-1 order-lg-2">-->
-                <!--                    <div class="mb-4">-->
-                <!--                        <h2 class="text-success">Lịch làm việc của công ty</h2>-->
-                <!--                    </div>-->
-                <!--                    &lt;!&ndash; Lark Scheduler Inline Embed Begin &ndash;&gt;-->
-                <!--                    <div class="scheduler-inline-widget" data-url="https://zsgpueraw1sx.sg.larksuite.com/scheduler/embed/f5d8cbe213d423f9" style="width:100%;height:626px;"></div>-->
-                <!--                    <script type="text/javascript" src="https://zsgpueraw1sx.sg.larksuite.com/scheduler/embed/scheduler-widget.js" async></script>-->
-                <!--                    &lt;!&ndash; Lark Scheduler Inline Embed End &ndash;&gt;-->
-                <!--                </div>-->
+    <!-- Khách hàng tiêu biểu -->
+    <section class="customers-section py-5">
+        <div class="container text-center">
+            <h2 class="section-title text-success">KHÁCH HÀNG TIÊU BIỂU</h2>
+            <p class="section-subtitle">Số liệu năm 2025</p>
+            <div class="title-divider"></div>
 
-                <!-- Google Map -->
-                <div class="col-lg-6 col-12 order-1 order-lg-2">
-                    <div class="mb-4 text-center">
-                        <h3 class="text-success ">Địa chỉ công ty</h3>
-                    </div>
-                    <div class="ratio ratio-4x3 rounded-4 shadow-sm">
-                        <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.687217416764!2d105.8408553153312!3d21.00311729397048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9393e3f4e7%3A0xa1a4d25d6e96624d!2zSOG6o2kgdGjhu4sgQsOhY2ggS2hvYQ!5e0!3m2!1svi!2s!4v1693651512381!5m2!1svi!2s"
-                                width="100%" height="100%" style="border:0;" allowfullscreen=""
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+            <div class="row my-5">
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <p class="stat-number">1996</p>
+                        <p class="stat-label">Năm thành lập</p>
                     </div>
                 </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <p class="stat-number">26+</p>
+                        <p class="stat-label">Năm kinh nghiệm</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <p class="stat-number">6,840+</p>
+                        <p class="stat-label">Nhân viên</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="stat-item">
+                        <p class="stat-number">10,000+</p>
+                        <p class="stat-label">KH doanh nghiệp</p>
+                    </div>
+                </div>
+            </div>
 
+            <div class="row g-4 align-items-center">
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415537/doi-tac-cua-gfc-clean-30_iiaqcq.jpg" alt="GHN Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415537/doi-tac-cua-gfc-clean-27_qbfbtx.jpg" alt="ITL Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415537/doi-tac-cua-gfc-clean-29_amgukn.jpg" alt="FedEx Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415536/doi-tac-cua-gfc-clean-21_qukap3.jpg" alt="AISVN Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415537/doi-tac-cua-gfc-clean-24_t7tsae.jpg" alt="Shopee Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415537/doi-tac-cua-gfc-clean-28_lnf7gp.jpg" alt="Lotte Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415537/doi-tac-cua-gfc-clean-25_im5sqx.jpg" alt="CJ Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415536/doi-tac-cua-gfc-clean-22_hpqfei.jpg" alt="Vietjet Air Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415536/doi-tac-cua-gfc-clean-1_ozydhf.jpg" alt="Novaland Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415536/doi-tac-cua-gfc-clean-13_fzrvme.jpg" alt="FPT Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415536/doi-tac-cua-gfc-clean-14_iqlrnz.jpg" alt="TTC Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img src="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760415536/doi-tac-cua-gfc-clean-6_vrcczz.jpg" alt="Flamingo Cat Ba Resorts Logo" class="img-fluid"></div>
+            </div>
+        </div>
+    </section>
+    <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
+
+    <!-- Nhận báo giá -->
+    <section class="contact-section section-padding mt-5" id="section_5" >
+        <div class="container">
+            <div class="row">
                 <!-- Đặt lịch và form -->
-                <div class="col-lg-6 col-12 order-2 order-lg-1">
+                <div class="col-lg-6 col-12 order-1 order-lg-1">
                     <div class="card shadow-lg border-0 p-4 rounded-4 bg-light">
                         <div class="mb-4 text-center">
-                            <h2 class="text-success fw-bold">Đặt lịch</h2>
-                            <p class="text-muted">Điền thông tin bên dưới để đặt lịch hẹn</p>
+                            <h2 class="text-success fw-bold">Nhận báo giá</h2>
+                            <p class="text-muted">Điền thông tin bên dưới để nhận báo giá</p>
                         </div>
 
                         <form id="contactForm" th:object="${customer}" novalidate>
@@ -281,7 +383,7 @@
 
                                 <div class="col-12 d-grid mt-3">
                                     <button type="submit" class="btn btn-success btn-lg rounded-3 shadow-sm">
-                                        Đặt lịch
+                                        Gửi thông tin
                                     </button>
                                 </div>
                             </div>
@@ -299,108 +401,39 @@
                                     data-bs-dismiss="toast"></button>
                         </div>
                     </div>
-
                 </div>
+
+                <!-- Google Map -->
+                <div class="col-lg-6 col-12 order-2 order-lg-2">
+                    <div class="mb-4 text-center mt-3">
+                        <h3 class="text-success ">Maps</h3>
+                    </div>
+                    <div class="ratio ratio-4x3 rounded-4 shadow-sm">
+                        <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.687217416764!2d105.8408553153312!3d21.00311729397048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9393e3f4e7%3A0xa1a4d25d6e96624d!2zSOG6o2kgdGjhu4sgQsOhY2ggS2hvYQ!5e0!3m2!1svi!2s!4v1693651512381!5m2!1svi!2s"
+                                width="100%" height="100%" style="border:0;" allowfullscreen=""
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!--Button contact-->
     <div th:replace="customer/common/contact:: contact"></div>
+
+    <!--Button scroll head-->
+    <div th:replace="customer/common/scroll_head:: scroll-head"></div>
+
 </main>
 
 <div th:replace="customer/common/footer:: footer"></div>
-<script>
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-        // Lấy CSRF token và header name từ meta
-        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
-        e.preventDefault();
-
-        // Xóa lỗi cũ
-        document.querySelectorAll(".text-danger").forEach(el => el.innerText = "");
-
-        let formData = new FormData(this);
-
-        fetch("/lien-he/them-moi", {
-            method: "POST",
-            body: formData,
-            headers: {
-                [csrfHeader]: csrfToken // Gửi CSRF token
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "error") {
-                    for (let field in data.errors) {
-                        let errDiv = document.getElementById("error-" + field);
-                        if (errDiv) {
-                            errDiv.innerText = data.errors[field];
-                        }
-                    }
-                }
-                if (data.status === "success") {
-                    let toastEl = document.getElementById("successToast");
-                    let toastBody = toastEl.querySelector(".toast-body");
-                    toastBody.innerText = data.message;
-
-                    let bsToast = new bootstrap.Toast(toastEl, {delay: 2500});
-                    bsToast.show();
-
-                    document.getElementById("contactForm").reset();
-                }
-            })
-            .catch(err => console.error("Lỗi:", err));
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const scrollContainer = document.getElementById('videoScroll');
-        const wrapper = document.getElementById('videoWrapper');
-
-        let scrollAmount = 0;
-        let maxScroll = scrollContainer.scrollWidth - wrapper.clientWidth;
-        let scrollSpeed = 1; // pixels per frame approx
-        let requestId;
-        let isPaused = false;
-
-        function autoScroll() {
-            if (!isPaused) {
-                scrollAmount += scrollSpeed;
-                if (scrollAmount >= maxScroll) {
-                    scrollAmount = 0; // reset scroll về đầu
-                }
-                scrollContainer.style.transform = `translateX(${-scrollAmount}px)`;
-            }
-            requestId = requestAnimationFrame(autoScroll);
-        }
-
-        // Bật auto scroll
-        autoScroll();
-
-        // Pause khi hover vào wrapper hoặc video card
-        wrapper.addEventListener('mouseenter', () => isPaused = true);
-        wrapper.addEventListener('mouseleave', () => isPaused = false);
-
-        // Pause khi click vào video (iframe)
-        scrollContainer.querySelectorAll('iframe').forEach(iframe => {
-            iframe.addEventListener('mouseenter', () => isPaused = true);
-            iframe.addEventListener('mouseleave', () => isPaused = false);
-            // Nếu cần pause khi click
-            iframe.addEventListener('click', () => {
-                isPaused = true;
-            });
-        });
-
-        // Khi cửa sổ thay đổi kích thước, cập nhật maxScroll lại
-        window.addEventListener('resize', () => {
-            maxScroll = scrollContainer.scrollWidth - wrapper.clientWidth;
-        });
-    });
-</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/customer/js/home.js"></script>
+<script src="/customer/js/common.js"></script>
+
 
 </body>
 </html>

@@ -10,9 +10,22 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+     cursor: pointer;
 }
 
 .image-wrapper img:hover {
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+.project-img-hover {
+    transition: transform 0.3s ease;
+}
+
+.project-img-hover:hover {
+    transform: scale(1.05);
+}
+
+#modalImage {
+    max-height: 80vh;
+    object-fit: contain;
 }

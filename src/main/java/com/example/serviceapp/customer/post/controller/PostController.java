@@ -1,6 +1,7 @@
 package com.example.serviceapp.customer.post.controller;
 
 import com.example.serviceapp.common.entity.Post;
+import com.example.serviceapp.customer.home.service.HomeService;
 import com.example.serviceapp.customer.post.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final HomeService homeService;
 
-    public PostController(PostService postService) {
+    public PostController(PostService postService, HomeService homeService) {
         this.postService = postService;
+        this.homeService = homeService;
     }
 
     @GetMapping("")
@@ -42,7 +45,9 @@ public class PostController {
     public String viewPost(@PathVariable String slug, Model model) {
         Post post = postService.findBySlug(slug)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid post slug: " + slug));
+        List<Post> Post = homeService.findPost9();
         model.addAttribute("post", post);
+        model.addAttribute("Post", Post);
 
         return "customer/post/post_detail";
     }
