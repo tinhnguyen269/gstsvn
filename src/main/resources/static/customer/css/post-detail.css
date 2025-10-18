@@ -154,7 +154,7 @@ CSS tùy chỉnh cho content
 .article-content iframe {
     max-width: 100%;
     width: 100%;
-    height: auto;
+    height: -webkit-fill-available;
 }
 
 /* Bảng cuộn ngang nếu quá rộng */
