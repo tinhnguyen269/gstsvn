@@ -1,9 +1,59 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
-<head th:replace="customer/common/head :: head('Tin tức - GSTS', ~{::styles})">
-    <styles>
+<head th:replace="customer/common/head :: head(
+    'Tin tức - GSTS | Kiến thức & mẹo vệ sinh công nghiệp mới nhất',
+    ~{::styles},
+    ~{::meta}
+)">
+    <!-- ✅ Meta riêng cho trang Tin tức -->
+    <th:block th:fragment="meta">
+        <meta name="description"
+              content="Trang tin tức GSTS cập nhật kiến thức, kinh nghiệm và mẹo vệ sinh công nghiệp mới nhất. Tư vấn giải pháp vệ sinh nhà ở, văn phòng, nhà xưởng hiệu quả và an toàn.">
+        <meta name="keywords"
+              content="tin tức vệ sinh công nghiệp, mẹo làm sạch, kiến thức vệ sinh, GSTS, dịch vụ vệ sinh, vệ sinh nhà xưởng, vệ sinh văn phòng">
+        <meta name="robots" content="index, follow">
+
+        <!-- ✅ Canonical URL -->
+        <link rel="canonical" th:href="${canonicalUrl}"/>
+
+        <!-- ✅ Open Graph (Facebook, Zalo, LinkedIn) -->
+        <meta property="og:title" content="Tin tức - GSTS | Kiến thức & mẹo vệ sinh công nghiệp mới nhất">
+        <meta property="og:description"
+              content="Cập nhật tin tức và mẹo vệ sinh công nghiệp mới nhất từ GSTS. Giải pháp vệ sinh an toàn, hiệu quả, tiết kiệm.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" th:content="${canonicalUrl}">
+        <meta property="og:image"
+              content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:site_name" content="GSTS">
+
+        <!-- ✅ Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Tin tức - GSTS | Kiến thức & mẹo vệ sinh công nghiệp mới nhất">
+        <meta name="twitter:description"
+              content="GSTS chia sẻ tin tức và kinh nghiệm vệ sinh công nghiệp hiệu quả, giúp bạn giữ không gian luôn sạch sẽ và an toàn.">
+        <meta name="twitter:image"
+              content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
+
+        <!-- ✅ Cấu trúc dữ liệu JSON-LD (SEO nâng cao cho trang tin) -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "NewsMediaOrganization",
+                "name": "GSTS - Tin tức vệ sinh công nghiệp",
+                "url": "https://gstsvn.onrender.com/tin-tuc",
+                "logo": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
+                "sameAs": [
+                    "https://www.facebook.com/gstsvn.onrender.com",
+                    "https://www.linkedin.com/company/gsts-vietnam"
+                ]
+            }
+        </script>
+    </th:block>
+    <!-- ✅ CSS riêng -->
+    <th:block th:fragment="styles">
         <link href="/customer/css/home.css" rel="stylesheet">
-    </styles>
+    </th:block>
 </head>
 
 <body class="shop-detail-page d-flex flex-column min-vh-100">
@@ -86,11 +136,9 @@
             </ul>
         </nav>
 
-        <!-- LIÊN HỆ -->
-        <section class="mt-5" th:replace="customer/common/contact :: contact"></section>
-
-        <!-- BUTTON SCROLL HEAD -->
-        <div th:replace="customer/common/scroll_head:: scroll-head"></div>
+        <!-- Button contact & scroll -->
+        <div th:replace="customer/common/contact :: contact"></div>
+        <div th:replace="customer/common/scroll_head :: scroll-head"></div>
     </div>
 </main>
 

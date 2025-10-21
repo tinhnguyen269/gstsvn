@@ -34,6 +34,11 @@ public class CustomerControllerAdvice {
         List<Services> services = adviceService.findAll();
         return services;
     }
+
+    @ModelAttribute("canonicalUrl")
+    public String canonicalUrl(HttpServletRequest request) {
+        return request.getRequestURL().toString();
+    }
 }
 
 

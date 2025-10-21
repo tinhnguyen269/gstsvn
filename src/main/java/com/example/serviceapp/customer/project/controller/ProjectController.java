@@ -27,12 +27,11 @@ public class ProjectController {
     }
 
     @GetMapping("/{slug}")
-    public String findAllImageByProject(@PathVariable String slug, HttpServletRequest request, Model model) {
+    public String findAllImageByProject(@PathVariable String slug, Model model) {
         Optional<Project> project = projectService.findAllImageBySlug(slug);
         if (project.isPresent()) {
             model.addAttribute("project", project.get());
             model.addAttribute("images", project.get().getImageProjects());
-            model.addAttribute("canonicalUrl", request.getRequestURL().toString());
         } else {
             return "redirect:/not-found";
         }

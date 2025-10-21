@@ -1,13 +1,11 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
-<head th:replace="customer/common/head :: head(${project.projectName}, ~{::styles})">
-    <styles>
-        <!-- Ưu tiên tải trước CSS quan trọng -->
-        <link rel="preload" href="/customer/css/post-detail.css" as="style">
-        <link rel="preload" href="/customer/css/project.css" as="style">
-        <link href="/customer/css/post-detail.css" rel="stylesheet">
-        <link href="/customer/css/project.css" rel="stylesheet">
-
+<head th:replace="customer/common/head :: head(
+   ${project.projectName},
+    ~{::styles},
+    ~{::meta}
+)">
+    <th:block th:fragment="meta">
         <!-- Thẻ meta SEO -->
         <meta name="description" th:content="${project.projectName + ' - Dự án đã hoàn thành của GSTS'}">
         <link rel="canonical" th:href="${canonicalUrl}">
@@ -18,7 +16,11 @@
         <meta property="og:description" th:content="${project.projectName + ' - Dự án đã hoàn thành của GSTS'}">
         <meta property="og:url" th:content="${canonicalUrl}">
         <meta property="og:image" th:content="${canonicalUrl}">
-    </styles>
+    </th:block>
+    <th:block th:fragment="styles">
+        <link href="/customer/css/post-detail.css" rel="stylesheet">
+        <link href="/customer/css/project.css" rel="stylesheet"/>
+    </th:block>
 </head>
 
 <body class="d-flex flex-column min-vh-100">
