@@ -4,6 +4,7 @@ import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Project;
 import com.example.serviceapp.customer.home.service.HomeService;
 import com.example.serviceapp.customer.project.service.ProjectService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +27,12 @@ public class ProjectController {
     }
 
     @GetMapping("/{slug}")
-    public String findAllImageByProject(@PathVariable String slug, Model model) {
+    public String findAllImageByProject(@PathVariable String slug, HttpServletRequest request, Model model) {
         Optional<Project> project = projectService.findAllImageBySlug(slug);
         if (project.isPresent()) {
             model.addAttribute("project", project.get());
             model.addAttribute("images", project.get().getImageProjects());
+            model.addAttribute("canonicalUrl", request.getRequestURL().toString());
         } else {
             return "redirect:/not-found";
         }

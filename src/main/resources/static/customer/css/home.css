@@ -341,3 +341,9 @@ body {
 .testimonial-content .stars {
     font-size: 0.9rem;
 }
+
+/* Home ẩn thẻ h1*/
+.hidden {
+    display: none !important;
+    visibility: hidden !important;
+}

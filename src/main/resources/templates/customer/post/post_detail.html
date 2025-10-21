@@ -9,42 +9,51 @@
 <body class="d-flex flex-column min-vh-100">
 <div th:replace="customer/common/navbar:: header"></div>
 
-<div class="container mt-5 pt-4">
-    <div class="row ">
-        <div class="col-12 col-md-8 mb-5 mb-md-0 order-1 order-md-1">
+<!-- Nội dung chính -->
+<main class="container mt-5 pt-4 flex-grow-1">
+    <div class="row">
+        <!-- Thẻ H1 chính -->
+        <h1 class="visually-hidden">Tin tức GSTS - [[${post.title}]]</h1>
+
+        <!-- Bài viết -->
+        <div class="col-12 col-md-8 mb-5">
             <nav aria-label="breadcrumb" class="pt-4 mt-1">
                 <ol class="breadcrumb bg-transparent p-0 mb-3">
-                    <li class="breadcrumb-item"><a th:href="@{/tin-tuc}" class="text-decoration-none text-dark"> Tin
-                        tức</a></li>
+                    <li class="breadcrumb-item">
+                        <a th:href="@{/tin-tuc}" class="text-decoration-none text-dark">Tin tức</a>
+                    </li>
                     <li class="breadcrumb-item active text-dark" aria-current="page">Chi tiết</li>
                 </ol>
             </nav>
+
             <div class="text-muted mb-3">
                 <i class="fa-regular fa-clock me-1"></i>
                 <span th:text="${post.updateAt != null ? #temporals.format(post.updateAt, 'dd/MM/yyyy HH:mm') : #temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}"></span>
             </div>
 
-            <div class="article-content" th:utext="${post.content}"></div>
-            <div class="mt-5" th:replace="customer/common/post :: post"></div>
+            <article class="article-content" th:utext="${post.content}"></article>
+
+            <section class="mt-5" th:replace="customer/common/post :: post"></section>
         </div>
 
-        <aside class="col-12 col-md-4 order-2 order-md-2">
+        <!-- Sidebar -->
+        <aside class="col-12 col-md-4">
             <div class="mb-4" th:replace="customer/common/sidebar :: sidebarService"></div>
             <div th:replace="customer/common/sidebar :: sidebarPost"></div>
         </aside>
     </div>
 
-    <div class="mt-5" th:replace="customer/common/contact :: contact"></div>
-</div>
+    <!-- Liên hệ -->
+    <section class="mt-5" th:replace="customer/common/contact :: contact"></section>
+</main>
 
-<!-- Nút liên hệ -->
-<div class="mt-5" th:replace="customer/common/contact :: contact"></div>
-<!--Button scroll head-->
+<!-- Button scroll head -->
 <div th:replace="customer/common/scroll_head:: scroll-head"></div>
-</div>
 
-<div th:replace="customer/common/footer :: footer"></div>
-<!-- JAVASCRIPT FILES -->
+<!-- Footer -->
+<footer th:replace="customer/common/footer :: footer"></footer>
+
+<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/customer/js/common.js"></script>
 <script type="application/ld+json">
