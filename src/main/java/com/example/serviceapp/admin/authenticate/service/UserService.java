@@ -7,6 +7,7 @@ import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Async
     public void registerUser(User user) {
         // Mã hóa password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -107,6 +109,7 @@ public class UserService {
         return userRepo.findByResetPasswordToken(token);
     }
 
+    @Async
     public void sendResetPasswordToken(User user) {
         String token = UUID.randomUUID().toString();
         user.setResetPasswordToken(token);
