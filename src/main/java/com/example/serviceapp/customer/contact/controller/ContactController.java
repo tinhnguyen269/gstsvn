@@ -23,11 +23,10 @@ import java.util.Map;
 public class ContactController {
 
     private final ContactService contactService;
-    private final HomeService homeService;
 
-    public ContactController(ContactService contactService, HomeService homeService) {
+
+    public ContactController(ContactService contactService) {
         this.contactService = contactService;
-        this.homeService = homeService;
     }
 
     @PostMapping("/them-moi")
@@ -61,6 +60,7 @@ public class ContactController {
         // Bước 4: Lưu dữ liệu
         customer.setStatus(CONTACT_STATUS.PENDING);
         contactService.addCustomer(customer);
+        contactService.sendNotificationToCompany(customer);
 
         response.put("status", "success");
         response.put("message", "Đăng kí thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.");
