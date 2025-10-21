@@ -1,128 +1,154 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
-<head th:replace="customer/common/head :: head('Giới thiệu về công ty GSTS', ~{::styles})">
-    <styles>
+<head th:replace="customer/common/head :: head(
+    'Giới thiệu về công ty GSTS',
+    ~{::styles},
+    ~{::meta}
+)">
+    <!-- ✅ Meta riêng cho trang Giới thiệu -->
+    <th:block th:fragment="meta">
+        <meta name="description"
+              content="Công ty vệ sinh công nghiệp GSTS chuyên cung cấp dịch vụ làm sạch chuyên nghiệp cho nhà ở, văn phòng, nhà xưởng. Uy tín - Giá rẻ - Chất lượng hàng đầu Việt Nam.">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" th:href="${canonicalUrl}"/>
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Giới thiệu về Công ty Vệ Sinh Công Nghiệp GSTS">
+        <meta property="og:description" content="GSTS chuyên cung cấp dịch vụ vệ sinh công nghiệp, văn phòng, nhà ở. Uy tín – Chuyên nghiệp – Nhiều năm kinh nghiệm.">
+        <meta property="og:url" th:content="${canonicalUrl}">
+        <meta property="og:image" content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
+        <meta property="og:site_name" content="Công ty Vệ Sinh GSTS">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Giới thiệu về Công ty Vệ Sinh Công Nghiệp GSTS">
+        <meta name="twitter:description" content="GSTS cung cấp dịch vụ vệ sinh công nghiệp chuyên nghiệp – Uy tín – Giá tốt tại Việt Nam.">
+        <meta name="twitter:image" content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
+
+        <!-- ✅ Schema.org -->
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "name": "Công ty Vệ Sinh Công Nghiệp GSTS",
+                "image": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
+                "@id": "https://gstsvn.onrender.com/gioi-thieu",
+                "url": "https://gstsvn.onrender.com/gioi-thieu",
+                "telephone": ["0769270xxx", "0987574xxx"],
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Thôn An Đông, Thành phố Hải Phòng",
+                    "addressLocality": "Hải Phòng",
+                    "addressCountry": "VN"
+                },
+                "sameAs": [
+                    "https://www.facebook.com/webdemo/",
+                    "https://zalo.me/0769270xxx"
+                ]
+            }
+        </script>
+    </th:block>
+
+    <th:block th:fragment="styles">
         <link href="/customer/css/companyInfor.css" rel="stylesheet">
-    </styles>
+    </th:block>
 </head>
+
+
+
 <body class="d-flex flex-column min-vh-100">
+
+<!-- Header -->
 <div th:replace="customer/common/navbar:: header"></div>
 
-<section class="featured-section section-padding py-5 mt-4">
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8">
+<!-- Nội dung chính -->
+<main class="flex-grow-1">
 
-                <h2 class="mb-4">Giới thiệu</h2>
+    <!-- Giới thiệu công ty -->
+    <section class="featured-section section-padding py-5 mt-4">
+        <div class="container mt-4">
 
-                <p>Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.</p>
+            <!-- H1 nên mô tả rõ ràng trang -->
+            <h1 class="visually-hidden">Giới thiệu về công ty vệ sinh công nghiệp GSTS</h1>
 
-                <h5 class="mt-4">Thời gian làm việc</h5>
-                <p>Chúng tôi làm việc từ 8h – 19h hằng ngày (cả thứ 7 & chủ nhật) nếu quý khách hàng cần gấp ngoài giờ hành chính vui lòng liên hệ chúng tôi qua số hotline 0769 270 xxx or 0987 574 xxx để được hỗ trợ tốt nhất, xin cảm ơn.</p>
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
 
-                <h5 class="mt-4">Tư vấn hỗ trợ</h5>
-                <p>Quý khách hàng để lại thông tin tại đây, chúng tôi sẽ liên hệ tư vấn hỗ trợ ngay, xin cảm ơn</p>
+                    <h2 class="mb-4">Giới thiệu</h2>
+                    <p>Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm
+                        kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn
+                        đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách
+                        hàng.</p>
 
-                <p><strong>CTY : CÔNG TY CỔ PHẦN CUNG ỨNG DỊCH VỤ VÀ CÔNG NGHỆ KHU CÔNG NGHIỆP GSTS</strong></p>
+                    <h5 class="mt-4">Thời gian làm việc</h5>
+                    <p>Chúng tôi làm việc từ 8h – 19h hằng ngày (cả thứ 7 & chủ nhật). Nếu quý khách hàng cần gấp ngoài
+                        giờ hành chính, vui lòng liên hệ hotline <strong>0769 270 xxx</strong> hoặc <strong>0987 574
+                            xxx</strong> để được hỗ trợ tốt nhất, xin cảm ơn.</p>
 
-                <ul class="list-unstyled">
-                    <li><strong>MSDN</strong>: 0801448361</li>
-                    <li><strong>Văn phòng công ty</strong>: Thôn An Đông, , Thành phố Hải Phòng, Việt Nam</li>
-                    <li><strong>VP2</strong>: 41/51 Chiến Thắng, Văn Quán, Hà Đông</li>
-                    <li><strong>VP3</strong>: 151/52 Lê Đại Hành, Hai Bà Trưng, Hà Nội</li>
-                    <li><strong>VP4</strong>: 42/12 Đào Tấn, Ba Đình, Hà Nội</li>
-                    <li><strong>VP5</strong>: 33/123 Hoàng Quốc Việt, Nam Từ Liêm, Hà Nội</li>
-                    <li><strong>VP6</strong>: 252/90 Ngô Gia Tự, Long Biên, Hà Nội</li>
-                    <li><strong>Hotline</strong>: 0769.270.xxx – 0987.574.xxx</li>
-                    <li><strong>Email</strong>: <a href="mailto:webdemo@gmail.com">webdemo@gmail.com</a></li>
-                    <li><strong>Fanpage</strong>: <a href="https://www.facebook.com/webdemo/" target="_blank" rel="noopener">facebook.com/webdemo/</a></li>
-                    <li><strong>Zalo</strong>: 0769 270 xxx *** 0987 574 xxx</li>
-                </ul>
+                    <h5 class="mt-4">Tư vấn hỗ trợ</h5>
+                    <p>Quý khách hàng để lại thông tin tại đây, chúng tôi sẽ liên hệ tư vấn hỗ trợ ngay, xin cảm ơn.</p>
+
+                    <p><strong>CTY:</strong> CÔNG TY CỔ PHẦN CUNG ỨNG DỊCH VỤ VÀ CÔNG NGHỆ KHU CÔNG NGHIỆP GSTS</p>
+
+                    <ul class="list-unstyled">
+                        <li><strong>MSDN</strong>: 0801448361</li>
+                        <li><strong>Văn phòng công ty</strong>: Thôn An Đông, Thành phố Hải Phòng, Việt Nam</li>
+                        <li><strong>VP2</strong>: 41/51 Chiến Thắng, Văn Quán, Hà Đông</li>
+                        <li><strong>VP3</strong>: 151/52 Lê Đại Hành, Hai Bà Trưng, Hà Nội</li>
+                        <li><strong>VP4</strong>: 42/12 Đào Tấn, Ba Đình, Hà Nội</li>
+                        <li><strong>VP5</strong>: 33/123 Hoàng Quốc Việt, Nam Từ Liêm, Hà Nội</li>
+                        <li><strong>VP6</strong>: 252/90 Ngô Gia Tự, Long Biên, Hà Nội</li>
+                        <li><strong>Hotline</strong>: 0769.270.xxx – 0987.574.xxx</li>
+                        <li><strong>Email</strong>: <a href="mailto:webdemo@gmail.com">webdemo@gmail.com</a></li>
+                        <li><strong>Fanpage</strong>: <a href="https://www.facebook.com/webdemo/" target="_blank"
+                                                         rel="noopener">facebook.com/webdemo/</a></li>
+                        <li><strong>Zalo</strong>: 0769 270 xxx *** 0987 574 xxx</li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="team-section py-5 text-center">
-    <h3 class="section-title mb-4">TEAM LEADER</h3>
+    <!-- Team -->
+    <section class="team-section py-5 text-center">
+        <h2 class="section-title mb-4">Đội ngũ lãnh đạo</h2>
 
-    <div class="team-container position-relative">
-        <!-- Nút scroll trái -->
-        <button class="btn-scroll left" onclick="scrollTeam(-300)">&#10094;</button>
+        <div class="team-container position-relative">
+            <!-- Nút scroll trái -->
+            <button class="btn-scroll left" onclick="scrollTeam(-300)">&#10094;</button>
 
-        <div class="team-list d-flex overflow-auto">
-            <!-- Thành viên 1 -->
-            <div class="team-item text-center">
-                <img src="/customer/images/trong.png" alt="NHỮ VĂN TRỌNG" class="member-img">
-                <h5 class="name">NHỮ VĂN TRỌNG</h5>
-                <p class="position">TỔNG GIÁM ĐỐC</p>
-                <div class="icons my-2">
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-envelope"></i>
-                    <i class="bi bi-telephone"></i>
+            <div class="team-list d-flex overflow-auto">
+                <div class="team-item text-center" th:each="i : ${#numbers.sequence(1,5)}">
+                    <img src="/customer/images/trong.png" alt="NHỮ VĂN TRỌNG" class="member-img">
+                    <h5 class="name">NHỮ VĂN TRỌNG</h5>
+                    <p class="position">TỔNG GIÁM ĐỐC</p>
+                    <div class="icons my-2">
+                        <i class="bi bi-facebook"></i>
+                        <i class="bi bi-envelope"></i>
+                        <i class="bi bi-telephone"></i>
+                    </div>
+                    <p class="desc">Điều hành công ty</p>
                 </div>
-                <p class="desc">Điều hành công ty</p>
             </div>
-            <div class="team-item text-center">
-                <img src="/customer/images/trong.png" alt="NHỮ VĂN TRỌNG" class="member-img">
-                <h5 class="name">NHỮ VĂN TRỌNG</h5>
-                <p class="position">TỔNG GIÁM ĐỐC</p>
-                <div class="icons my-2">
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-envelope"></i>
-                    <i class="bi bi-telephone"></i>
-                </div>
-                <p class="desc">Điều hành công ty</p>
-            </div>
-            <div class="team-item text-center">
-                <img src="/customer/images/trong.png" alt="NHỮ VĂN TRỌNG" class="member-img">
-                <h5 class="name">NHỮ VĂN TRỌNG</h5>
-                <p class="position">TỔNG GIÁM ĐỐC</p>
-                <div class="icons my-2">
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-envelope"></i>
-                    <i class="bi bi-telephone"></i>
-                </div>
-                <p class="desc">Điều hành công ty</p>
-            </div>
-            <div class="team-item text-center">
-                <img src="/customer/images/trong.png" alt="NHỮ VĂN TRỌNG" class="member-img">
-                <h5 class="name">NHỮ VĂN TRỌNG</h5>
-                <p class="position">TỔNG GIÁM ĐỐC</p>
-                <div class="icons my-2">
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-envelope"></i>
-                    <i class="bi bi-telephone"></i>
-                </div>
-                <p class="desc">Điều hành công ty</p>
-            </div>
-            <div class="team-item text-center">
-                <img src="/customer/images/trong.png" alt="NHỮ VĂN TRỌNG" class="member-img">
-                <h5 class="name">NHỮ VĂN TRỌNG</h5>
-                <p class="position">TỔNG GIÁM ĐỐC</p>
-                <div class="icons my-2">
-                    <i class="bi bi-facebook"></i>
-                    <i class="bi bi-envelope"></i>
-                    <i class="bi bi-telephone"></i>
-                </div>
-                <p class="desc">Điều hành công ty</p>
-            </div>
+
+            <!-- Nút scroll phải -->
+            <button class="btn-scroll right" onclick="scrollTeam(300)">&#10095;</button>
         </div>
+    </section>
 
-        <!-- Nút scroll phải -->
-        <button class="btn-scroll right" onclick="scrollTeam(300)">&#10095;</button>
-    </div>
-</section>
+    <!-- Liên hệ -->
+    <div class="mt-5" th:replace="customer/common/contact :: contact"></div>
 
-<!-- Nút liên hệ -->
-<div class="mt-5" th:replace="customer/common/contact :: contact"></div>
-<!--Button scroll head-->
-<div th:replace="customer/common/scroll_head:: scroll-head"></div>
+</main>
 
-<div th:replace="customer/common/footer:: footer"></div>
+<!-- Scroll head -->
+<div th:replace="customer/common/scroll_head :: scroll-head"></div>
 
+<!-- Footer -->
+<div th:replace="customer/common/footer :: footer"></div>
 
-<!-- JAVASCRIPT FILES -->
+<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     function scrollTeam(value) {
@@ -132,9 +158,7 @@
             behavior: 'smooth'
         });
     }
-
 </script>
 <script src="/customer/js/common.js"></script>
-
 </body>
 </html>

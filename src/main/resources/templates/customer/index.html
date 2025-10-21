@@ -1,17 +1,71 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="vi">
-<head th:replace="customer/common/head :: head('Vệ sinh công nghiệp GSTS', ~{::styles})">
-    <styles>
+<head th:replace="customer/common/head :: head(
+    'GSTS - Vệ sinh công nghiệp',
+    ~{::styles},
+    ~{::meta}
+)">
+    <!-- ✅ Meta riêng cho trang chủ -->
+    <th:block th:fragment="meta">
+        <meta name="description"
+              content="Công ty vệ sinh công nghiệp GSTS chuyên cung cấp dịch vụ làm sạch chuyên nghiệp cho nhà ở, văn phòng, nhà xưởng. Uy tín - Giá rẻ - Chất lượng hàng đầu Việt Nam.">
+        <meta name="keywords"
+              content="vệ sinh công nghiệp, làm sạch, dịch vụ vệ sinh, GSTS, vệ sinh nhà xưởng, vệ sinh văn phòng">
+        <meta name="robots" content="index, follow">
+
+        <!-- ✅ Canonical URL -->
+        <link rel="canonical"
+              th:href="${canonicalUrl != null ? canonicalUrl : #httpServletRequest.requestURL}"/>
+
+        <!-- ✅ Open Graph (Facebook, Zalo, LinkedIn) -->
+        <meta property="og:title" content="GSTS - Dịch vụ vệ sinh công nghiệp">
+        <meta property="og:description"
+              content="GSTS cung cấp giải pháp vệ sinh công nghiệp toàn diện - Nhanh chóng, uy tín, chuyên nghiệp.">
+        <meta property="og:type" content="website">
+        <meta property="og:url" th:content="${canonicalUrl != null ? canonicalUrl : #httpServletRequest.requestURL}">
+        <meta property="og:image"
+              content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
+        <meta property="og:locale" content="vi_VN">
+        <meta property="og:site_name" content="GSTS">
+
+        <!-- ✅ Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="GSTS - Vệ sinh công nghiệp">
+        <meta name="twitter:description"
+              content="GSTS cung cấp giải pháp vệ sinh công nghiệp toàn diện - Nhanh chóng, uy tín, chuyên nghiệp.">
+        <meta name="twitter:image"
+              content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
+        <script type="application/ld+json" >
+        {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Công ty Vệ Sinh GSTS",
+            "image": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Thôn An Đông, Xã Thái Hòa, Huyện Bình Giang",
+                "addressLocality": "Tỉnh Hải Dương",
+                "addressCountry": "Việt Nam"
+            },
+            "telephone": "0333360748",
+            "url": "https://gstsvn.onrender.com/home"
+        }
+        </script>
+    </th:block>
+
+    <!-- ✅ CSS riêng -->
+    <th:block th:fragment="styles">
         <link href="/customer/css/home.css" rel="stylesheet">
         <link href="/customer/css/post-detail.css" rel="stylesheet">
-    </styles>
+    </th:block>
 </head>
+
 
 <body>
 <div th:replace="customer/common/navbar::header"></div>
 
 <main class="col-12 order-2 order-md-1 mb-4">
-
+    <h1 class="hidden">GSTS-Vệ sinh công nghiệp</h1>
     <!-- Banner Carousel -->
     <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -425,22 +479,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/customer/js/home.js"></script>
 <script src="/customer/js/common.js"></script>
-<script type="application/ld+json" >
-    {
-        "@context": "https://schema.org",
-        "@type": "LocalBusiness",
-        "name": "Công ty Vệ Sinh GSTS",
-        "image": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Thôn An Đông, Xã Thái Hòa, Huyện Bình Giang",
-            "addressLocality": "Tỉnh Hải Dương",
-            "addressCountry": "Việt Nam"
-        },
-        "telephone": "0333360748",
-        "url": "https://gstsvn.onrender.com/home"
-    }
-</script>
+
 
 </body>
 </html>

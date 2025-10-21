@@ -4,6 +4,7 @@ import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Project;
 import com.example.serviceapp.customer.home.service.HomeService;
 import com.example.serviceapp.customer.project.service.ProjectService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
