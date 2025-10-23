@@ -43,3 +43,6 @@ build/resources/
 # Remote tracking branch cleanup cache
 # ========================================
 .git/modules/
+
+**/.env
+
