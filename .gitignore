@@ -44,5 +44,5 @@ build/resources/
 # ========================================
 .git/modules/
 
-**/.env
+.env
 
