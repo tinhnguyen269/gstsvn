@@ -5,9 +5,10 @@ import com.example.serviceapp.common.entity.Customer;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.contact.service.ContactService;
 import com.example.serviceapp.customer.service.repository.ServiceRepository;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -49,37 +50,46 @@ public class ContactServiceImpl implements ContactService {
             String serviceName = serviceRepository.findById(customer.getServiceId())
                     .map(Services::getServiceName)
                     .orElse("Không xác định");
-            String note = customer.getContext() != null && !customer.getContext().isBlank()
+            String note = (customer.getContext() != null && !customer.getContext().isBlank())
                     ? customer.getContext()
                     : "(Không có)";
 
-            // ✅ Email công ty
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setTo(companyEmail);
-            message.setSubject("📩 Có khách hàng mới đăng ký dịch vụ GSTS");
-            message.setText(String.format("""
-            Xin chào đội ngũ GSTS,
+            // ✅ Tạo email HTML gửi tới công ty
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
-            Có một khách hàng mới vừa gửi thông tin đăng ký dịch vụ.
+            helper.setFrom(companyEmail, "GSTS Support");
+            helper.setTo(companyEmail);
+            helper.setSubject("📩 Có khách hàng mới đăng ký dịch vụ GSTS");
 
-            Thông tin chi tiết:
-            - Họ tên: %s
-            - Số điện thoại: %s
-            - Dịch vụ quan tâm: %s
-            - Ghi chú: %s
+            String content = """
+            <html>
+                <body style="font-family: Arial, sans-serif; color: #333;">
+                    <h3>Xin chào đội ngũ GSTS,</h3>
+                    <p>Có một khách hàng mới vừa gửi thông tin đăng ký dịch vụ.</p>
 
-            Vui lòng liên hệ sớm để xác nhận và tư vấn cho khách hàng.
+                    <table style="border-collapse: collapse; font-size: 14px;">
+                        <tr><td><strong>Họ tên:</strong></td><td>%s</td></tr>
+                        <tr><td><strong>Số điện thoại:</strong></td><td>%s</td></tr>
+                        <tr><td><strong>Dịch vụ quan tâm:</strong></td><td>%s</td></tr>
+                        <tr><td><strong>Ghi chú:</strong></td><td>%s</td></tr>
+                    </table>
 
-            Trân trọng,
-            Hệ thống website GSTS.
-            """, customerName, phoneNumber, serviceName, note)
-            );
+                    <p>Vui lòng liên hệ sớm để xác nhận và tư vấn cho khách hàng.</p>
 
-            mailSender.send(message);
+                    <p>Trân trọng,<br/>Hệ thống website GSTS.</p>
+                </body>
+            </html>
+        """.formatted(customerName, phoneNumber, serviceName, note);
+
+            helper.setText(content, true);
+
+            mailSender.send(mimeMessage);
             System.out.println("✅ Đã gửi thông báo tới công ty: " + companyEmail);
         } catch (Exception e) {
             System.err.println("❌ Gửi email tới công ty thất bại: " + e.getMessage());
         }
     }
+
 
 }

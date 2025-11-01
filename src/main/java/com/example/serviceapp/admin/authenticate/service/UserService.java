@@ -11,6 +11,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,6 +24,9 @@ public class UserService {
 
     @Value("${app.host}")
     private String appHost;
+
+    @Value("${company.email}")
+    private String companyEmail;
 
     public UserService(UserRepository userRepo, JavaMailSender mailSender, PasswordEncoder passwordEncoder) {
         this.userRepo = userRepo;
@@ -80,12 +84,15 @@ public class UserService {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(companyEmail, "GSTS Support");
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(content, true);
             mailSender.send(message);
         } catch (MessagingException e) {
             throw new RuntimeException("Gửi mail thất bại", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -150,12 +157,15 @@ public class UserService {
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(companyEmail, "GSTS Support");
             helper.setTo(user.getEmail());
             helper.setSubject(subject);
             helper.setText(content, true);
             mailSender.send(message);
         } catch (MessagingException e) {
             throw new RuntimeException("Không gửi được mail khôi phục mật khẩu", e);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
         }
     }
 

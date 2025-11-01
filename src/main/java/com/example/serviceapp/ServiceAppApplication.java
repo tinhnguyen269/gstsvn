@@ -19,6 +19,8 @@ public class ServiceAppApplication {
             System.setProperty("CLOUDINARY_API_SECRET", dotenv.get("CLOUDINARY_API_SECRET", System.getenv("CLOUDINARY_API_SECRET")));
             System.setProperty("SPRING_MAIL_USERNAME", dotenv.get("SPRING_MAIL_USERNAME", System.getenv("SPRING_MAIL_USERNAME")));
             System.setProperty("SPRING_MAIL_PASSWORD", dotenv.get("SPRING_MAIL_PASSWORD", System.getenv("SPRING_MAIL_PASSWORD")));
+            System.setProperty("SENDGRID_USERNAME", dotenv.get("SENDGRID_USERNAME", System.getenv("SENDGRID_USERNAME")));
+            System.setProperty("SENDGRID_API_KEY", dotenv.get("SENDGRID_API_KEY", System.getenv("SENDGRID_API_KEY")));
             System.setProperty("SERVER_PORT", dotenv.get("SERVER_PORT", System.getenv("SERVER_PORT")));
         } catch (Exception e) {
             System.out.println("⚠️ Warning: .env file not found, using system environment variables instead.");
