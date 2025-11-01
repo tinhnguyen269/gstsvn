@@ -102,7 +102,7 @@ public class SitemapController {
 
         for (Post p : posts) {
             LocalDate updatedAt = p.getUpdateAt() != null ? LocalDate.from(p.getUpdateAt()) : LocalDate.now();
-            xml.append(createUrl(baseUrl + "/bai-viet/" + p.getSlug(), updatedAt));
+            xml.append(createUrl(baseUrl + "/tin-tuc/" + p.getSlug(), updatedAt));
         }
 
         xml.append("</urlset>");
