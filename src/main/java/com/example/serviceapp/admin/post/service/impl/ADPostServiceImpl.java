@@ -4,6 +4,7 @@ import com.example.serviceapp.admin.post.repository.ADPostRepository;
 import com.example.serviceapp.admin.post.service.ADPostService;
 import com.example.serviceapp.common.entity.Post;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,9 @@ public class ADPostServiceImpl implements ADPostService {
         this.postRepository = postRepository;
     }
 
+    @CacheEvict(value = "posts", allEntries = true)
     @Override
+    @Transactional
     public void save(Post post) {
         postRepository.save(post);
     }
@@ -27,7 +30,6 @@ public class ADPostServiceImpl implements ADPostService {
     @Override
     public Optional<Post> findById(Long id) {
         return postRepository.findById(id);
-
     }
 
     @Override
@@ -40,6 +42,7 @@ public class ADPostServiceImpl implements ADPostService {
         return postRepository.searchPosts(keyword, pageable);
     }
 
+    @CacheEvict(value = "posts", allEntries = true)
     @Override
     @Transactional
     public void softDeletePosts(List<Long> ids) {

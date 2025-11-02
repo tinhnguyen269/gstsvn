@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public interface ADServiceRepository extends JpaRepository<Services,Long> {
     @Query(value = "SELECT * FROM services WHERE delete_flag = 0 ORDER BY create_at DESC", nativeQuery = true)
     List<Services> getAllService();
 
+    @Transactional
     @Modifying
     @Query("UPDATE Services s SET s.deleteFlag = 1 WHERE s.serviceId IN :ids")
     void softDeleteServices(@Param("ids") List<Long> ids);

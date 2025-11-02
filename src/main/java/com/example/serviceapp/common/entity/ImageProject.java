@@ -4,22 +4,21 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
-
 @Entity
 @Where(clause = "delete_flag = 0")
 public class ImageProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageProjectId;
+
     private String imageProjectUrl;
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
+    private Long projectId;
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+
     @PrePersist
     protected void onCreate() {
         this.createAt = LocalDateTime.now();
@@ -31,13 +30,7 @@ public class ImageProject {
         this.updateAt = LocalDateTime.now();
     }
 
-    public Project getProject() {
-        return project;
-    }
-
-    public void setProject(Project project) {
-        this.project = project;
-    }
+    // Getter, Setter
 
     public Long getImageProjectId() {
         return imageProjectId;
@@ -53,6 +46,14 @@ public class ImageProject {
 
     public void setImageProjectUrl(String imageProjectUrl) {
         this.imageProjectUrl = imageProjectUrl;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
     public LocalDateTime getCreateAt() {

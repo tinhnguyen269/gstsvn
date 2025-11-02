@@ -49,8 +49,8 @@
                     </a>
 
                     <a class="nav-link"
-                       th:classappend="${currentURI.startsWith('/admin/feedback')} ? ' active' : ''"
-                       th:href="@{/admin/feedback/list}">
+                       th:classappend="${currentURI.startsWith('/admin/projectActual')} ? ' active' : ''"
+                       th:href="@{/admin/projectActual/list}">
                         <div class="sb-nav-link-icon"><i class="fas fa-comments"></i></div>
                         Dự án thực tế
                     </a>
@@ -63,7 +63,7 @@
                     </a>
 
                     <a class="nav-link"
-                       th:classappend="${currentURI.startsWith('/admin/project')} ? ' active' : ''"
+                       th:classappend="${currentURI.startsWith('/admin/project/')} ? ' active' : ''"
                        th:href="@{/admin/project/list}">
                         <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
                         Hình ảnh dự án

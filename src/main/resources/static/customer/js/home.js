@@ -60,18 +60,18 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
-                if (data.status === "error") {
-                    for (let field in data.errors) {
+                if (data[1].status === "error") {
+                    for (let field in data[1].errors[1]) {
                         let errDiv = document.getElementById("error-" + field);
                         if (errDiv) {
-                            errDiv.innerText = data.errors[field];
+                            errDiv.innerText = data[1].errors[1][field];
                         }
                     }
                 }
-                if (data.status === "success") {
+                if (data[1].status === "success") {
                     let toastEl = document.getElementById("successToast");
                     let toastBody = toastEl.querySelector(".toast-body");
-                    toastBody.innerText = data.message;
+                    toastBody.innerText = data[1].message;
 
                     let bsToast = new bootstrap.Toast(toastEl, {delay: 2500});
                     bsToast.show();

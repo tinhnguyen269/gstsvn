@@ -1,6 +1,6 @@
 package com.example.serviceapp.customer.project.service.impl;
 
-import com.example.serviceapp.common.entity.Project;
+import com.example.serviceapp.common.entity.ProjectImage;
 import com.example.serviceapp.customer.project.repository.ProjectRepository;
 import com.example.serviceapp.customer.project.service.ProjectService;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Optional<Project> findAllImageBySlug(String slug) {
+    public Optional<ProjectImage> findAllImageBySlug(String slug) {
         return projectRepository.findBySlug(slug);
     }
 

@@ -4,6 +4,7 @@ import com.example.serviceapp.admin.service.repository.ADServiceRepository;
 import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.entity.Services;
 import jakarta.transaction.Transactional;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,9 @@ public class ADServiceServiceImpl implements ADServiceService {
         this.serviceRepository = serviceRepository;
     }
 
+    @CacheEvict(value = "serviceAdvice", allEntries = true)
     @Override
+    @Transactional
     public void save(Services service) {
         serviceRepository.save(service);
     }
@@ -47,6 +50,7 @@ public class ADServiceServiceImpl implements ADServiceService {
         return serviceRepository.existsById(serviceId);
     }
 
+    @CacheEvict(value = "serviceAdvice", allEntries = true)
     @Override
     @Transactional
     public void softDeleteServices(List<Long> ids) {
