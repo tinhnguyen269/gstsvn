@@ -5,6 +5,7 @@ import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.post.repositoty.PostRepository;
 import com.example.serviceapp.customer.service.repository.ServiceRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class AdviceServiceImpl implements AdviceService {
     }
 
     @Override
+    @Cacheable("serviceAdvice") // cache theo key "serviceAdvice"
     public List<Services> findAll() {
         return serviceRepository.getAllService();
     }

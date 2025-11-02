@@ -24,11 +24,6 @@ public class CustomerControllerAdvice {
         return a;
     }
 
-    @ModelAttribute("postAdvice")
-    public List<Post> latestPosts() {
-        return adviceService.getTop10NewestPosts();
-    }
-
     @ModelAttribute("serviceAdvice")
     public List<Services> services() {
         List<Services> services = adviceService.findAll();

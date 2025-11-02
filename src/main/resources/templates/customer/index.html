@@ -35,21 +35,21 @@
               content="GSTS cung cấp giải pháp vệ sinh công nghiệp toàn diện - Nhanh chóng, uy tín, chuyên nghiệp.">
         <meta name="twitter:image"
               content="https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png">
-        <script type="application/ld+json" >
-        {
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "name": "Công ty Vệ Sinh GSTS",
-            "image": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Thôn An Đông, Xã Thái Hòa, Huyện Bình Giang",
-                "addressLocality": "Tỉnh Hải Dương",
-                "addressCountry": "Việt Nam"
-            },
-            "telephone": "0333360748",
-            "url": "https://gstsvn.onrender.com/home"
-        }
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "LocalBusiness",
+                "name": "Công ty Vệ Sinh GSTS",
+                "image": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Thôn An Đông, Xã Thái Hòa, Huyện Bình Giang",
+                    "addressLocality": "Tỉnh Hải Dương",
+                    "addressCountry": "Việt Nam"
+                },
+                "telephone": "0333360748",
+                "url": "https://gstsvn.onrender.com/home"
+            }
         </script>
     </th:block>
 
@@ -67,7 +67,8 @@
 <main class="col-12 order-2 order-md-1 mb-4">
     <h1 class="hidden">GSTS-Vệ sinh công nghiệp</h1>
     <!-- Banner Carousel -->
-    <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3" data-bs-ride="carousel">
+    <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3"
+             data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="img-fluid w-100"
@@ -101,8 +102,10 @@
                 <div class="row row-cols-2 row-cols-md-3 g-3">
                     <div class="col" th:each="service, iterStat : ${serviceAdvice}" th:if="${iterStat.index < 6}">
                         <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white">
-                            <a th:href="@{/dich-vu/{slug}(slug=${service.slug})}" class="text-decoration-none text-dark d-block">
-                                <img th:src="${service.icon}" th:alt="${service.serviceName}" class="img-fluid mb-2" style="max-height: 80px; object-fit: contain;">
+                            <a th:href="@{/dich-vu/{slug}(slug=${service.slug})}"
+                               class="text-decoration-none text-dark d-block">
+                                <img th:src="${service.icon}" th:alt="${service.serviceName}" class="img-fluid mb-2"
+                                     style="max-height: 80px; object-fit: contain;">
                                 <p class="mb-0 fw-semibold" th:text="${service.serviceName}"></p>
                             </a>
                         </div>
@@ -113,9 +116,12 @@
             <!-- Phần giới thiệu -->
             <div class="col-lg-6">
                 <h4 class="fw-bold mb-3">Về chúng tôi</h4>
-                <p>GSTS là đơn vị hàng đầu trong lĩnh vực vệ sinh công nghiệp, cung cấp dịch vụ chuyên nghiệp cho văn phòng, nhà ở, công trình với đội ngũ nhân viên tận tâm, giàu kinh nghiệm.</p>
-                <p>Chúng tôi cam kết mang lại không gian sạch sẽ, an toàn, tiết kiệm thời gian và chi phí cho khách hàng.</p>
-                <a class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow" th:href="@{/gioi-thieu}">Xem chi tiết</a>
+                <p>GSTS là đơn vị hàng đầu trong lĩnh vực vệ sinh công nghiệp, cung cấp dịch vụ chuyên nghiệp cho văn
+                    phòng, nhà ở, công trình với đội ngũ nhân viên tận tâm, giàu kinh nghiệm.</p>
+                <p>Chúng tôi cam kết mang lại không gian sạch sẽ, an toàn, tiết kiệm thời gian và chi phí cho khách
+                    hàng.</p>
+                <a class="btn btn-success fw-bold px-4 py-2 rounded-pill shadow" th:href="@{/gioi-thieu}">Xem chi
+                    tiết</a>
             </div>
         </div>
     </section>
@@ -221,7 +227,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="testimonial-card">
-                        <img th:src="@{/customer/images/user/nguyen-thoa-150x150.jpg}" alt="Nguyễn Thoa" class="profile-pic">
+                        <img th:src="@{/customer/images/user/nguyen-thoa-150x150.jpg}" alt="Nguyễn Thoa"
+                             class="profile-pic">
                         <div class="testimonial-content">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="customer-name">Nguyễn Thoa</h5>
@@ -279,7 +286,8 @@
 
                 <!-- Danh sách video -->
                 <div class="video-wrapper overflow-hidden px-5" id="videoWrapper" style="position: relative;">
-                    <div class="d-flex gap-4" id="videoScroll" style="transition: transform 0.1s linear; will-change: transform;">
+                    <div class="d-flex gap-4" id="videoScroll"
+                         style="transition: transform 0.1s linear; will-change: transform;">
                         <div class="flex-shrink-0" style="width:300px;" th:each="feedback : ${Feedback}">
                             <div class="bg-white rounded-4 shadow-sm p-3 h-100 feedback-card">
                                 <!-- Video -->
@@ -366,25 +374,37 @@
             </div>
 
             <div class="row g-4 align-items-center">
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-30.jpg}" alt="GHN Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-27.jpg}" alt="ITL Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-29}" alt="FedEx Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-21.jpg}" alt="AISVN Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-24.jpg}" alt="Shopee Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-28.jpg}" alt="Lotte Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-25.jpg}" alt="CJ Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-22.jpg}" alt="Vietjet Air Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-1.jpg}" alt="Novaland Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-13.jpg}" alt="FPT Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-14.jpg}" alt="TTC Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-6.jpg}" alt="Flamingo Cat Ba Resorts Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-30.jpg}"
+                                                 alt="GHN Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-27.jpg}"
+                                                 alt="ITL Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-29.jpg}"
+                                                 alt="FedEx Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-21.jpg}"
+                                                 alt="AISVN Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-24.jpg}"
+                                                 alt="Shopee Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-28.jpg}"
+                                                 alt="Lotte Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-25.jpg}"
+                                                 alt="CJ Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-22.jpg}"
+                                                 alt="Vietjet Air Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-1.jpg}"
+                                                 alt="Novaland Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-13.jpg}"
+                                                 alt="FPT Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-14.jpg}"
+                                                 alt="TTC Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-6.jpg}"
+                                                 alt="Flamingo Cat Ba Resorts Logo" class="img-fluid"></div>
             </div>
         </div>
     </section>
     <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Nhận báo giá -->
-    <section class="contact-section section-padding mt-5" id="section_5" >
+    <section class="contact-section section-padding mt-5" id="section_5">
         <div class="container">
             <div class="row">
                 <!-- Đặt lịch và form -->
@@ -455,11 +475,9 @@
                         <h3 class="text-success ">Maps</h3>
                     </div>
                     <div class="ratio ratio-4x3 rounded-4 shadow-sm">
-                        <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.687217416764!2d105.8408553153312!3d21.00311729397048!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9393e3f4e7%3A0xa1a4d25d6e96624d!2zSOG6o2kgdGjhu4sgQsOhY2ggS2hvYQ!5e0!3m2!1svi!2s!4v1693651512381!5m2!1svi!2s"
-                                width="100%" height="100%" style="border:0;" allowfullscreen=""
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4996776207217!2d105.76752957503098!3d21.012683580632668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345358290522df%3A0x54eaf70372ee6727!2zNTYgxJAuTMOqIFF1YW5nIMSQ4bqhbywgTeG7hSBUcsOsLCBOYW0gVOG7qyBMacOqbSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1762101880208!5m2!1svi!2s"
+                                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
 

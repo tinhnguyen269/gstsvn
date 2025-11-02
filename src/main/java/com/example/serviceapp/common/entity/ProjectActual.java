@@ -1,29 +1,28 @@
+
 package com.example.serviceapp.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@JsonTypeInfo(use = JsonTypeInfo.Id.NONE)
 @Entity
 @Where(clause = "delete_flag = 0")
-public class Project {
+public class ProjectActual {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long projectId;
-    private String projectName;
-    private String thumbnailUrl;
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ImageProject> imageProjects = new ArrayList<>();
+    private Long projectActualId;
+    private String nameCustomer;
+    private String content;
+    private String linkYoutube;
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
-    private String slug;
-
     @PrePersist
     protected void onCreate() {
         this.createAt = LocalDateTime.now();
@@ -35,36 +34,36 @@ public class Project {
         this.updateAt = LocalDateTime.now();
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public Long getProjectActualId() {
+        return projectActualId;
     }
 
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public void setProjectActualId(Long projectActualId) {
+        this.projectActualId = projectActualId;
     }
 
-    public Long getProjectId() {
-        return projectId;
+    public String getNameCustomer() {
+        return nameCustomer;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
     }
 
-    public String getProjectName() {
-        return projectName;
+    public String getContent() {
+        return content;
     }
 
-    public void setProjectName(String projectName) {
-        this.projectName = projectName;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public List<ImageProject> getImageProjects() {
-        return imageProjects;
+    public String getLinkYoutube() {
+        return linkYoutube;
     }
 
-    public void setImageProjects(List<ImageProject> imageProjects) {
-        this.imageProjects = imageProjects;
+    public void setLinkYoutube(String linkYoutube) {
+        this.linkYoutube = linkYoutube;
     }
 
     public LocalDateTime getCreateAt() {
@@ -105,11 +104,5 @@ public class Project {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
-    }
-    public String getSlug() {
-        return slug;
-    }
-    public void setSlug(String slug) {
-        this.slug = slug;
     }
 }

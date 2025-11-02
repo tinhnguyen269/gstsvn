@@ -3,17 +3,13 @@ package com.example.serviceapp.customer.contact.controller;
 import com.example.serviceapp.common.constants.CONTACT_STATUS;
 import com.example.serviceapp.common.entity.Customer;
 import com.example.serviceapp.customer.contact.service.ContactService;
-import com.example.serviceapp.customer.home.service.HomeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.WebDataBinder;
 
-import java.beans.PropertyEditorSupport;
 
 import java.util.HashMap;
 import java.util.Map;

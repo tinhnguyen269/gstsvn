@@ -1,32 +1,26 @@
-
 package com.example.serviceapp.common.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import org.hibernate.annotations.Where;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Where(clause = "delete_flag = 0")
-public class ImgService {
+public class ProjectImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imgServiceId;
-    private String title;
-    @Column(columnDefinition = "TEXT")
-    private String content;
-    private String imageServiceUrl;
+    private Long projectId;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id")
-    private Project project;
-
+    private String projectName;
+    private String thumbnailUrl;
     private LocalDateTime createAt;
     private Long createBy;
     private LocalDateTime updateAt;
     private Long updateBy;
     private int deleteFlag;
+    private String slug;
+
     @PrePersist
     protected void onCreate() {
         this.createAt = LocalDateTime.now();
@@ -38,44 +32,30 @@ public class ImgService {
         this.updateAt = LocalDateTime.now();
     }
 
-    public Project getProject() {
-        return project;
+    // Getter, Setter
+
+    public Long getProjectId() {
+        return projectId;
     }
 
-    public void setProject(Project project) {
-        this.project = project;
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
     }
 
-    public Long getImgServiceId() {
-        return imgServiceId;
+    public String getProjectName() {
+        return projectName;
     }
 
-    public void setImgServiceId(Long imgServiceId) {
-        this.imgServiceId = imgServiceId;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getTitle() {
-        return title;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public String getImageServiceUrl() {
-        return imageServiceUrl;
-    }
-
-    public void setImageServiceUrl(String imageServiceUrl) {
-        this.imageServiceUrl = imageServiceUrl;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     public LocalDateTime getCreateAt() {
@@ -116,5 +96,13 @@ public class ImgService {
 
     public void setDeleteFlag(int deleteFlag) {
         this.deleteFlag = deleteFlag;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 }

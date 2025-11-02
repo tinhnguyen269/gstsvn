@@ -3,6 +3,9 @@ package com.example.serviceapp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.cache.annotation.EnableCaching;
+
+@EnableCaching
 @SpringBootApplication
 public class ServiceAppApplication {
     public static void main(String[] args) {
@@ -20,6 +23,7 @@ public class ServiceAppApplication {
             System.setProperty("SPRING_MAIL_USERNAME", dotenv.get("SPRING_MAIL_USERNAME", System.getenv("SPRING_MAIL_USERNAME")));
             System.setProperty("SPRING_MAIL_PASSWORD", dotenv.get("SPRING_MAIL_PASSWORD", System.getenv("SPRING_MAIL_PASSWORD")));
             System.setProperty("SENDGRID_API_KEY", dotenv.get("SENDGRID_API_KEY", System.getenv("SENDGRID_API_KEY")));
+            System.setProperty("REDIS_URL", dotenv.get("REDIS_URL", System.getenv("REDIS_URL")));
             System.setProperty("SERVER_PORT", dotenv.get("SERVER_PORT", System.getenv("SERVER_PORT")));
         } catch (Exception e) {
             System.out.println("⚠️ Warning: .env file not found, using system environment variables instead.");

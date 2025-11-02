@@ -29,6 +29,10 @@ dependencies {
     implementation 'com.cloudinary:cloudinary-http44:1.33.0'
     implementation 'io.github.cdimascio:dotenv-java:3.0.0'
     implementation 'com.sendgrid:sendgrid-java:4.9.3'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'com.fasterxml.jackson.core:jackson-databind'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 
 }
 

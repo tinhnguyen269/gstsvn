@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public interface ADPostRepository extends JpaRepository<Post, Long> {
     List<Post> findTop9ByOrderByCreateAtDesc();
 
     @Modifying
+    @Transactional
     @Query("UPDATE Post p SET p.deleteFlag = 1 WHERE p.postId IN :ids")
     void softDeletePosts(@Param("ids") List<Long> ids);
 
