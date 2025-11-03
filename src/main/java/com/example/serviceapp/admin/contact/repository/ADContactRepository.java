@@ -21,10 +21,6 @@ public interface ADContactRepository extends JpaRepository<Customer, Long> {
     Page<Customer> searchCustomer(@Param("keyword") String keyword, Pageable pageable);
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END " +
-           "FROM Customer c WHERE c.phoneNumber = :phoneNumber AND c.deleteFlag = 0")
-    boolean isPhoneNumberExists(String phoneNumber);
-
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END " +
            "FROM Customer c WHERE c.phoneNumber = :phoneNumber AND c.deleteFlag = 0 AND c.customerId <> :customerId")
     boolean isPhoneNumberUpdateExists(String phoneNumber, Long customerId);
 
