@@ -1,6 +1,48 @@
 <!-- Nút cuộn lên đầu -->
 <div class="scroll-head-buttons" th:fragment="scroll-head">
-    <button id="backToTopBtn" title="Lên đầu trang">
+    <button id="backToTopBtn" title="Lên đầu trang" class="scroll-top-btn">
         <i class="fa-solid fa-arrow-up"></i>
     </button>
+    <style>
+        .scroll-head-buttons {
+                   position: fixed;
+                   bottom: 40px;
+                   right: 40px;
+                   z-index: 9999;
+               }
+            .scroll-top-btn {
+                background: linear-gradient(120deg, #43e97b 60%, #198754 100%);
+                color: #fff;
+                border: none;
+                border-radius: 50%;
+                width: 56px;
+                height: 56px;
+                box-shadow: 0 4px 16px rgba(25,135,84,0.18);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 2rem;
+                transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            }
+            .scroll-top-btn:hover {
+                background: linear-gradient(120deg, #198754 80%, #43e97b 100%);
+                transform: scale(1.08);
+                box-shadow: 0 8px 32px rgba(25,135,84,0.22);
+            }
+            .scroll-top-btn i {
+                color: #fff;
+                transition: color 0.2s;
+            }
+            @media (max-width: 768px) {
+                .scroll-head-buttons {
+                    bottom: 16px;
+                    right: 16px;
+                }
+                .scroll-top-btn {
+                    width: 44px;
+                    height: 44px;
+                    font-size: 1.4rem;
+                }
+        }
+    </style>
 </div>

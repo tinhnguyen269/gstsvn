@@ -57,18 +57,16 @@
     <th:block th:fragment="styles">
         <link href="/customer/css/home.css" rel="stylesheet">
         <link href="/customer/css/post-detail.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
     </th:block>
 </head>
-
-
 <body>
 <div th:replace="customer/common/navbar::header"></div>
-
 <main class="col-12 order-2 order-md-1 mb-4">
     <h1 class="hidden">GSTS-Vệ sinh công nghiệp</h1>
     <!-- Banner Carousel -->
-    <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3"
-             data-bs-ride="carousel">
+    <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3" data-bs-ride="carousel" data-aos="fade-up">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="img-fluid w-100"
@@ -95,13 +93,13 @@
     </section>
 
     <!-- Dịch vụ nổi bật -->
-    <section class="container py-5">
+    <section class="container py-5" data-aos="fade-up" data-aos-delay="100">
         <div class="row g-4 align-items-start">
             <!-- Danh sách dịch vụ -->
             <div class="col-lg-6">
                 <div class="row row-cols-2 row-cols-md-3 g-3">
                     <div class="col" th:each="service, iterStat : ${serviceAdvice}" th:if="${iterStat.index < 6}">
-                        <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white">
+                        <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white" data-aos="zoom-in" data-aos-delay="200">
                             <a th:href="@{/dich-vu/{slug}(slug=${service.slug})}"
                                class="text-decoration-none text-dark d-block">
                                 <img th:src="${service.icon}" th:alt="${service.serviceName}" class="img-fluid mb-2"
@@ -114,7 +112,7 @@
             </div>
 
             <!-- Phần giới thiệu -->
-            <div class="col-lg-6">
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="300">
                 <h4 class="fw-bold mb-3">Về chúng tôi</h4>
                 <p>GSTS là đơn vị hàng đầu trong lĩnh vực vệ sinh công nghiệp, cung cấp dịch vụ chuyên nghiệp cho văn
                     phòng, nhà ở, công trình với đội ngũ nhân viên tận tâm, giàu kinh nghiệm.</p>
@@ -127,7 +125,7 @@
     </section>
 
     <!-- Flex  -->
-    <section class="stats-section py-5" style="background-color: #198754;">
+    <section class="stats-section py-5" style="background-color: #198754;" data-aos="fade-up" data-aos-delay="200">
         <div class="container">
             <div class="row align-items-center gy-5">
 
@@ -179,7 +177,7 @@
     </section>
 
     <!-- Đánh giá của khách hàng -->
-    <section class="customer-reviews-section py-5">
+    <section class="customer-reviews-section py-5" data-aos="fade-up" data-aos-delay="300">
         <div class="container text-center">
             <h2 class="text-center text-success fw-bold mb-5">ĐÁNH GIÁ CỦA KHÁCH HÀNG</h2>
 
@@ -187,24 +185,8 @@
                 <div class="title-divider"></div>
             </div>
 
-            <div class="aggregate-rating my-5">
-                <div class="d-flex justify-content-center align-items-center gap-3 mb-2">
-                    <span class="rating-text">Đánh giá: 4.9 trên 5</span>
-                    <img th:src="@{/customer/images/logo/facebook-logo.png}" alt="Facebook Logo" class="facebook-logo">
-                </div>
-                <div class="stars mb-2">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p class="review-count">Từ 1505 khách hàng đánh giá GSTS.</p>
-                <a href="#" class="view-more-link">Xem tại đây</a>
-            </div>
-
             <div class="row text-start">
-                <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right" data-aos-delay="400">
                     <div class="testimonial-card">
                         <img th:src="@{/customer/images/user/ly-kieu-150x150.jpg}" alt="Lý Kiều" class="profile-pic">
                         <div class="testimonial-content">
@@ -225,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="500">
                     <div class="testimonial-card">
                         <img th:src="@{/customer/images/user/nguyen-thoa-150x150.jpg}" alt="Nguyễn Thoa"
                              class="profile-pic">
@@ -253,11 +235,11 @@
     <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Dự án đã thực hiện -->
-    <section class="gallery-section py-5 bg-light" id="section_4">
+    <section class="gallery-section py-5 bg-light" id="section_4" data-aos="fade-up" data-aos-delay="200">
         <div class="container">
             <h2 class="text-center text-success fw-bold mb-5">HÌNH ẢNH DỰ ÁN 2025</h2>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}">
+                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}" data-aos="zoom-in" data-aos-delay="300">
                     <a th:href="@{/du-an/{slug}(slug=${project.slug})}"
                        class="text-decoration-none text-dark">
                         <div class="card border-0 shadow-sm rounded-4 overflow-hidden project-card h-100">
@@ -279,7 +261,7 @@
     <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Dự án thực tế 2025 -->
-    <section class="video-list-section py-5 bg-light">
+    <section class="video-list-section py-5 bg-light" data-aos="fade-up" data-aos-delay="200">
         <div class="container">
             <h2 class="mb-5 text-success fw-bold text-center">DỰ ÁN THỰC TẾ 2025</h2>
             <div class="position-relative">
@@ -312,11 +294,11 @@
     <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Tin tức/Bài viết -->
-    <section class="container my-5">
+    <section class="container my-5" data-aos="fade-up" data-aos-delay="200">
         <h2 class="text-center text-success fw-bold mb-5">BÀI VIẾT MỚI</h2>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-            <div th:each="post : ${Post}" class="col">
+            <div th:each="post : ${Post}" class="col" data-aos="zoom-in" data-aos-delay="300">
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden news-card">
                     <div class="ratio ratio-16x9">
                         <img th:src="${post.imageUrl}" th:alt="${post.title}"
@@ -340,32 +322,32 @@
     <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Khách hàng tiêu biểu -->
-    <section class="customers-section py-5">
+    <section class="customers-section py-5" data-aos="fade-up" data-aos-delay="200">
         <div class="container text-center">
             <h2 class="section-title text-success">KHÁCH HÀNG TIÊU BIỂU</h2>
             <p class="section-subtitle">Số liệu năm 2025</p>
             <div class="title-divider"></div>
 
             <div class="row my-5">
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="300">
                     <div class="stat-item">
                         <p class="stat-number">1996</p>
                         <p class="stat-label">Năm thành lập</p>
                     </div>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="400">
                     <div class="stat-item">
                         <p class="stat-number">26+</p>
                         <p class="stat-label">Năm kinh nghiệm</p>
                     </div>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="500">
                     <div class="stat-item">
                         <p class="stat-number">6,840+</p>
                         <p class="stat-label">Nhân viên</p>
                     </div>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="600">
                     <div class="stat-item">
                         <p class="stat-number">10,000+</p>
                         <p class="stat-label">KH doanh nghiệp</p>
@@ -374,37 +356,25 @@
             </div>
 
             <div class="row g-4 align-items-center">
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-30.jpg}"
-                                                 alt="GHN Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-27.jpg}"
-                                                 alt="ITL Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-29.jpg}"
-                                                 alt="FedEx Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-21.jpg}"
-                                                 alt="AISVN Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-24.jpg}"
-                                                 alt="Shopee Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-28.jpg}"
-                                                 alt="Lotte Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-25.jpg}"
-                                                 alt="CJ Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-22.jpg}"
-                                                 alt="Vietjet Air Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-1.jpg}"
-                                                 alt="Novaland Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-13.jpg}"
-                                                 alt="FPT Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-14.jpg}"
-                                                 alt="TTC Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-6.jpg}"
-                                                 alt="Flamingo Cat Ba Resorts Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="300"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-30.jpg}" alt="GHN Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="400"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-27.jpg}" alt="ITL Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="500"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-29.jpg}" alt="FedEx Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="600"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-21.jpg}" alt="AISVN Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="700"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-24.jpg}" alt="Shopee Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="800"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-28.jpg}" alt="Lotte Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="900"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-25.jpg}" alt="CJ Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1000"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-22.jpg}" alt="Vietjet Air Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1100"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-1.jpg}" alt="Novaland Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1200"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-13.jpg}" alt="FPT Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1300"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-14.jpg}" alt="TTC Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1400"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-6.jpg}" alt="Flamingo Cat Ba Resorts Logo" class="img-fluid"></div>
             </div>
         </div>
     </section>
     <hr class="border border-2 border-success opacity-50 w-50 mx-auto my-0">
 
     <!-- Nhận báo giá -->
-    <section class="contact-section section-padding mt-5" id="section_5">
+    <section class="contact-section section-padding mt-5" id="section_5" data-aos="fade-up" data-aos-delay="200">
         <div class="container">
             <div class="row">
                 <!-- Đặt lịch và form -->
@@ -495,6 +465,13 @@
 
 <div th:replace="customer/common/footer:: footer"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
 <script src="/customer/js/home.js"></script>
 <script src="/customer/js/common.js"></script>
 

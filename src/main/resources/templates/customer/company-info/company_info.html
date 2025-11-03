@@ -52,70 +52,47 @@
 
     <th:block th:fragment="styles">
         <link href="/customer/css/companyInfor.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     </th:block>
 </head>
-
-
-
 <body class="d-flex flex-column min-vh-100">
-
 <!-- Header -->
 <div th:replace="customer/common/navbar:: header"></div>
-
 <!-- Nội dung chính -->
 <main class="flex-grow-1">
-
     <!-- Giới thiệu công ty -->
-    <section class="featured-section section-padding py-5 mt-4">
+    <section class="featured-section section-padding py-5 mt-4" data-aos="fade-up">
         <div class="container mt-4">
-
-            <!-- H1 nên mô tả rõ ràng trang -->
             <h1 class="visually-hidden">Giới thiệu về công ty vệ sinh công nghiệp GSTS</h1>
-
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
-
                     <h2 class="mb-4">Giới thiệu</h2>
-                    <p>Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm
-                        kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn
-                        đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách
-                        hàng.</p>
-
+                    <p>Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.</p>
                     <h5 class="mt-4">Thời gian làm việc</h5>
-                    <p>Chúng tôi làm việc từ 8h – 19h hằng ngày (cả thứ 7 & chủ nhật). Nếu quý khách hàng cần gấp ngoài
-                        giờ hành chính, vui lòng liên hệ hotline <strong>0965.123.855</strong> hoặc <strong>0981.836.612
-                        </strong> để được hỗ trợ tốt nhất, xin cảm ơn.</p>
-
+                    <p>Chúng tôi làm việc từ 8h – 19h hằng ngày (cả thứ 7 & chủ nhật). Nếu quý khách hàng cần gấp ngoài giờ hành chính, vui lòng liên hệ hotline <strong>0965.123.855</strong> hoặc <strong>0981.836.612 </strong> để được hỗ trợ tốt nhất, xin cảm ơn.</p>
                     <h5 class="mt-4">Tư vấn hỗ trợ</h5>
                     <p>Quý khách hàng để lại thông tin tại đây, chúng tôi sẽ liên hệ tư vấn hỗ trợ ngay, xin cảm ơn.</p>
-
                     <p><strong>CTY:</strong> CÔNG TY CỔ PHẦN CUNG ỨNG DỊCH VỤ VÀ CÔNG NGHỆ KHU CÔNG NGHIỆP GSTS</p>
-
                     <ul class="list-unstyled">
                         <li><strong>MSDN</strong>: 0801448361</li>
                         <li><strong>Địa chỉ:</strong> Thôn An Đông, , Thành phố Hải Phòng, Việt Nam</li>
                         <li><strong>VP1:</strong>56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội</li>
                         <li><strong>Hotline</strong>: 0965.123.855 – 0981.836.612</li>
                         <li><strong>Email</strong>: <a href="mailto:kisunhutrong@gmail.com">kisunhutrong@gmail.com</a></li>
-                        <li><strong>Fanpage</strong>: <a href="https://www.facebook.com/webdemo/" target="_blank"
-                                                         rel="noopener">facebook.com/webdemo/</a></li>
+                        <li><strong>Fanpage</strong>: <a href="https://www.facebook.com/webdemo/" target="_blank" rel="noopener">facebook.com/webdemo/</a></li>
                         <li><strong>Zalo</strong>: 0965.123.855 – 0981.836.612</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Team -->
-    <section class="team-section py-5 text-center">
+    <section class="team-section py-5 text-center" data-aos="fade-up" data-aos-delay="200">
         <h2 class="section-title mb-4">Đội ngũ lãnh đạo</h2>
-
         <div class="team-container position-relative">
-            <!-- Nút scroll trái -->
             <button class="btn-scroll left" onclick="scrollTeam(-300)">&#10094;</button>
-
             <div class="team-list d-flex overflow-auto">
-                <div class="team-item text-center" th:each="i : ${#numbers.sequence(1,5)}">
+                <div class="team-item text-center" th:each="i : ${#numbers.sequence(1,3)}">
                     <img th:src="@{/customer/images/user/nhu-van-trong-gsts.png}" alt="NHỮ VĂN TRỌNG" class="member-img">
                     <h5 class="name">NHỮ VĂN TRỌNG</h5>
                     <p class="position">TỔNG GIÁM ĐỐC</p>
@@ -127,26 +104,24 @@
                     <p class="desc">Điều hành công ty</p>
                 </div>
             </div>
-
-            <!-- Nút scroll phải -->
             <button class="btn-scroll right" onclick="scrollTeam(300)">&#10095;</button>
         </div>
     </section>
-
     <!-- Liên hệ -->
     <div class="mt-5" th:replace="customer/common/contact :: contact"></div>
-
 </main>
-
 <!-- Scroll head -->
 <div th:replace="customer/common/scroll_head :: scroll-head"></div>
-
 <!-- Footer -->
 <div th:replace="customer/common/footer :: footer"></div>
-
 <!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
     function scrollTeam(value) {
         const list = document.querySelector('.team-list');
         list.scrollBy({

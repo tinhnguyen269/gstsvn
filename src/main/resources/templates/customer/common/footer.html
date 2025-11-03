@@ -1,18 +1,14 @@
 <footer class="site-footer bg-dark text-white py-5 mt-auto" th:fragment="footer">
     <div class="container">
         <div class="row gy-4 align-items-start">
-
             <!-- Cột 1 -->
             <div class="col-lg-4 col-md-6 col-12 d-flex flex-column gap-3">
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center mb-2">
                     <img th:src="@{/customer/images/logo/gsts-logo.png}"
-                         alt="Logo" style="height:50px;">
-                    <h5 class="fw-bold ms-2 mb-0">Đơn vị vệ sinh công nghiệp GSTS</h5>
+                         alt="Logo" style="height:56px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
+                    <h5 class="fw-bold ms-3 mb-0" style="color: #43e97b; font-size: 1.4rem; letter-spacing: 1px;">GSTS - Vệ sinh công nghiệp</h5>
                 </div>
-                <p class="small mb-0">Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở
-                    với nhiều năm kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương
-                    châm luôn đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý
-                    khách hàng.</p>
+                <p class="small mb-0 text-light" style="line-height:1.7;">Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.</p>
                 <div class="d-flex gap-3">
                     <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="text-white fs-5"><i class="bi bi-twitter"></i></a>
@@ -20,26 +16,52 @@
                     <a href="#" class="text-white fs-5"><i class="bi bi-telephone"></i></a>
                 </div>
             </div>
-
             <!-- Cột 2 -->
             <div class="col-lg-4 col-md-6 col-12 d-flex flex-column gap-3">
-                <h5 class="fw-semibold mb-0">Địa chỉ văn phòng</h5>
-                <ul class="list-unstyled small mb-0">
-                    <li><strong>Địa chỉ:</strong> Thôn An Đông, , Thành phố Hải Phòng, Việt Nam</li>
-                    <li><strong>VP1:</strong>56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội</li>
+                <h5 class="fw-semibold mb-2" style="color: #ffc107;">Địa chỉ văn phòng</h5>
+                <ul class="list-unstyled small mb-0 text-light">
+                    <li class="mb-2"><strong>Địa chỉ:</strong> Thôn An Đông, Thành phố Hải Phòng, Việt Nam</li>
+                    <li class="mb-2"><strong>VP1:</strong> 56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội</li>
                 </ul>
             </div>
-
             <!-- Cột 3 -->
             <div class="col-lg-3 col-md-4 col-12 d-flex flex-column gap-3">
-                <h5 class="fw-semibold mb-0">Thông tin liên hệ</h5>
-                <ul class="list-unstyled small mb-0">
-                    <li><strong>Điện thoại:</strong> 0965.123.855 – 0981.836.612</li>
-                    <li><strong>Email:</strong> kisunhutrong@gmail.com</li>
-                    <li><strong>MSDN:</strong> 0801448361</li>
+                <h5 class="fw-semibold mb-2" style="color: #ffc107;">Thông tin liên hệ</h5>
+                <ul class="list-unstyled small mb-0 text-light">
+                    <li class="mb-2"><strong>Điện thoại:</strong> <a href="tel:0965123855" class="text-success text-decoration-none">0965.123.855</a> – <a href="tel:0981836612" class="text-success text-decoration-none">0981.836.612</a></li>
+                    <li class="mb-2"><strong>Email:</strong> <a href="mailto:kisunhutrong@gmail.com" class="text-success text-decoration-none">kisunhutrong@gmail.com</a></li>
+                    <li class="mb-2"><strong>MSDN:</strong> 0801448361</li>
                 </ul>
             </div>
-
+        </div>
+        <hr class="border-success opacity-50 my-4">
+        <div class="row">
+            <div class="col-12 text-center">
+                <p class="mb-0 small text-light">&copy; 2025 GSTS. All rights reserved. Thiết kế bởi GSTS Team.</p>
+            </div>
         </div>
     </div>
+    <style>
+        .site-footer {
+            background: linear-gradient(120deg, #212529 80%, #198754 100%);
+            box-shadow: 0 -2px 24px rgba(25,135,84,0.10);
+        }
+        .site-footer h5, .site-footer h6 {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        }
+        .site-footer .social-icon:hover {
+            opacity: 0.85;
+            transform: scale(1.08);
+            box-shadow: 0 2px 8px rgba(67,233,123,0.15);
+        }
+        .site-footer ul li {
+            font-size: 1rem;
+        }
+        .site-footer a {
+            transition: color 0.2s, background 0.2s;
+        }
+        .site-footer a.text-success:hover {
+            color: #ffc107 !important;
+        }
+    </style>
 </footer>

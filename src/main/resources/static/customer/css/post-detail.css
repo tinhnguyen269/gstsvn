@@ -154,7 +154,6 @@ CSS tùy chỉnh cho content
 .article-content iframe {
     max-width: 100%;
     width: 100%;
-    height: -webkit-fill-available;
 }
 
 /* Bảng cuộn ngang nếu quá rộng */
@@ -165,3 +164,102 @@ CSS tùy chỉnh cho content
     display: block;
 }
 
+body {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+    color: #222;
+}
+.breadcrumb {
+    background: none;
+    font-size: 1.08rem;
+    font-weight: 500;
+}
+.breadcrumb-item a {
+    color: #198754;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.breadcrumb-item a:hover {
+    color: #43e97b;
+}
+.article-content {
+    background: #fff;
+    border-radius: 2rem;
+    box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+    padding: 2.5rem 2rem;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    color: #222;
+    margin-bottom: 2rem;
+}
+.article-content h2, .article-content h3 {
+    color: #198754;
+    font-weight: 700;
+    margin-top: 2rem;
+}
+.article-content img {
+    border-radius: 1.2rem;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.10);
+    margin: 1.5rem 0;
+    max-width: 100%;
+    height: auto;
+}
+.article-content ul, .article-content ol {
+    margin-left: 2rem;
+}
+.article-content blockquote {
+    background: linear-gradient(120deg, #e9f7ef 80%, #fff 100%);
+    border-left: 6px solid #43e97b;
+    padding: 1rem 1.5rem;
+    border-radius: 1rem;
+    font-style: italic;
+    color: #198754;
+    margin: 2rem 0;
+}
+.text-muted {
+    font-size: 1rem;
+    color: #888 !important;
+}
+/* Sidebar container */
+.sidebar {
+    background: linear-gradient(120deg, #fff 80%, #e9f7ef 100%);
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1rem;
+}
+
+/* ✅ Thêm phần này để sidebar cố định khi cuộn */
+aside {
+    position: sticky;
+    top: 0px; /* Khoảng cách từ trên cùng của viewport, có thể chỉnh */
+    align-self: start;
+    height: fit-content;
+}
+
+/* Tiêu đề và link */
+.sidebar h5 {
+    color: #198754;
+    font-weight: 700;
+    margin-bottom: 1.2rem;
+}
+.sidebar a {
+    color: #198754;
+    font-weight: 500;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.sidebar a:hover {
+    color: #43e97b;
+}
+
+@media (max-width: 991px) {
+    .article-content {
+        border-radius: 1rem;
+        padding: 1.2rem 0.7rem;
+    }
+    .sidebar {
+        border-radius: 1rem;
+        padding: 1.2rem 0.7rem;
+    }
+}

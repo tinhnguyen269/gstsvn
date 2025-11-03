@@ -29,3 +29,9 @@
     max-height: 80vh;
     object-fit: contain;
 }
+
+h2 {
+    color: #198754;
+    font-weight: 700;
+    margin-top: 2rem;
+}

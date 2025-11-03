@@ -24,30 +24,20 @@
 </head>
 
 <body class="d-flex flex-column min-vh-100">
-<header th:replace="customer/common/navbar::header"></header>
+<div th:replace="customer/common/navbar:: header"></div>
 
-<main class="container mt-4 pt-4" role="main">
+<main class="container mt-5 pt-4 flex-grow-1">
     <div class="row">
-        <!-- H1: duy nhất trên trang, chứa từ khóa chính -->
         <h1 class="visually-hidden" th:text="${project.projectName}">GSTS - Dự án đã hoàn thành</h1>
 
         <div class="col-12 col-md-8 mb-4">
             <article class="container my-5 service-detail">
-                <!-- Breadcrumb có hỗ trợ Schema -->
-                <nav aria-label="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+                <nav aria-label="breadcrumb" class="pt-4 mt-1">
                     <ol class="breadcrumb bg-transparent p-0 mb-3">
-                        <li class="breadcrumb-item" itemprop="itemListElement" itemscope
-                            itemtype="https://schema.org/ListItem">
-                            <a th:href="@{/}" itemprop="item" class="text-decoration-none text-dark">
-                                <span itemprop="name">Trang chủ</span>
-                            </a>
-                            <meta itemprop="position" content="1"/>
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/}" class="text-decoration-none">Trang chủ</a>
                         </li>
-                        <li class="breadcrumb-item active text-dark" aria-current="page" itemprop="itemListElement"
-                            itemscope itemtype="https://schema.org/ListItem">
-                            <span itemprop="name">Dự án đã hoàn thành</span>
-                            <meta itemprop="position" content="2"/>
-                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">Dự án đã hoàn thành</li>
                     </ol>
                 </nav>
 
@@ -64,8 +54,6 @@
                     </div>
                 </section>
             </article>
-
-            <section class="mt-5" th:replace="customer/common/post :: post"></section>
         </div>
 
         <!-- Modal hiển thị ảnh -->
@@ -88,8 +76,8 @@
 
     <!-- Button contact & scroll -->
     <div th:replace="customer/common/contact :: contact"></div>
-    <div th:replace="customer/common/scroll_head :: scroll-head"></div>
 </main>
+<div th:replace="customer/common/scroll_head :: scroll-head"></div>
 
 <footer th:replace="customer/common/footer :: footer"></footer>
 

@@ -1,0 +1,83 @@
+body {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+    color: #222;
+}
+.breadcrumb {
+    background: none;
+    font-size: 1.08rem;
+    font-weight: 500;
+}
+.breadcrumb-item a {
+    color: #198754;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.breadcrumb-item a:hover {
+    color: #43e97b;
+}
+.news-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+}
+.news-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(25,135,84,0.14);
+}
+.news-card img {
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.10);
+    object-fit: cover;
+    height: 180px;
+    width: 100%;
+}
+.news-card .p-3 {
+    padding: 2rem 1.5rem 1.5rem 1.5rem !important;
+}
+.news-card h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #198754;
+    margin-bottom: 0.7rem;
+}
+.news-card .text-muted {
+    font-size: 0.98rem;
+    color: #888 !important;
+}
+.btn-outline-success {
+    border-radius: 2rem;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+}
+.btn-outline-success:hover {
+    background: linear-gradient(90deg, #43e97b 0%, #198754 100%);
+    color: #fff;
+    border-color: #43e97b;
+}
+.pagination .page-link {
+    border-radius: 50% !important;
+    font-weight: 600;
+    color: #198754;
+    box-shadow: 0 2px 8px rgba(25,135,84,0.08);
+    transition: background 0.2s, color 0.2s;
+}
+.pagination .page-link:hover, .pagination .page-item.active .page-link {
+    background: linear-gradient(90deg, #43e97b 0%, #198754 100%);
+    color: #fff !important;
+    border-color: #43e97b;
+}
+@media (max-width: 991px) {
+    .news-card {
+        border-radius: 1rem;
+    }
+    .news-card img {
+        border-radius: 1rem 1rem 0 0;
+        height: 140px;
+    }
+    .news-card .p-3 {
+        padding: 1.2rem 0.7rem 1rem 0.7rem !important;
+    }
+}

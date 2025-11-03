@@ -52,3 +52,71 @@
     opacity: 1;
 }
 
+body {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+    color: #222;
+}
+.breadcrumb {
+    background: none;
+    font-size: 1.08rem;
+    font-weight: 500;
+}
+.breadcrumb-item a {
+    color: #198754;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+.breadcrumb-item a:hover {
+    color: #43e97b;
+}
+.nav-tabs {
+    background: linear-gradient(120deg, #fff 80%, #e9f7ef 100%);
+    border-radius: 2rem;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+    padding: 0.5rem 0.5rem 0 0.5rem;
+    margin-bottom: 2rem;
+}
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: 2rem;
+    margin: 0 0.5rem;
+    font-weight: 600;
+    color: #198754;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(25,135,84,0.06);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
+    background: linear-gradient(90deg, #43e97b 0%, #198754 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(25,135,84,0.14);
+}
+.price-table {
+    background: linear-gradient(120deg, #fff 80%, #e9f7ef 100%);
+    border-radius: 2rem;
+    box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+    padding: 2.5rem 1.5rem;
+    margin-bottom: 2rem;
+}
+#priceImage {
+    border-radius: 1.5rem;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.10);
+    max-width: 100%;
+    height: auto;
+    background: #fff;
+    transition: opacity 0.3s ease;
+}
+@media (max-width: 991px) {
+    .nav-tabs {
+        border-radius: 1rem;
+        padding: 0.3rem 0.3rem 0 0.3rem;
+    }
+    .price-table {
+        border-radius: 1rem;
+        padding: 1.2rem 0.7rem;
+    }
+    #priceImage {
+        border-radius: 1rem;
+    }
+}

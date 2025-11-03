@@ -1,45 +1,37 @@
-
-<nav class="navbar navbar-expand-lg fixed-top shadow-lg" style="background-color: #198754;" th:fragment="header">
+<nav class="navbar navbar-expand-lg fixed-top shadow-lg" style="background: linear-gradient(90deg, #198754 80%, #43e97b 100%);" th:fragment="header">
     <div class="container">
-        <a class="navbar-brand fw-bold fs-2 d-flex align-items-center" style="color: #ffc107;" th:href="@{/}">
-            <!-- Logo -->
-            <img th:src="@{/customer/images/logo/gsts-logo.png}" class="me-2" style="height: 40px;">
-            <!-- Text -->
+        <a class="navbar-brand fw-bold fs-2 d-flex align-items-center" style="color: #ffc107; letter-spacing: 2px;" th:href="@{/}">
+            <img th:src="@{/customer/images/logo/gsts-logo.png}" class="me-2" style="height: 44px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
             GSTS<span style="color: #ffc107;"></span>
         </a>
-
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto align-items-center">
                 <li class="nav-item">
-                    <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/'} ? 'active' : '']]"
-                            th:href="@{/}">
+                    <a class="nav-link fw-bold mx-2 px-3 rounded-pill text-white [[${currentRequestURI == '/'} ? 'active' : '']]"
+                       th:href="@{/}">
                         Trang chủ
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/gioi-thieu'} ? 'active' : '']]"
-                            th:href="@{/gioi-thieu}">
+                    <a class="nav-link fw-bold mx-2 px-3 rounded-pill text-white [[${currentRequestURI == '/gioi-thieu'} ? 'active' : '']]"
+                       th:href="@{/gioi-thieu}">
                         Giới thiệu
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link fw-bold d-flex align-items-center dropdown-toggle mx-3"
+                    <a class="nav-link fw-bold d-flex align-items-center dropdown-toggle mx-2 px-3 rounded-pill text-white"
                        href="#"
                        id="navbarLightDropdownMenuLink"
                        role="button"
                        data-bs-toggle="dropdown"
-                       aria-expanded="false"
-                       style="color: white;">
+                       aria-expanded="false">
                         Dịch vụ
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                    <ul class="dropdown-menu dropdown-menu-light shadow rounded-4 border-0" aria-labelledby="navbarLightDropdownMenuLink">
                         <li th:each="service : ${serviceAdvice}">
                             <a class="dropdown-item fw-bold"
                                th:classappend="${currentRequestURI == '/dich-vu/' + service.slug ? 'active' : ''}"
@@ -49,20 +41,50 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/bang-gia-dich-vu'} ? 'active' : '']]"
-                            th:href="@{/bang-gia-dich-vu}">
+                    <a class="nav-link fw-bold mx-2 px-3 rounded-pill text-white [[${currentRequestURI == '/bang-gia-dich-vu'} ? 'active' : '']]"
+                       th:href="@{/bang-gia-dich-vu}">
                         Báo giá dịch vụ
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a
-                            class="nav-link fw-bold mx-3 [[${currentRequestURI == '/tin-tuc'} ? 'active' : '']]"
-                            th:href="@{/tin-tuc}">
+                    <a class="nav-link fw-bold mx-2 px-3 rounded-pill text-white [[${currentRequestURI == '/tin-tuc'} ? 'active' : '']]"
+                       th:href="@{/tin-tuc}">
                         Tin tức
                     </a>
                 </li>
             </ul>
         </div>
     </div>
+    <style>
+        .navbar {
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            font-size: 1.08rem;
+            box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+        }
+        .navbar-brand {
+            text-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .nav-link {
+            transition: background 0.2s, color 0.2s;
+        }
+        .nav-link.active, .nav-link:hover {
+            background: #ffc107;
+            color: #198754 !important;
+            box-shadow: 0 2px 8px rgba(255,193,7,0.10);
+        }
+        .dropdown-menu {
+            min-width: 200px;
+            font-size: 1rem;
+        }
+        .dropdown-item.active, .dropdown-item:hover {
+            background: #43e97b;
+            color: #fff;
+        }
+        @media (max-width: 991px) {
+            .navbar-nav .nav-link {
+                margin: 0.5rem 0;
+                padding: 0.75rem 1.5rem;
+            }
+        }
+    </style>
 </nav>
