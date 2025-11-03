@@ -40,11 +40,6 @@ public class ContactServiceImpl implements ContactService {
         return serviceRepository.existsById(serviceId);
     }
 
-    @Override
-    public boolean isPhoneNumberExists(String phoneNumber) {
-        return contactRepository.isPhoneNumberExists(phoneNumber);
-    }
-
     @Async
     @Override
     public void sendNotificationToCompany(Customer customer) {

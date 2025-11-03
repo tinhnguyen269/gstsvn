@@ -22,8 +22,6 @@ public interface ADContactService {
 
     List<Services> getAllServices();
 
-    boolean isPhoneNumberExists(String phoneNumber);
-
     boolean isPhoneNumberUpdateExists(String phoneNumber, Long id);
 
     void softDeleteContacts(List<Long> ids);

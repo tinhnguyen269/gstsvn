@@ -44,9 +44,6 @@ public class ContactController {
         if (!contactService.isServiceIdExists(customer.getServiceId())) {
             bindingResult.rejectValue("serviceId", "error.customer", "Dịch vụ không tồn tại.");
         }
-        if (contactService.isPhoneNumberExists(customer.getPhoneNumber())) {
-            bindingResult.rejectValue("phoneNumber", "error.customer", "Số điện thoại đã được sử dụng.");
-        }
 
         // Bước 3: Nếu lỗi logic -> trả về luôn
         if (bindingResult.hasErrors()) {

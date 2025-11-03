@@ -7,7 +7,5 @@ public interface ContactService {
 
     boolean isServiceIdExists(Long serviceId);
 
-    boolean isPhoneNumberExists(String phoneNumber);
-
     void sendNotificationToCompany(Customer customer);
 }

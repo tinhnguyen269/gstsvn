@@ -49,10 +49,6 @@ public class ADContactController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        if (contactService.isPhoneNumberExists(customer.getPhoneNumber())) {
-            errors.put("phoneNumber", "Số điện thoại đã được sử dụng.");
-        }
-
         if (!serviceService.isServiceIdExists(customer.getServiceId())) {
             errors.put("serviceId", "Dịch vụ không tồn tại.");
         }
