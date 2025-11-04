@@ -163,6 +163,7 @@
             callAjax({
                 url: `/user/edit/${id}`,
                 success: data => {
+                    console.log(data);
                     $('#editUserId').val(data.userId);
                     $('#editFullName').val(data.fullName);
                     $('#editUserName').val(data.username);
