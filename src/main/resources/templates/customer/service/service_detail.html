@@ -68,13 +68,14 @@
                 <span th:text="${services.updateAt != null ? dateFormatter.format(services.updateAt) : dateFormatter.format(services.createAt)}"></span>
             </div>
             <article class="article-content" th:utext="${services.content}"></article>
-            <section class="mt-5" th:replace="customer/common/post :: post"></section>
         </div>
         <aside class="col-12 col-md-4 order-2 order-md-2">
             <div class="mb-4" th:replace="customer/common/sidebar :: sidebarService"></div>
             <div th:replace="customer/common/sidebar :: sidebarPost"></div>
         </aside>
     </div>
+    <section class="mt-5" th:replace="customer/common/post :: post"></section>
+
     <section class="mt-5" th:replace="customer/common/contact :: contact"></section>
 </main>
 

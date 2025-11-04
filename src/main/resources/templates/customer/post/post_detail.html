@@ -84,13 +84,14 @@
                 <span th:text="${post.updateAt != null ? dateFormatter.format(post.updateAt) : dateFormatter.format(post.createAt)}"></span>
             </div>
             <article class="article-content" th:utext="${post.content}"></article>
-            <section class="mt-5" th:replace="customer/common/post :: post"></section>
         </div>
         <aside class="col-12 col-md-4">
             <div class="sidebar mb-4" th:replace="customer/common/sidebar :: sidebarService" data-aos="fade-up" data-aos-delay="200"></div>
             <div class="sidebar" th:replace="customer/common/sidebar :: sidebarPost" data-aos="fade-up" data-aos-delay="300"></div>
         </aside>
     </div>
+    <section class="mt-5" th:replace="customer/common/post :: post"></section>
+
     <section class="mt-5" th:replace="customer/common/contact :: contact"></section>
 </main>
 
