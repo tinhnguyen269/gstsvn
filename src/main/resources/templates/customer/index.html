@@ -66,7 +66,8 @@
 <main class="col-12 order-2 order-md-1 mb-4">
     <h1 class="hidden">GSTS-Vệ sinh công nghiệp</h1>
     <!-- Banner Carousel -->
-    <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3" data-bs-ride="carousel" data-aos="fade-up">
+    <section id="sliderCarousel" class="carousel slide rounded-4 shadow mb-5 overflow-hidden pt-5 mt-3"
+             data-bs-ride="carousel" data-aos="fade-up">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="img-fluid w-100"
@@ -99,7 +100,8 @@
             <div class="col-lg-6">
                 <div class="row row-cols-2 row-cols-md-3 g-3">
                     <div class="col" th:each="service, iterStat : ${serviceAdvice}" th:if="${iterStat.index < 6}">
-                        <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="service-card text-center shadow-sm rounded-4 p-3 h-100 bg-white" data-aos="zoom-in"
+                             data-aos-delay="200">
                             <a th:href="@{/dich-vu/{slug}(slug=${service.slug})}"
                                class="text-decoration-none text-dark d-block">
                                 <img th:src="${service.icon}" th:alt="${service.serviceName}" class="img-fluid mb-2"
@@ -239,7 +241,8 @@
         <div class="container">
             <h2 class="text-center text-success fw-bold mb-5">HÌNH ẢNH DỰ ÁN 2025</h2>
             <div class="row g-4">
-                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}" data-aos="zoom-in" data-aos-delay="300">
+                <div class="col-lg-4 col-md-6 col-12" th:each="project : ${Project}" data-aos="zoom-in"
+                     data-aos-delay="300">
                     <a th:href="@{/du-an/{slug}(slug=${project.slug})}"
                        class="text-decoration-none text-dark">
                         <div class="card border-0 shadow-sm rounded-4 overflow-hidden project-card h-100">
@@ -300,21 +303,22 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
             <div th:each="post : ${Post}" class="col" data-aos="zoom-in" data-aos-delay="300">
                 <div class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden news-card">
-                    <div class="ratio ratio-16x9">
-                        <img th:src="${post.imageUrl}" th:alt="${post.title}"
-                             alt="Tin tức"
-                             class="img-fluid object-fit-cover">
-                    </div>
+                    <a th:href="@{/tin-tuc/{slug}(slug=${post.slug})}"
+                       class="text-decoration-none text-dark">
+                        <div class="ratio ratio-16x9">
+                            <img th:src="${post.imageUrl}" th:alt="${post.title}"
+                                 alt="Tin tức"
+                                 class="img-fluid object-fit-cover">
+                        </div>
 
-                    <div class="card-body d-flex flex-column p-3">
-                        <h6 th:text="${post.title}" class="fw-semibold mb-1 text-truncate fs-6"></h6>
-                        <p th:text="${#temporals.format(post.createAt, 'dd/MM/yyyy HH:mm')}"
-                           class="text-muted small mb-2"></p>
-                        <a th:href="@{/tin-tuc/{slug}(slug=${post.slug})}"
-                           class="btn btn-success btn-sm rounded-pill mt-auto align-self-start px-3 py-1">
-                            Xem chi tiết
-                        </a>
-                    </div>
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                            <div class="card-body d-flex flex-column p-3">
+                                <h6 th:text="${post.title}" class="fw-semibold mb-1 text-truncate fs-6"></h6>
+                                <p th:text="${dateFormatter.format(post.createAt)}"
+                                   class="text-muted small mb-2"></p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
@@ -356,18 +360,42 @@
             </div>
 
             <div class="row g-4 align-items-center">
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="300"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-30.jpg}" alt="GHN Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="400"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-27.jpg}" alt="ITL Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="500"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-29.jpg}" alt="FedEx Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="600"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-21.jpg}" alt="AISVN Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="700"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-24.jpg}" alt="Shopee Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="800"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-28.jpg}" alt="Lotte Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="900"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-25.jpg}" alt="CJ Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1000"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-22.jpg}" alt="Vietjet Air Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1100"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-1.jpg}" alt="Novaland Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1200"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-13.jpg}" alt="FPT Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1300"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-14.jpg}" alt="TTC Logo" class="img-fluid"></div>
-                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1400"><img th:src="@{/customer/images/partner/doi-tac-cua-gsts-6.jpg}" alt="Flamingo Cat Ba Resorts Logo" class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="300"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-30.jpg}" alt="GHN Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="400"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-27.jpg}" alt="ITL Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="500"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-29.jpg}" alt="FedEx Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="600"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-21.jpg}" alt="AISVN Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="700"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-24.jpg}" alt="Shopee Logo"
+                        class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="800"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-28.jpg}" alt="Lotte Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="900"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-25.jpg}" alt="CJ Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1000"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-22.jpg}" alt="Vietjet Air Logo"
+                        class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1100"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-1.jpg}" alt="Novaland Logo"
+                        class="img-fluid"></div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1200"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-13.jpg}" alt="FPT Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1300"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-14.jpg}" alt="TTC Logo" class="img-fluid">
+                </div>
+                <div class="col-4 col-md-2" data-aos="fade-up" data-aos-delay="1400"><img
+                        th:src="@{/customer/images/partner/doi-tac-cua-gsts-6.jpg}" alt="Flamingo Cat Ba Resorts Logo"
+                        class="img-fluid"></div>
             </div>
         </div>
     </section>
@@ -467,10 +495,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({
-    duration: 800,
-    once: true
-  });
+    AOS.init({
+        duration: 800,
+        once: true
+    });
 </script>
 <script src="/customer/js/home.js"></script>
 <script src="/customer/js/common.js"></script>

@@ -1,7 +1,7 @@
 package com.example.serviceapp.customer.home.controller;
 
-import com.example.serviceapp.common.entity.Customer;
 import com.example.serviceapp.customer.home.service.HomeService;
+import com.example.serviceapp.util.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +23,7 @@ public class HomeController {
         model.addAttribute("Feedback", homeService.findProjectActual10());
         model.addAttribute("Project", homeService.findProject9());
         model.addAttribute("customer", new com.example.serviceapp.common.entity.Customer());
+        model.addAttribute("dateFormatter", new DateFormatter());
         return "customer/index";
     }
 }
