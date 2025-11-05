@@ -1,13 +1,13 @@
-
-/*---------------------------------------
-Shop detail
------------------------------------------*/
+/* =========================================
+   Shop Detail Section
+========================================= */
 .breadcrumb-section {
     margin-top: 50px;
-    background: url('https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/bg-page-title.jpg') no-repeat center center/cover;
     padding: 80px 0;
     color: #fff;
     text-align: center;
+    background: url('https://vesinh4.mauthemewp.com/wp-content/uploads/2020/07/bg-page-title.jpg')
+        no-repeat center / cover;
 }
 
 .breadcrumb-section h1 {
@@ -17,8 +17,12 @@ Shop detail
 
 .breadcrumb-section .breadcrumb {
     justify-content: center;
+    --bs-breadcrumb-divider: '»';
 }
 
+/* =========================================
+   Service Detail
+========================================= */
 .service-detail img {
     border-radius: 10px;
     margin-bottom: 20px;
@@ -26,11 +30,11 @@ Shop detail
 
 .service-detail h2 {
     font-size: 32px;
-    margin-top: 20px;
-    margin-bottom: 15px;
+    margin: 20px 0 15px;
 }
 
-.service-detail p {
+.service-detail p,
+.service-detail ul li {
     font-size: 18px;
     line-height: 1.8;
 }
@@ -40,24 +44,30 @@ Shop detail
     padding-left: 0;
 }
 
+.service-detail ul li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 25px;
+}
+
 .service-detail ul li::before {
     content: '\f00c';
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     color: #198754;
-    margin-right: 10px;
+    position: absolute;
+    left: 0;
+    top: 2px;
 }
 
-.service-detail ul li {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
+/* =========================================
+   Call To Action
+========================================= */
 .cta-section {
     background: #198754;
     color: #fff;
-    padding: 40px 20px;
     text-align: center;
+    padding: 40px 20px;
     border-radius: 10px;
     margin-top: 50px;
 }
@@ -69,21 +79,25 @@ Shop detail
 
 .cta-section a {
     font-size: 20px;
+    color: #fff;
+    text-decoration: underline;
 }
 
-/*---------------------------------------
-sidebar
------------------------------------------*/
+/* =========================================
+   Sidebar
+========================================= */
 .sidebar {
     margin-top: 100px;
-    border: 1px solid #ddd;
     padding: 15px;
+    border: 1px solid #ddd;
     background: #fff;
+    border-radius: 8px;
 }
 
 .sidebar h5 {
     margin-bottom: 15px;
     font-size: 18px;
+    color: #198754;
 }
 
 .sidebar .post-item {
@@ -101,68 +115,54 @@ sidebar
 }
 
 .sidebar .post-item a {
-    text-decoration: none;
-    color: #333;
     font-size: 14px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .sidebar .post-item a:hover {
     color: #007bff;
 }
 
-/*---------------------------------------
-CSS tùy chỉnh cho content
------------------------------------------*/
-
-.post-content {
+/* =========================================
+   Post / Article Content
+========================================= */
+.post-content,
+.article-content {
     overflow-wrap: break-word;
     word-break: break-word;
 }
 
-.post-content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 0.375rem;
-    margin-bottom: 1rem;
-}
-
-.post-content table {
-    max-width: 100%;
-    overflow-x: auto;
-    display: block;
-    border-collapse: collapse;
-}
-
-.post-content table td, .post-content table th {
-    padding: 0.5rem;
-    border: 1px solid #dee2e6;
-}
-
-.breadcrumb {
-    --bs-breadcrumb-divider: '»';
-}
-
-
-/* Cho tất cả ảnh trong nội dung co dãn theo màn hình */
+.post-content img,
 .article-content img {
     max-width: 100%;
     height: auto;
     display: block;
+    border-radius: 6px;
+    margin-bottom: 1rem;
 }
 
-/* Video iframe (YouTube, Vimeo...) co dãn */
-.article-content iframe {
-    max-width: 100%;
-    width: 100%;
-    height: -webkit-fill-available;
-}
-
-/* Bảng cuộn ngang nếu quá rộng */
+.post-content table,
 .article-content table {
     width: 100%;
-    border-collapse: collapse;
-    overflow-x: auto;
     display: block;
+    overflow-x: auto;
+    border-collapse: collapse;
 }
 
+.post-content th,
+.post-content td,
+.article-content th,
+.article-content td {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+}
 
+.article-content iframe {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border: none;
+}

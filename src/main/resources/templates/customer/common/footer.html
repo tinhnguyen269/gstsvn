@@ -2,66 +2,147 @@
     <div class="container">
         <div class="row gy-4 align-items-start">
             <!-- Cột 1 -->
-            <div class="col-lg-4 col-md-6 col-12 d-flex flex-column gap-3">
-                <div class="d-flex align-items-center mb-2">
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="d-flex align-items-center mb-4">
                     <img th:src="@{/customer/images/logo/gsts-logo.png}"
-                         alt="Logo" style="height:56px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.10);">
-                    <h5 class="fw-bold ms-3 mb-0" style="color: #43e97b; font-size: 1.4rem; letter-spacing: 1px;">GSTS - Vệ sinh công nghiệp</h5>
+                         alt="Logo GSTS" 
+                         class="me-3"
+                         style="height: 60px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: transform 0.3s;">
+                    <h5 class="fw-bold mb-0" style="color: #ffc107; font-size: 1.5rem; letter-spacing: 1px;">GSTS</h5>
                 </div>
-                <p class="small mb-0 text-light" style="line-height:1.7;">Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.</p>
+                <p class="mb-4 text-light" style="line-height: 1.8; font-size: 0.95rem;">
+                    Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm.
+                    Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất,
+                    giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.
+                </p>
                 <div class="d-flex gap-3">
-                    <a href="#" class="text-white fs-5"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="bi bi-envelope"></i></a>
-                    <a href="#" class="text-white fs-5"><i class="bi bi-telephone"></i></a>
+                    <a href="#" class="social-link text-white rounded-circle d-flex align-items-center justify-content-center transition-all" 
+                       style="width: 40px; height: 40px; background: rgba(255,255,255,0.1);">
+                        <i class="bi bi-facebook fs-5"></i>
+                    </a>
+                    <a href="#" class="social-link text-white rounded-circle d-flex align-items-center justify-content-center transition-all"
+                       style="width: 40px; height: 40px; background: rgba(255,255,255,0.1);">
+                        <i class="bi bi-twitter fs-5"></i>
+                    </a>
+                    <a href="mailto:kisunhutrong@gmail.com" class="social-link text-white rounded-circle d-flex align-items-center justify-content-center transition-all"
+                       style="width: 40px; height: 40px; background: rgba(255,255,255,0.1);">
+                        <i class="bi bi-envelope fs-5"></i>
+                    </a>
+                    <a href="tel:0965123855" class="social-link text-white rounded-circle d-flex align-items-center justify-content-center transition-all"
+                       style="width: 40px; height: 40px; background: rgba(255,255,255,0.1);">
+                        <i class="bi bi-telephone fs-5"></i>
+                    </a>
                 </div>
             </div>
-            <!-- Cột 2 -->
-            <div class="col-lg-4 col-md-6 col-12 d-flex flex-column gap-3">
-                <h5 class="fw-semibold mb-2" style="color: #ffc107;">Địa chỉ văn phòng</h5>
-                <ul class="list-unstyled small mb-0 text-light">
-                    <li class="mb-2"><strong>Địa chỉ:</strong> Thôn An Đông, Thành phố Hải Phòng, Việt Nam</li>
-                    <li class="mb-2"><strong>VP1:</strong> 56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội</li>
+
+            <!-- Cột 2: Danh sách dịch vụ -->
+            <div class="col-lg-4 col-md-6 col-12">
+                <h5 class="fw-bold mb-4" style="color: #ffc107; font-size: 1.25rem;">
+                    <i class="bi bi-grid-3x3-gap me-2"></i>Dịch vụ của chúng tôi
+                </h5>
+                <ul class="list-unstyled mb-0">
+                    <li th:each="service : ${serviceAdvice}" class="mb-2">
+                        <a th:href="@{/dich-vu/{slug}(slug=${service.slug})}"
+                           th:text="${service.serviceName}"
+                           class="text-light text-decoration-none d-block py-2 px-3 rounded-3 link-hover transition-all"
+                           style="font-size: 0.95rem;">
+                            <i class="bi bi-arrow-right-circle me-2 text-success"></i>
+                        </a>
+                    </li>
                 </ul>
             </div>
+
             <!-- Cột 3 -->
-            <div class="col-lg-3 col-md-4 col-12 d-flex flex-column gap-3">
-                <h5 class="fw-semibold mb-2" style="color: #ffc107;">Thông tin liên hệ</h5>
-                <ul class="list-unstyled small mb-0 text-light">
-                    <li class="mb-2"><strong>Điện thoại:</strong> <a href="tel:0965123855" class="text-success text-decoration-none">0965.123.855</a> – <a href="tel:0981836612" class="text-success text-decoration-none">0981.836.612</a></li>
-                    <li class="mb-2"><strong>Email:</strong> <a href="mailto:kisunhutrong@gmail.com" class="text-success text-decoration-none">kisunhutrong@gmail.com</a></li>
-                    <li class="mb-2"><strong>MSDN:</strong> 0801448361</li>
+            <div class="col-lg-4 col-md-6 col-12">
+                <h5 class="fw-bold mb-4" style="color: #ffc107; font-size: 1.25rem;">
+                    <i class="bi bi-info-circle me-2"></i>Thông tin liên hệ
+                </h5>
+                <ul class="list-unstyled mb-4 text-light" style="font-size: 0.95rem;">
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="bi bi-telephone-fill text-success me-3 mt-1 fs-5"></i>
+                        <div>
+                            <strong class="d-block mb-1">Điện thoại:</strong>
+                            <a href="tel:0965123855" class="text-success text-decoration-none transition-all">0965.123.855</a> – 
+                            <a href="tel:0981836612" class="text-success text-decoration-none transition-all">0981.836.612</a>
+                        </div>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="bi bi-envelope-fill text-success me-3 mt-1 fs-5"></i>
+                        <div>
+                            <strong class="d-block mb-1">Email:</strong>
+                            <a href="mailto:kisunhutrong@gmail.com" class="text-success text-decoration-none transition-all">kisunhutrong@gmail.com</a>
+                        </div>
+                    </li>
+                    <li class="mb-3 d-flex align-items-start">
+                        <i class="bi bi-file-earmark-text-fill text-success me-3 mt-1 fs-5"></i>
+                        <div>
+                            <strong class="d-block mb-1">MSDN:</strong>
+                            <span>0801448361</span>
+                        </div>
+                    </li>
+                </ul>
+                <h5 class="fw-bold mb-4" style="color: #ffc107; font-size: 1.25rem;">
+                    <i class="bi bi-geo-alt-fill me-2"></i>Địa chỉ văn phòng
+                </h5>
+                <ul class="list-unstyled mb-0 text-light" style="font-size: 0.95rem;">
+                    <li class="mb-2 d-flex align-items-start">
+                        <i class="bi bi-geo-alt text-success me-3 mt-1"></i>
+                        <div>
+                            <strong>Địa chỉ:</strong> Thôn An Đông, Thành phố Hải Phòng, Việt Nam
+                        </div>
+                    </li>
+                    <li class="mb-2 d-flex align-items-start">
+                        <i class="bi bi-building text-success me-3 mt-1"></i>
+                        <div>
+                            <strong>VP1:</strong> 56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
-        <hr class="border-success opacity-50 my-4">
+
+        <hr class="border-success opacity-25 my-5">
+
         <div class="row">
             <div class="col-12 text-center">
-                <p class="mb-0 small text-light">&copy; 2025 GSTS. All rights reserved. Thiết kế bởi GSTS Team.</p>
+                <p class="mb-0 text-light" style="font-size: 0.9rem;">
+                    &copy; 2025 <strong class="text-success">GSTS</strong>. All rights reserved. 
+                    <span class="d-block d-md-inline mt-2 mt-md-0">Thiết kế bởi <strong class="text-warning">GSTS Team</strong>.</span>
+                </p>
             </div>
         </div>
     </div>
+
     <style>
         .site-footer {
-            background: linear-gradient(120deg, #212529 80%, #198754 100%);
-            box-shadow: 0 -2px 24px rgba(25,135,84,0.10);
+            background: linear-gradient(135deg, #212529 0%, #198754 100%);
+            box-shadow: 0 -4px 30px rgba(25,135,84,0.15);
         }
         .site-footer h5, .site-footer h6 {
             font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
         }
-        .site-footer .social-icon:hover {
-            opacity: 0.85;
-            transform: scale(1.08);
-            box-shadow: 0 2px 8px rgba(67,233,123,0.15);
-        }
-        .site-footer ul li {
-            font-size: 1rem;
+        .site-footer img:hover {
+            transform: scale(1.1);
         }
         .site-footer a {
-            transition: color 0.2s, background 0.2s;
+            transition: all 0.3s ease;
         }
         .site-footer a.text-success:hover {
             color: #ffc107 !important;
+            transform: translateX(5px);
+        }
+        .link-hover:hover {
+            background: rgba(25, 135, 84, 0.2) !important;
+            color: #43e97b !important;
+            padding-left: 1rem !important;
+        }
+        .social-link:hover {
+            background: #198754 !important;
+            transform: translateY(-3px) scale(1.1);
+            box-shadow: 0 4px 12px rgba(25, 135, 84, 0.4);
+        }
+        .transition-all {
+            transition: all 0.3s ease;
         }
     </style>
 </footer>

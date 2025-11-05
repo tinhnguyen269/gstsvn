@@ -1,268 +1,204 @@
-
-/* Nut lien he  */
-
-.echbay-sms-messenger div.phonering-alo-zalo,
-.echbay-sms-messenger div.phonering-alo-alo {
-    background-color:#0084ff
+/* ==================== ROOT & BASE ==================== */
+:root {
+  --green: #198754;
+  --blue: #007bff;
+  --orange: #f60;
+  --red: #e60f1e;
+  --white: #fff;
+  --gray: #555;
+  --gray-light: #f0f0f0;
+  --shadow: 0 3px 10px rgba(0,0,0,0.1);
+  --radius: 8px;
+  --transition: 0.3s ease;
 }
-.echbay-sms-messenger div.phonering-alo-sms {
-    background-color:#f60
-}
-.echbay-sms-messenger div.phonering-alo-messenger {
-    background-color:#e60f1e
+
+body {
+  font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  color: var(--gray);
 }
 
+/* ==================== NÚT LIÊN HỆ ==================== */
 .echbay-sms-messenger {
-    width:45px
-}
-.echbay-sms-messenger a {
-    line-height:45px;
-    color: transparent;
-    display:block;
-}
-.echbay-sms-messenger {
-    display:block
-}
-.echbay-sms-messenger div.phonering-alo-zalo {
-    display: block
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 45px;
+  text-align: center;
+  z-index: 999;
 }
 
-.echbay-sms-messenger div.phonering-alo-alo {
-    background-image: url(https://codfe.com/wp-content/uploads/2020/08/call.png);
-}
-.echbay-sms-messenger div.phonering-alo-sms {
-    background-image: url(https://codfe.com/wp-content/uploads/2020/08/mail.png);
-    background-color: #f60;
-    background-size: 60%;
-}
-.echbay-sms-messenger div.phonering-alo-zalo {
-    background-image: url(https://codfe.com/wp-content/uploads/2020/08/zalo.png);
-}
-.echbay-sms-messenger div.phonering-alo-messenger {
-    background-image: url(https://codfe.com/wp-content/uploads/2020/08/messenger.png);
-    background-color: #e60f1e;
-}
 .echbay-sms-messenger div {
-    margin: 14px 0;
-    background: #0084FF center no-repeat;
-    background-size: 70%;
-    border-radius: 50%;
-    box-shadow: 0 3px 10px #888;
+  margin: 14px 0;
+  border-radius: 50%;
+  background: #0084ff center no-repeat;
+  background-size: 70%;
+  box-shadow: var(--shadow);
 }
 
-.echbay-sms-messenger {
-    text-align: center;
-    left:20px;
-    position: fixed;
-    bottom: 20px;
-    z-index: 999;
+.echbay-sms-messenger a {
+  display: block;
+  line-height: 45px;
+  color: transparent;
 }
+
+.echbay-sms-messenger .phonering-alo-alo    { background: #0084ff url(https://codfe.com/wp-content/uploads/2020/08/call.png) center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-sms    { background: var(--orange) url(https://codfe.com/wp-content/uploads/2020/08/mail.png) center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-zalo   { background: #0084ff url(https://codfe.com/wp-content/uploads/2020/08/zalo.png) center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-messenger { background: var(--red) url(https://codfe.com/wp-content/uploads/2020/08/messenger.png) center/60% no-repeat; }
+
 /* Hiệu ứng rung */
 @keyframes ring {
-  0% { transform: rotate(0deg); }
-  10% { transform: rotate(25deg); }   /* tăng góc xoay */
-  20% { transform: rotate(-25deg); }
-  30% { transform: rotate(20deg); }
-  40% { transform: rotate(-20deg); }
-  50% { transform: rotate(15deg); }
-  60% { transform: rotate(-15deg); }
-  70% { transform: rotate(10deg); }
-  80% { transform: rotate(-10deg); }
-  90% { transform: rotate(5deg); }
-  100% { transform: rotate(0deg); }
+  0%,100% { transform: rotate(0); }
+  10%,30%,50%,70%,90% { transform: rotate(25deg); }
+  20%,40%,60%,80% { transform: rotate(-25deg); }
 }
-
 .ring-animation {
-  animation: ring 1s ease-in-out infinite; /* giảm thời gian xuống 1s để rung nhanh hơn */
+  animation: ring 1s ease-in-out infinite;
   transform-origin: center;
 }
 
-/* Navbar link mặc định màu trắng */
+/* ==================== NAVBAR ==================== */
 .navbar-nav .nav-link {
-    color: white;
-    transition: color 0.3s ease;
+  color: var(--white);
+  transition: color var(--transition);
 }
+.navbar-nav .nav-link:hover   { color: #ffc107; }
+.navbar-nav .nav-link.active  { color: #ff6f00; font-weight: 700; }
 
-/* Màu khi hover */
-.navbar-nav .nav-link:hover {
-    color: #ffc107; /* màu vàng */
-}
-
-/* Màu khi đang active */
-.navbar-nav .nav-link.active {
-    color: #ff6f00; /* màu cam nổi bật */
-    font-weight: 700;
-}
-
-/* Dropdown menu item mặc định */
+/* Dropdown */
 .dropdown-menu .dropdown-item {
-    color: #198754; /* màu xanh lá */
-    transition: color 0.3s ease, background-color 0.3s ease;
+  color: var(--green);
+  transition: color var(--transition), background-color var(--transition);
 }
-
-/* Dropdown item hover */
 .dropdown-menu .dropdown-item:hover {
-    color: #ffc107;
-    background-color: #e9ecef;
+  color: #ffc107;
+  background-color: #e9ecef;
 }
-
-/* Dropdown item active */
 .dropdown-menu .dropdown-item.active {
-    color: #ff6f00;
-    font-weight: 700;
-    background-color: #e2d3a5;
+  color: #ff6f00;
+  font-weight: 700;
+  background-color: #e2d3a5;
 }
-
-/* Hiển thị dropdown khi hover */
 .nav-item.dropdown:hover .dropdown-menu {
-    display: block;
-    margin-top: 0; /* tránh bị lệch xuống */
+  display: block;
+  margin-top: 0;
 }
 
-
-/* --- Thiết lập chung cho Sidebar --- */
+/* ==================== SIDEBAR ==================== */
 .sidebar {
-    background-color: #ffffff; /* Nền trắng sạch */
-    border: 1px solid #e0e0e0; /* Đường viền mỏng, tinh tế */
-    border-radius: 8px; /* Bo góc nhẹ nhàng */
-    padding: 20px;
-    margin-bottom: 25px; /* Khoảng cách với các thành phần bên dưới */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Bóng đổ nhẹ, tạo chiều sâu */
+  background: var(--white);
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .sidebar h5 {
-    font-size: 1.25rem; /* Kích thước tiêu đề */
-    color: #333333; /* Màu chữ đậm */
-    border-bottom: 2px solid #007bff; /* Đường gạch chân màu xanh nổi bật */
-    padding-bottom: 10px; /* Khoảng cách giữa tiêu đề và đường gạch */
-    margin-bottom: 20px; /* Khoảng cách với các mục bên dưới */
-    font-weight: 600; /* Tiêu đề đậm hơn */
-    text-transform: uppercase; /* Chữ hoa */
-    letter-spacing: 0.5px; /* Tăng khoảng cách chữ */
+  font-size: 1.25rem;
+  color: #333;
+  border-bottom: 2px solid var(--blue);
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-/* --- Phong cách chung cho các mục trong sidebar --- */
+/* Post item */
 .post-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #f0f0f0; /* Đường phân cách mỏng */
-    display: flex; /* Sử dụng flexbox để căn chỉnh ảnh và chữ */
-    align-items: center; /* Căn giữa theo chiều dọc */
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--gray-light);
 }
-
-.post-item:last-child {
-    border-bottom: none; /* Bỏ đường phân cách ở mục cuối cùng */
-}
+.post-item:last-child { border-bottom: none; }
 
 .post-item a {
-    text-decoration: none; /* Bỏ gạch chân */
-    color: #555555; /* Màu chữ xám đậm */
-    font-size: 1rem;
-    line-height: 1.4;
-    transition: color 0.3s ease; /* Hiệu ứng chuyển màu mượt mà */
-    display: block; /* Đảm bảo liên kết chiếm đủ không gian */
+  display: block;
+  text-decoration: none;
+  color: var(--gray);
+  font-size: 1rem;
+  line-height: 1.4;
+  transition: color var(--transition);
 }
+.post-item a:hover { color: var(--blue); }
 
-.post-item a:hover {
-    color: #007bff; /* Màu xanh nổi bật khi di chuột */
-}
-
-/* --- Dịch vụ nổi bật (sidebarService) --- */
-/* Mục này không có ảnh, chỉ cần căn chỉnh text */
+/* Sidebar dịch vụ nổi bật */
 .sidebarService .post-item {
-    padding-left: 15px; /* Tạo khoảng cách cho biểu tượng */
-    position: relative; /* Dùng để định vị biểu tượng */
+  padding-left: 15px;
+  position: relative;
 }
-
 .sidebarService .post-item::before {
-    content: "\2022"; /* Dấu chấm bullet hoặc biểu tượng khác */
-    color: #007bff; /* Màu xanh nổi bật */
-    font-weight: bold;
-    display: inline-block;
-    width: 1em; /* Căn chỉnh vị trí */
-    margin-left: -1em; /* Đưa dấu chấm ra ngoài */
+  content: "•";
+  color: var(--blue);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
 }
 
-
-/* --- Bài viết mới nhất (sidebarPost) --- */
+/* Sidebar bài viết mới */
 .sidebarPost .post-item img {
-    width: 60px; /* Kích thước ảnh thumbnail */
-    height: 60px;
-    object-fit: cover; /* Đảm bảo ảnh hiển thị đầy đủ và không bị biến dạng */
-    border-radius: 4px; /* Bo góc ảnh nhẹ */
-    margin-right: 15px; /* Khoảng cách giữa ảnh và tiêu đề */
-    flex-shrink: 0; /* Ngăn ảnh bị co lại */
+  width: 60px;
+  height: 60px;
+  border-radius: 4px;
+  margin-right: 15px;
+  object-fit: cover;
+  flex-shrink: 0;
 }
-
 .sidebarPost .post-item a {
-    /* Tiêu đề bài viết cần thêm tính linh hoạt để hiển thị nhiều dòng */
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Giới hạn chỉ hiển thị 2 dòng */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    color: #333333; /* Màu chữ đậm hơn cho tiêu đề bài viết */
-    font-weight: 500; /* Hơi đậm để dễ đọc */
+  color: #333;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
+/* ==================== BACK TO TOP ==================== */
 #backToTopBtn {
   position: fixed;
   bottom: 30px;
   right: 30px;
-  display: none; /* Ẩn mặc định */
-  background-color: #198754; /* xanh lá bootstrap */
-  color: white;
-  border: none;
-  outline: none;
+  display: none;
   width: 45px;
   height: 45px;
+  border: none;
   border-radius: 50%;
+  background: var(--green);
+  color: var(--white);
   font-size: 20px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  transition: opacity 0.3s, transform 0.3s;
+  transition: opacity var(--transition), transform var(--transition);
   z-index: 1000;
 }
-
 #backToTopBtn:hover {
-  background-color: #145c32;
+  background: #145c32;
   transform: translateY(-3px);
 }
+
+/* ==================== VIDEO RESPONSIVE ==================== */
 .video-responsive-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9; /* Tự động tính chiều cao theo tỷ lệ */
-    overflow: hidden;
-    max-width: 100%;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  max-width: 100%;
 }
-
 .video-responsive-container iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
-/* Responsive - Tablet */
+/* ==================== RESPONSIVE ==================== */
 @media (max-width: 992px) {
-    .scroll-head-buttons {
-        bottom: 20px;
-        right: 20px;
-    }
-    #backToTopBtn {
-        padding: 10px 12px;
-        font-size: 18px;
-    }
+  #backToTopBtn { font-size: 18px; padding: 10px; }
 }
 
-/* Responsive - Mobile */
 @media (max-width: 576px) {
-    .scroll-head-buttons {
-        bottom: 15px;
-        right: 15px;
-    }
-    #backToTopBtn {
-        padding: 8px 10px;
-        font-size: 16px;
-    }
+  #backToTopBtn { font-size: 16px; padding: 8px; }
 }

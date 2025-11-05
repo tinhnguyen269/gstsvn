@@ -59,52 +59,232 @@
 <!-- Header -->
 <div th:replace="customer/common/navbar:: header"></div>
 <!-- Nội dung chính -->
-<main class="flex-grow-1">
+<main class="flex-grow-1" style="margin-top: 80px;">
+    <!-- Hero Section -->
+    <section class="hero-section py-5" style="background: linear-gradient(135deg, #198754 0%, #20c997 100%);" data-aos="fade-up">
+        <div class="container">
+            <div class="row justify-content-center text-center text-white">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <h1 class="fw-bold mb-4" style="font-size: 3rem;">Giới thiệu về GSTS</h1>
+                    <p class="fs-5 mb-0" style="line-height: 1.8; color: #d1e7dd;">
+                        Đơn vị hàng đầu trong lĩnh vực vệ sinh công nghiệp với nhiều năm kinh nghiệm
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Giới thiệu công ty -->
-    <section class="featured-section section-padding py-5 mt-4" data-aos="fade-up">
-        <div class="container mt-4">
-            <h1 class="visually-hidden">Giới thiệu về công ty vệ sinh công nghiệp GSTS</h1>
+    <section class="featured-section section-padding py-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-8">
-                    <h2 class="mb-4">Giới thiệu</h2>
-                    <p>Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm. Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất, giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.</p>
-                    <h5 class="mt-4">Thời gian làm việc</h5>
-                    <p>Chúng tôi làm việc từ 8h – 19h hằng ngày (cả thứ 7 & chủ nhật). Nếu quý khách hàng cần gấp ngoài giờ hành chính, vui lòng liên hệ hotline <strong>0965.123.855</strong> hoặc <strong>0981.836.612 </strong> để được hỗ trợ tốt nhất, xin cảm ơn.</p>
-                    <h5 class="mt-4">Tư vấn hỗ trợ</h5>
-                    <p>Quý khách hàng để lại thông tin tại đây, chúng tôi sẽ liên hệ tư vấn hỗ trợ ngay, xin cảm ơn.</p>
-                    <p><strong>CTY:</strong> CÔNG TY CỔ PHẦN CUNG ỨNG DỊCH VỤ VÀ CÔNG NGHỆ KHU CÔNG NGHIỆP GSTS</p>
-                    <ul class="list-unstyled">
-                        <li><strong>MSDN</strong>: 0801448361</li>
-                        <li><strong>Địa chỉ:</strong> Thôn An Đông, , Thành phố Hải Phòng, Việt Nam</li>
-                        <li><strong>VP1:</strong>56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội</li>
-                        <li><strong>Hotline</strong>: 0965.123.855 – 0981.836.612</li>
-                        <li><strong>Email</strong>: <a href="mailto:kisunhutrong@gmail.com">kisunhutrong@gmail.com</a></li>
-                        <li><strong>Fanpage</strong>: <a href="https://www.facebook.com/webdemo/" target="_blank" rel="noopener">facebook.com/webdemo/</a></li>
-                        <li><strong>Zalo</strong>: 0965.123.855 – 0981.836.612</li>
-                    </ul>
+                    <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 mb-5">
+                        <h2 class="text-success fw-bold mb-4" style="font-size: 2.5rem;">
+                            <i class="bi bi-building me-2"></i>Về chúng tôi
+                        </h2>
+                        <p class="mb-4" style="line-height: 1.8; font-size: 1.1rem; color: #495057;">
+                            Chúng tôi là đơn vị chuyên cung cấp dịch vụ giải pháp làm sạch cho công ty, nhà ở với nhiều năm kinh nghiệm. 
+                            Chúng tôi tự tin sẽ là lựa chọn tốt nhất của Quý khách hàng. Với phương châm luôn đề cao chất lượng dịch vụ tốt nhất, 
+                            giá thành hợp lý, đáp ứng được yêu cầu cao từ Quý khách hàng.
+                        </p>
+                    </div>
+
+                    <!-- Thời gian làm việc -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-light" data-aos="fade-up" data-aos-delay="200">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-clock text-white fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold text-success mb-3">Thời gian làm việc</h5>
+                                <p class="mb-0" style="line-height: 1.8; color: #495057;">
+                                    Chúng tôi làm việc từ <strong>8h – 19h</strong> hằng ngày (cả thứ 7 & chủ nhật). 
+                                    Nếu quý khách hàng cần gấp ngoài giờ hành chính, vui lòng liên hệ hotline 
+                                    <a href="tel:0965123855" class="text-success fw-bold text-decoration-none">0965.123.855</a> hoặc 
+                                    <a href="tel:0981836612" class="text-success fw-bold text-decoration-none">0981.836.612</a> 
+                                    để được hỗ trợ tốt nhất, xin cảm ơn.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tư vấn hỗ trợ -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-light" data-aos="fade-up" data-aos-delay="300">
+                        <div class="d-flex align-items-start">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-success rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                    <i class="bi bi-headset text-white fs-4"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <h5 class="fw-bold text-success mb-3">Tư vấn hỗ trợ</h5>
+                                <p class="mb-0" style="line-height: 1.8; color: #495057;">
+                                    Quý khách hàng để lại thông tin tại đây, chúng tôi sẽ liên hệ tư vấn hỗ trợ ngay, xin cảm ơn.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thông tin công ty -->
+                    <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white" data-aos="fade-up" data-aos-delay="400">
+                        <h3 class="text-success fw-bold mb-4" style="font-size: 2rem;">
+                            <i class="bi bi-info-circle me-2"></i>Thông tin công ty
+                        </h3>
+                        <p class="mb-4 fw-bold fs-5" style="color: #198754;">
+                            CÔNG TY CỔ PHẦN CUNG ỨNG DỊCH VỤ VÀ CÔNG NGHỆ KHU CÔNG NGHIỆP GSTS
+                        </p>
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-file-earmark-text-fill text-success me-2 fs-5"></i>
+                                        <strong class="text-success">MSDN:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">0801448361</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-telephone-fill text-success me-2 fs-5"></i>
+                                        <strong class="text-success">Hotline:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">
+                                        <a href="tel:0965123855" class="text-decoration-none text-success fw-semibold">0965.123.855</a> – 
+                                        <a href="tel:0981836612" class="text-decoration-none text-success fw-semibold">0981.836.612</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-envelope-fill text-success me-2 fs-5"></i>
+                                        <strong class="text-success">Email:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">
+                                        <a href="mailto:kisunhutrong@gmail.com" class="text-decoration-none text-success fw-semibold">kisunhutrong@gmail.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-facebook text-success me-2 fs-5"></i>
+                                        <strong class="text-success">Fanpage:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">
+                                        <a href="https://www.facebook.com/webdemo/" target="_blank" rel="noopener" class="text-decoration-none text-success fw-semibold">facebook.com/webdemo/</a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-geo-alt-fill text-success me-2 fs-5"></i>
+                                        <strong class="text-success">Địa chỉ:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">Thôn An Đông, Thành phố Hải Phòng, Việt Nam</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-building text-success me-2 fs-5"></i>
+                                        <strong class="text-success">VP1:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">56/26 Lê Quang Đạo, Phú Đô, Nam Từ Liêm, Hà Nội</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="info-item p-3 rounded-3 bg-light h-100 transition-all">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-chat-dots-fill text-success me-2 fs-5"></i>
+                                        <strong class="text-success">Zalo:</strong>
+                                    </div>
+                                    <p class="mb-0 ms-4" style="color: #495057;">
+                                        <a href="tel:0965123855" class="text-decoration-none text-success fw-semibold">0965.123.855</a> – 
+                                        <a href="tel:0981836612" class="text-decoration-none text-success fw-semibold">0981.836.612</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- Team -->
-    <section class="team-section py-5 text-center" data-aos="fade-up" data-aos-delay="200">
-        <h2 class="section-title mb-4">Đội ngũ lãnh đạo</h2>
-        <div class="team-container position-relative">
-            <button class="btn-scroll left" onclick="scrollTeam(-300)">&#10094;</button>
-            <div class="team-list d-flex overflow-auto">
-                <div class="team-item text-center" th:each="i : ${#numbers.sequence(1,3)}">
-                    <img th:src="@{/customer/images/user/nhu-van-trong-gsts.png}" alt="NHỮ VĂN TRỌNG" class="member-img">
-                    <h5 class="name">NHỮ VĂN TRỌNG</h5>
-                    <p class="position">TỔNG GIÁM ĐỐC</p>
-                    <div class="icons my-2">
-                        <i class="bi bi-facebook"></i>
-                        <i class="bi bi-envelope"></i>
-                        <i class="bi bi-telephone"></i>
-                    </div>
-                    <p class="desc">Điều hành công ty</p>
+    <section class="team-section py-5 bg-light" data-aos="fade-up" data-aos-delay="200">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-success fw-bold mb-3" style="font-size: 2.5rem;">Đội ngũ lãnh đạo</h2>
+                <div class="title-divider-container mx-auto" style="max-width: 200px;">
+                    <div class="title-divider" style="height: 4px; background: linear-gradient(90deg, transparent, #198754, transparent); border-radius: 2px;"></div>
                 </div>
+                <p class="text-muted mt-3">Những người dẫn dắt và phát triển GSTS</p>
             </div>
-            <button class="btn-scroll right" onclick="scrollTeam(300)">&#10095;</button>
+            <div class="team-container position-relative px-4 px-md-5">
+                <button class="btn-scroll btn-scroll-left btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center transition-all" 
+                        onclick="scrollTeam(-320)" 
+                        aria-label="Cuộn sang trái"
+                        style="width: 50px; height: 50px; position: absolute; left: 0; top: 50%; transform: translateY(-50%); z-index: 10; border: none;">
+                    <i class="bi bi-chevron-left fs-4"></i>
+                </button>
+                <div class="team-list d-flex overflow-x-auto gap-4 pb-4 px-2 h-80"
+                     style="scroll-behavior: smooth; scrollbar-width: thin; -webkit-overflow-scrolling: touch;">
+                    <div class="team-item text-center flex-shrink-0" 
+                         style="width: 320px; min-width: 280px;" 
+                         th:each="i : ${#numbers.sequence(1,3)}" 
+                         data-aos="zoom-in" 
+                         data-aos-delay="${i * 100}">
+                        <div class="card border-0 shadow-lg rounded-4 p-4 h-100 bg-white transition-all team-card">
+                            <div class="position-relative mb-4">
+                                <img th:src="@{/customer/images/user/nhu-van-trong-gsts.png}" 
+                                     alt="NHỮ VĂN TRỌNG" 
+                                     class="member-img rounded-circle mx-auto d-block"
+                                     style="width: 150px; height: 150px; object-fit: cover; border: 5px solid #198754; box-shadow: 0 8px 20px rgba(25,135,84,0.2); transition: transform 0.3s;">
+                                <div class="position-absolute top-0 start-50 translate-middle-x" style="margin-top: -10px;">
+                                    <div class="bg-success rounded-circle p-2 shadow">
+                                        <i class="bi bi-award-fill text-white fs-5"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 class="name fw-bold mb-2" style="color: #198754; font-size: 1.25rem;">NHỮ VĂN TRỌNG</h5>
+                            <p class="position text-success fw-semibold mb-3" style="font-size: 1rem;">TỔNG GIÁM ĐỐC</p>
+                            <div class="icons my-3 d-flex justify-content-center gap-3">
+                                <a href="#" 
+                                   class="social-icon text-success rounded-circle d-flex align-items-center justify-content-center transition-all" 
+                                   style="width: 40px; height: 40px; background: rgba(25,135,84,0.1);"
+                                   aria-label="Facebook">
+                                    <i class="bi bi-facebook"></i>
+                                </a>
+                                <a href="mailto:kisunhutrong@gmail.com" 
+                                   class="social-icon text-success rounded-circle d-flex align-items-center justify-content-center transition-all"
+                                   style="width: 40px; height: 40px; background: rgba(25,135,84,0.1);"
+                                   aria-label="Email">
+                                    <i class="bi bi-envelope"></i>
+                                </a>
+                                <a href="tel:0965123855" 
+                                   class="social-icon text-success rounded-circle d-flex align-items-center justify-content-center transition-all"
+                                   style="width: 40px; height: 40px; background: rgba(25,135,84,0.1);"
+                                   aria-label="Điện thoại">
+                                    <i class="bi bi-telephone"></i>
+                                </a>
+                            </div>
+                            <p class="desc mb-0" style="color: #6c757d; line-height: 1.6;">Điều hành công ty</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-scroll btn-scroll-right btn btn-success rounded-circle shadow-lg d-flex align-items-center justify-content-center transition-all" 
+                        onclick="scrollTeam(320)" 
+                        aria-label="Cuộn sang phải"
+                        style="width: 50px; height: 50px; position: absolute; right: 0; top: 50%; transform: translateY(-50%); z-index: 10; border: none;">
+                    <i class="bi bi-chevron-right fs-4"></i>
+                </button>
+            </div>
         </div>
     </section>
     <!-- Liên hệ -->
@@ -122,14 +302,188 @@
         duration: 800,
         once: true
     });
+    
     function scrollTeam(value) {
         const list = document.querySelector('.team-list');
-        list.scrollBy({
-            left: value,
-            behavior: 'smooth'
-        });
+        if (list) {
+            list.scrollBy({
+                left: value,
+                behavior: 'smooth'
+            });
+            // Update button states after scroll
+            setTimeout(updateScrollButtons, 300);
+        }
     }
+    
+    // Update scroll button visibility
+    function updateScrollButtons() {
+        const list = document.querySelector('.team-list');
+        const btnLeft = document.querySelector('.btn-scroll-left');
+        const btnRight = document.querySelector('.btn-scroll-right');
+        
+        if (list && btnLeft && btnRight) {
+            const isAtStart = list.scrollLeft <= 0;
+            const isAtEnd = list.scrollLeft >= list.scrollWidth - list.clientWidth - 10;
+            
+            btnLeft.style.opacity = isAtStart ? '0.5' : '1';
+            btnLeft.style.pointerEvents = isAtStart ? 'none' : 'auto';
+            
+            btnRight.style.opacity = isAtEnd ? '0.5' : '1';
+            btnRight.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+        }
+    }
+    
+    // Initialize scroll button states
+    document.addEventListener('DOMContentLoaded', function() {
+        const list = document.querySelector('.team-list');
+        if (list) {
+            updateScrollButtons();
+            list.addEventListener('scroll', updateScrollButtons);
+            // Update on window resize
+            window.addEventListener('resize', updateScrollButtons);
+        }
+    });
 </script>
 <script src="/customer/js/common.js"></script>
+
+<style>
+    /* Transition effects */
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+    
+    /* Info item hover */
+    .info-item:hover {
+        background: rgba(25, 135, 84, 0.1) !important;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 12px rgba(25, 135, 84, 0.15) !important;
+    }
+    
+    /* Team card hover */
+    .team-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 30px rgba(25, 135, 84, 0.25) !important;
+    }
+    .team-card:hover .member-img {
+        transform: scale(1.05);
+        box-shadow: 0 12px 30px rgba(25, 135, 84, 0.3) !important;
+    }
+    
+    /* Social icon hover */
+    .social-icon:hover {
+        background: #198754 !important;
+        color: #fff !important;
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 4px 12px rgba(25, 135, 84, 0.4);
+    }
+    
+    /* Button scroll hover */
+    .btn-scroll:hover {
+        transform: translateY(-50%) scale(1.1) !important;
+        box-shadow: 0 8px 20px rgba(25, 135, 84, 0.4) !important;
+    }
+    
+    /* Link hover */
+    a.text-success:hover {
+        color: #ffc107 !important;
+        text-decoration: underline !important;
+    }
+    
+    /* Image transition */
+    .member-img {
+        transition: all 0.3s ease;
+    }
+    
+    /* Team list scrollbar */
+    .team-list::-webkit-scrollbar {
+        height: 8px;
+    }
+    .team-list::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    .team-list::-webkit-scrollbar-thumb {
+        background: #198754;
+        border-radius: 10px;
+    }
+    .team-list::-webkit-scrollbar-thumb:hover {
+        background: #20c997;
+    }
+    
+    /* Card hover effects */
+    .card:hover {
+        box-shadow: 0 8px 25px rgba(25, 135, 84, 0.15) !important;
+    }
+    
+    /* Team container responsive */
+    .team-container {
+        padding-left: 60px;
+        padding-right: 60px;
+    }
+    
+    /* Team list improvements */
+    .team-list {
+        scroll-padding: 20px;
+        scroll-snap-type: x proximity;
+    }
+    
+    .team-item {
+        scroll-snap-align: start;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 991.98px) {
+        .team-container {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+        .btn-scroll {
+            width: 45px !important;
+            height: 45px !important;
+        }
+        .team-item {
+            width: 300px !important;
+            min-width: 260px !important;
+        }
+    }
+    
+    @media (max-width: 767.98px) {
+        .team-container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .btn-scroll {
+            display: none !important;
+        }
+        .team-item {
+            width: 280px !important;
+            min-width: 250px !important;
+        }
+        .team-list {
+            gap: 1rem !important;
+        }
+        .hero-section h1 {
+            font-size: 2rem !important;
+        }
+    }
+    
+    @media (min-width: 1200px) {
+        .team-container {
+            padding-left: 80px;
+            padding-right: 80px;
+        }
+        .team-item {
+            width: 350px !important;
+        }
+    }
+    
+    /* Hide scroll buttons when at start/end */
+    .team-list.scroll-start ~ .btn-scroll-left,
+    .team-list.scroll-end ~ .btn-scroll-right {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+</style>
+
 </body>
 </html>
