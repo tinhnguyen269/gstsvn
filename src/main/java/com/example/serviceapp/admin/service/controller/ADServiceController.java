@@ -1,8 +1,12 @@
 package com.example.serviceapp.admin.service.controller;
 
+import com.example.serviceapp.admin.authenticate.repository.UserRepository;
 import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.entity.Services;
+import com.example.serviceapp.common.entity.User;
 import org.springframework.data.domain.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,17 +14,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.Normalizer;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/service")
 public class ADServiceController {
 
     private final ADServiceService serviceService;
+    private final UserRepository userRepository;
 
-    public ADServiceController(ADServiceService serviceService) {
+    public ADServiceController(ADServiceService serviceService, UserRepository userRepository) {
         this.serviceService = serviceService;
+        this.userRepository = userRepository;
     }
 
     public String toSlug(String input) {
@@ -43,10 +51,26 @@ public class ADServiceController {
                 ? serviceService.findAll(pageable)
                 : serviceService.searchServices(keyword, pageable);
 
+        // Tạo map chứa thông tin user (createBy và updateBy)
+        Map<Long, User> userMap = new HashMap<>();
+        for (Services service : servicePage.getContent()) {
+            if (service.getCreateBy() != null) {
+                userRepository.findUserByIdById(service.getCreateBy()).ifPresent(user -> {
+                    userMap.put(service.getCreateBy(), user);
+                });
+            }
+            if (service.getUpdateBy() != null && !service.getUpdateBy().equals(service.getCreateBy())) {
+                userRepository.findUserByIdById(service.getUpdateBy()).ifPresent(user -> {
+                    userMap.put(service.getUpdateBy(), user);
+                });
+            }
+        }
+
         model.addAttribute("servicePage", servicePage);
         model.addAttribute("currentPage", page);
         model.addAttribute("pageSize", size);
         model.addAttribute("keyword", keyword);
+        model.addAttribute("userMap", userMap);
 
         return "admin/service/service";
     }
@@ -68,6 +92,15 @@ public class ADServiceController {
         
         if (result.hasErrors()) {
             return "admin/service/add_service";
+        }
+        
+        // Lấy thông tin user đăng nhập
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            userRepository.findByUsernameOrPhoneNumber(username).ifPresent(user -> {
+                service.setCreateBy(user.getUserId());
+            });
         }
         
         service.setSlug(toSlug(service.getServiceName()));
@@ -105,15 +138,23 @@ public class ADServiceController {
             return "admin/service/edit_service";
         }
 
+        // Lấy thông tin user đăng nhập
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            userRepository.findByUsernameOrPhoneNumber(username).ifPresent(user -> {
+                existingService.setUpdateBy(user.getUserId());
+            });
+        }
+        
         // Cập nhật service
-        Services service = getServiceById(id);
-        service.setServiceName(updated.getServiceName());
-        service.setContent(updated.getContent());
-        service.setIcon(updated.getIcon());
-        service.setImgPrice(updated.getImgPrice());
-        service.setSlug(toSlug(updated.getServiceName()));
-        service.setUpdateAt(LocalDateTime.now());
-        serviceService.save(service);
+        existingService.setServiceName(updated.getServiceName());
+        existingService.setContent(updated.getContent());
+        existingService.setIcon(updated.getIcon());
+        existingService.setImgPrice(updated.getImgPrice());
+        existingService.setSlug(toSlug(updated.getServiceName()));
+        existingService.setUpdateAt(LocalDateTime.now());
+        serviceService.save(existingService);
         return "redirect:/admin/service/list";
     }
 

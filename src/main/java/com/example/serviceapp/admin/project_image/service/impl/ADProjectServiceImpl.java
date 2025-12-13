@@ -30,6 +30,11 @@ public class ADProjectServiceImpl implements ADProjectService {
     }
 
     @Override
+    public boolean existsByProjectName(String projectName) {
+        return projectRepository.existsByProjectName(projectName);
+    }
+
+    @Override
     public Optional<ProjectImage> findById(Long id) {
         return projectRepository.findById(id);
 

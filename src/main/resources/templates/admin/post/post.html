@@ -24,7 +24,7 @@
                         <a th:href="@{/admin/post/add}" class="btn btn-success me-2">
                             <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
                         </a>
-                        <button type="submit" form="deleteSelectedForm" class="btn btn-danger">
+                        <button type="submit" form="deleteSelectedForm" class="btn btn-danger" th:if="${isAdmin}">
                             <i class="material-icons">delete</i> <span>Xoá</span>
                         </button>
                     </div>
@@ -34,24 +34,40 @@
                     <table class="table table-striped table-hover">
                         <thead>
                         <tr>
-                            <th><input type="checkbox" id="checkAll"></th>
+                            <th th:if="${isAdmin}"><input type="checkbox" id="checkAll"></th>
                             <th>STT</th>
                             <th>Tiêu đề</th>
                             <th>Ngày tạo</th>
+                            <th>Người tạo</th>
+                            <th>Ngày cập nhật</th>
+                            <th>Người cập nhật</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr th:each="post,stat : ${postPage.content}">
-                            <td><input type="checkbox" name="ids" th:value="${post.postId}"></td>
+                            <td th:if="${isAdmin}"><input type="checkbox" name="ids" th:value="${post.postId}"></td>
                             <td th:text="${stat.index + 1}"></td>
                             <td th:text="${post.title}"></td>
-                            <td th:text="${#temporals.format(post.updateAt != null ? post.updateAt : post.createAt, 'dd/MM/yyyy HH:mm')}"></td>
+                            <td th:text="${post.createAt != null ? #temporals.format(post.createAt, 'dd/MM/yyyy HH:mm') : 'N/A'}"></td>
+                            <td>
+                                <span th:if="${post.createBy != null && userMap[post.createBy] != null}" 
+                                      th:text="${userMap[post.createBy].fullName}"></span>
+                                <span th:if="${post.createBy == null || userMap[post.createBy] == null}" 
+                                      class="text-muted">N/A</span>
+                            </td>
+                            <td th:text="${post.updateAt != null ? #temporals.format(post.updateAt, 'dd/MM/yyyy HH:mm') : 'N/A'}"></td>
+                            <td>
+                                <span th:if="${post.updateBy != null && userMap[post.updateBy] != null}" 
+                                      th:text="${userMap[post.updateBy].fullName}"></span>
+                                <span th:if="${post.updateBy == null || userMap[post.updateBy] == null}" 
+                                      class="text-muted">N/A</span>
+                            </td>
                             <td>
                                 <a th:href="@{'/admin/post/edit/' + ${post.postId}}" class="edit" title="Sửa">
                                     <i class="material-icons">&#xE254;</i>
                                 </a>
-                                <a href="javascript:void(0)" class="delete"
+                                <a href="javascript:void(0)" class="delete" th:if="${isAdmin}"
                                    th:onclick="'openDeleteModal(' + ${post.postId} + ')'">
                                     <i class="material-icons" title="Xoá">&#xE872;</i>
                                 </a>
