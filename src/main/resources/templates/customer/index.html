@@ -574,18 +574,6 @@
                             </div>
                         </form>
                     </div>
-
-                    <!-- Toast Bootstrap -->
-                    <div id="successToast" class="toast toast-custom toast-top-center align-items-center border-0"
-                         role="alert" aria-live="assertive" aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body">
-                                <!-- Nội dung thông báo -->
-                            </div>
-                            <button type="button" class="btn-close btn-close-white me-2 m-auto"
-                                    data-bs-dismiss="toast"></button>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Google Map -->
@@ -616,6 +604,23 @@
 
 </main>
 
+<!-- Toast Bootstrap - Tối ưu - Hiển thị giữa màn hình với overlay -->
+<div id="toastOverlay" class="toast-overlay" style="display: none;"></div>
+<div id="successToast" class="toast toast-custom toast-top-center align-items-center border-0 shadow-lg"
+     role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="3000">
+    <div class="d-flex align-items-center">
+        <div class="toast-icon-wrapper me-3">
+            <i class="bi bi-check-circle-fill text-white" style="font-size: 1.5rem;"></i>
+        </div>
+        <div class="toast-body flex-grow-1">
+            <strong class="d-block mb-1">Thành công!</strong>
+            <span class="toast-message">Nội dung thông báo</span>
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2" 
+                data-bs-dismiss="toast" aria-label="Đóng"></button>
+    </div>
+</div>
+
 <div th:replace="customer/common/footer:: footer"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
@@ -628,280 +633,8 @@
 <script src="/customer/js/home.js"></script>
 <script src="/customer/js/common.js"></script>
 
-<style>
-    /* Compact sizing - Giảm kích thước tổng thể */
-    section {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
-    }
-
-    /* Headings - Giảm font size */
-    h2 {
-        font-size: 1.8rem !important;
-    }
-
-    /* Service cards - Nhỏ gọn hơn */
-    .service-card {
-        padding: 0.8rem !important;
-    }
-
-    .service-card .mb-3 {
-        height: 60px !important;
-    }
-
-    .service-card img {
-        max-height: 60px !important;
-    }
-
-    .service-card p {
-        font-size: 0.85rem !important;
-    }
-
-    /* Stats section - Nhỏ gọn hơn */
-    .stats-section h2 {
-        font-size: 2rem !important;
-    }
-
-    .stats-section p {
-        font-size: 0.95rem !important;
-    }
-
-    .stat-box h3 {
-        font-size: 2rem !important;
-    }
-
-    .stat-box {
-        padding: 1rem !important;
-    }
-
-    /* Testimonials - Nhỏ gọn hơn */
-    .testimonial-card {
-        padding: 1rem !important;
-    }
-
-    .testimonial-card .profile-pic {
-        width: 50px !important;
-        height: 50px !important;
-    }
-
-    .testimonial-card .review-text {
-        font-size: 0.9rem !important;
-        line-height: 1.5 !important;
-    }
-
-    /* Projects - Nhỏ gọn hơn */
-    .project-card .card-body {
-        padding: 0.8rem !important;
-    }
-
-    .project-card h6 {
-        font-size: 0.9rem !important;
-    }
-
-    /* News cards - Nhỏ gọn hơn */
-    .news-card .card-body {
-        padding: 0.8rem !important;
-    }
-
-    .news-card h6 {
-        font-size: 0.9rem !important;
-        min-height: 2.4rem !important;
-    }
-
-    /* Stat items - Nhỏ gọn hơn */
-    .stat-item {
-        padding: 1rem !important;
-    }
-
-    .stat-number {
-        font-size: 2rem !important;
-    }
-
-    .stat-label {
-        font-size: 0.85rem !important;
-    }
-
-    /* Partner logos - Nhỏ gọn hơn */
-    .partner-logo-wrapper {
-        height: 80px !important;
-        padding: 0.8rem !important;
-    }
-
-    .partner-logo-wrapper img {
-        max-height: 50px !important;
-    }
-
-    /* Contact form - Nhỏ gọn hơn */
-    .contact-section .card {
-        padding: 1.2rem !important;
-    }
-
-    .contact-section h2 {
-        font-size: 2rem !important;
-    }
-
-    /* Video cards - Nhỏ gọn hơn */
-    .feedback-card {
-        padding: 0.8rem !important;
-    }
-
-    .feedback-card h6 {
-        font-size: 0.9rem !important;
-    }
-
-    .feedback-card p {
-        font-size: 0.85rem !important;
-    }
-
-    /* Carousel - Nhỏ gọn hơn */
-    #sliderCarousel {
-        margin-top: 70px !important;
-    }
-
-    #sliderCarousel img {
-        max-height: 400px !important;
-    }
-
-    /* Carousel controls - Nhỏ hơn */
-    .carousel-control-prev, .carousel-control-next {
-        width: 40px !important;
-        height: 40px !important;
-    }
-
-    /* Section titles - Nhỏ gọn hơn */
-    .title-divider-container {
-        max-width: 150px !important;
-    }
-
-    .title-divider {
-        height: 3px !important;
-    }
-
-    /* Text sizes - Nhỏ gọn hơn */
-    .text-muted {
-        font-size: 0.9rem !important;
-    }
-
-    /* Buttons - Nhỏ gọn hơn */
-    .btn-lg {
-        padding: 0.6rem 1.5rem !important;
-        font-size: 1rem !important;
-    }
-
-    /* Transition effects */
-    .transition-all {
-        transition: all 0.3s ease;
-    }
-
-    /* Service card hover */
-    .service-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(25, 135, 84, 0.15) !important;
-    }
-
-    .service-card:hover img {
-        transform: scale(1.1);
-    }
-
-    /* Project card hover */
-    .project-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(25, 135, 84, 0.2) !important;
-    }
-
-    .project-card:hover .position-absolute {
-        opacity: 0.8 !important;
-    }
-
-    .project-card:hover img {
-        transform: scale(1.1);
-    }
-
-    /* News card hover */
-    .news-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(25, 135, 84, 0.2) !important;
-    }
-
-    .news-card:hover .position-absolute {
-        opacity: 0.8 !important;
-    }
-
-    .news-card:hover img {
-        transform: scale(1.1);
-    }
-
-    /* Testimonial card hover */
-    .testimonial-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(25, 135, 84, 0.15) !important;
-    }
-
-    /* Stat box hover */
-    .stat-box:hover {
-        transform: translateY(-3px) scale(1.03);
-        box-shadow: 0 10px 25px rgba(25, 135, 84, 0.2) !important;
-    }
-
-    /* Partner logo hover */
-    .partner-logo-wrapper:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(25, 135, 84, 0.15) !important;
-    }
-
-    .partner-logo-wrapper:hover img {
-        filter: grayscale(0%) !important;
-        opacity: 1 !important;
-        transform: scale(1.1);
-    }
-
-    /* Button hover */
-    .btn-success:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3) !important;
-    }
-
-    /* Form input focus */
-    .form-control:focus, .form-select:focus {
-        border-color: #198754 !important;
-        box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25) !important;
-    }
-
-    .carousel-control-prev {
-        left: 15px;
-    }
-
-    .carousel-control-next {
-        right: 15px;
-    }
-
-    .carousel-control-prev:hover, .carousel-control-next:hover {
-        opacity: 1;
-        background: rgba(25, 135, 84, 1);
-        transform: translateY(-50%) scale(1.1);
-    }
-
-    /* Smooth scroll */
-    html {
-        scroll-behavior: smooth;
-    }
-
-    /* Section spacing */
-    section {
-        position: relative;
-    }
-
-    /* Image hover effects */
-    img {
-        transition: transform 0.3s ease;
-    }
-
-    /* Feedback card hover */
-    .feedback-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 6px 20px rgba(25, 135, 84, 0.15) !important;
-    }
-</style>
-
 </body>
 </html>
+
+
+
