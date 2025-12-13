@@ -70,10 +70,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
                 if (data.status === "success") {
                     let toastEl = document.getElementById("successToast");
-                    let toastBody = toastEl.querySelector(".toast-body");
-                    toastBody.innerText = data.message;
+                    let toastOverlay = document.getElementById("toastOverlay");
+                    let toastMessage = toastEl.querySelector(".toast-message");
+                    
+                    if (toastMessage) {
+                        toastMessage.innerText = data.message;
+                    } else {
+                        // Fallback nếu không tìm thấy .toast-message
+                        let toastBody = toastEl.querySelector(".toast-body");
+                        if (toastBody) {
+                            toastBody.innerHTML = `<strong class="d-block mb-1">Thành công!</strong><span>${data.message}</span>`;
+                        }
+                    }
 
-                    let bsToast = new bootstrap.Toast(toastEl, {delay: 2500});
+                    // Khởi tạo toast trước
+                    let bsToast = new bootstrap.Toast(toastEl, {
+                        delay: 3000,
+                        autohide: true
+                    });
+
+                    // Hiển thị overlay
+                    if (toastOverlay) {
+                        toastOverlay.style.display = "block";
+                        // Đóng toast khi click vào overlay
+                        toastOverlay.onclick = function() {
+                            bsToast.hide();
+                            toastOverlay.style.display = "none";
+                        };
+                    }
+                    
+                    // Ẩn overlay khi toast đóng
+                    toastEl.addEventListener('hidden.bs.toast', function () {
+                        if (toastOverlay) {
+                            toastOverlay.style.display = "none";
+                        }
+                    });
+                    
                     bsToast.show();
 
                     document.getElementById("contactForm").reset();
