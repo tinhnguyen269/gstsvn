@@ -17,4 +17,6 @@ public interface ADPostService {
     Page<Post> searchPosts(String keyword, Pageable pageable);
 
     void softDeletePosts(List<Long> ids);
+
+    boolean existsByTitle(String title);
 }

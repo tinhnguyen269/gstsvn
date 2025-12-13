@@ -27,4 +27,7 @@ public interface ADPostRepository extends JpaRepository<Post, Long> {
     @Query("UPDATE Post p SET p.deleteFlag = 1 WHERE p.postId IN :ids")
     void softDeletePosts(@Param("ids") List<Long> ids);
 
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM Post p WHERE LOWER(p.title) = LOWER(:title) AND p.deleteFlag = 0")
+    boolean existsByTitle(@Param("title") String title);
+
 }

@@ -8,10 +8,13 @@
     import org.springframework.data.domain.Sort;
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
+    import org.springframework.validation.BindingResult;
     import org.springframework.web.bind.annotation.*;
 
+    import java.text.Normalizer;
     import java.time.LocalDateTime;
     import java.util.List;
+    import java.util.Locale;
 
 
     @Controller
@@ -24,6 +27,14 @@
             this.postService = postService;
         }
 
+        public String toSlug(String input) {
+            String slug = Normalizer.normalize(input, Normalizer.Form.NFD)
+                    .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                    .replaceAll("[^a-zA-Z0-9]+", "-")
+                    .toLowerCase(Locale.ROOT)
+                    .replaceAll("^-|-$", "");
+            return slug;
+        }
 
         @GetMapping("/post/add")
         public String showAddForm(Model model) {
@@ -32,7 +43,18 @@
         }
 
         @PostMapping("/post/save")
-        public String savePost(@ModelAttribute Post post) {
+        public String savePost(@ModelAttribute("post") Post post, BindingResult result) {
+            boolean titleExists = postService.existsByTitle(post.getTitle());
+            if (titleExists) {
+                result.rejectValue("title", "error.post", "Tiêu đề bài viết đã tồn tại. Vui lòng chọn tiêu đề khác!");
+            }
+            
+            if (result.hasErrors()) {
+                return "admin/post/add_post";
+            }
+            
+            post.setSlug(toSlug(post.getTitle()));
+            post.setCreateAt(LocalDateTime.now());
             postService.save(post);
             return "redirect:/admin/post/list";
         }
@@ -69,15 +91,34 @@
         }
 
         @PostMapping("/post/update/{id}")
-        public String updatePost(@PathVariable Long id, @ModelAttribute Post post) {
+        public String updatePost(@PathVariable Long id, 
+                                @ModelAttribute("post") Post updated,
+                                BindingResult result, 
+                                Model model) {
             Post existingPost = postService.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("Invalid post ID: " + id));
 
-            existingPost.setTitle(post.getTitle());
-            existingPost.setContent(post.getContent());
-            existingPost.setImageUrl(post.getImageUrl());
-            existingPost.setSlug(post.getSlug());
+            // Chỉ kiểm tra trùng nếu title thay đổi
+            if (!existingPost.getTitle().toLowerCase().equals(updated.getTitle().toLowerCase())) {
+                boolean titleExists = postService.existsByTitle(updated.getTitle());
+                if (titleExists) {
+                    result.rejectValue("title", "error.post", "Tiêu đề bài viết đã tồn tại. Vui lòng chọn tiêu đề khác!");
+                }
+            }
+            
+            // Nếu có lỗi, giữ lại postId và trả về form
+            if (result.hasErrors()) {
+                updated.setPostId(id); // Đảm bảo postId được giữ lại
+                model.addAttribute("post", updated);
+                return "admin/post/edit_post";
+            }
 
+            // Cập nhật post
+            existingPost.setTitle(updated.getTitle());
+            existingPost.setContent(updated.getContent());
+            existingPost.setImageUrl(updated.getImageUrl());
+            existingPost.setSlug(toSlug(updated.getTitle()));
+            existingPost.setUpdateAt(LocalDateTime.now());
             postService.save(existingPost);
             return "redirect:/admin/post/list";
         }

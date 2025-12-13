@@ -19,4 +19,6 @@ public interface ADServiceService {
     boolean isServiceIdExists(Long serviceId);
 
     void softDeleteServices(List<Long> ids);
+
+    boolean existsByServiceName(String serviceName);
 }
