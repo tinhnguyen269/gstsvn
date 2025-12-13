@@ -37,7 +37,8 @@
         </script>
     </th:block>
     <th:block th:fragment="styles">
-        <link href="/customer/css/service-detail.css" rel="stylesheet" />
+        <link href="/customer/css/post-detail.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
     </th:block>
 </head>
 
@@ -49,60 +50,50 @@
 <!-- ✅ MAIN CONTENT -->
 <main class="container mt-5 pt-4">
     <div class="row">
-        <!-- Thẻ H1 chính -->
         <h1 class="visually-hidden">Dịch vụ GSTS - [[${services.serviceName}]]</h1>
-        <!-- ✅ Cột nội dung chính -->
-        <article class="col-12 col-md-8 order-1 order-md-1 service-main">
-
-            <!-- ✅ Breadcrumb với schema -->
-            <nav aria-label="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList" class="pt-3">
+        <div class="col-12 col-md-8 mb-5" data-aos="fade-up">
+            <nav aria-label="breadcrumb" class="pt-4 mt-1">
                 <ol class="breadcrumb bg-transparent p-0 mb-3">
-                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                        <a th:href="@{/}" itemprop="item" class="text-decoration-none text-dark">
-                            <span itemprop="name">Trang chủ</span>
-                        </a>
-                        <meta itemprop="position" content="1"/>
+                    <li class="breadcrumb-item">
+                        <a th:href="@{/}" class="text-decoration-none">Trang chủ</a>
                     </li>
-                    <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                        <a th:href="@{/}" itemprop="item" class="text-decoration-none text-dark">
-                            <span itemprop="name">Dịch vụ</span>
-                        </a>
-                        <meta itemprop="position" content="2"/>
+                    <li class="breadcrumb-item">
+                        <a th:href="@{/}" class="text-decoration-none">Dịch vụ</a>
                     </li>
-                    <li class="breadcrumb-item active text-dark" aria-current="page"
-                        itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                        <span itemprop="name" th:text="${services.serviceName}"></span>
-                        <meta itemprop="position" content="3"/>
-                    </li>
+                    <li class="breadcrumb-item active" aria-current="page" th:text="${services.serviceName}"></li>
                 </ol>
             </nav>
-
-            <!-- ✅ Nội dung dịch vụ -->
-            <section class="article-content" th:utext="${services.content}"></section>
-
-            <!-- ✅ Bài viết liên quan -->
-            <div class="mt-5" th:replace="customer/common/post :: post"></div>
-        </article>
-
-        <!-- ✅ Sidebar -->
+            <div class="text-muted mb-3">
+                <i class="fa-regular fa-clock me-1"></i>
+                <span th:text="${services.updateAt != null ? dateFormatter.format(services.updateAt) : dateFormatter.format(services.createAt)}"></span>
+            </div>
+            <article class="article-content" th:utext="${services.content}"></article>
+        </div>
         <aside class="col-12 col-md-4 order-2 order-md-2">
             <div class="mb-4" th:replace="customer/common/sidebar :: sidebarService"></div>
             <div th:replace="customer/common/sidebar :: sidebarPost"></div>
         </aside>
     </div>
+    <section class="mt-5" th:replace="customer/common/post :: post"></section>
 
-    <!-- ✅ Liên hệ -->
-    <div class="mt-5" th:replace="customer/common/contact :: contact"></div>
-
-    <!-- ✅ Scroll-to-top -->
-    <div th:replace="customer/common/scroll_head:: scroll-head"></div>
+    <section class="mt-5" th:replace="customer/common/contact :: contact"></section>
 </main>
 
-<!-- ✅ FOOTER -->
+<!-- Button scroll head -->
+<div th:replace="customer/common/scroll_head:: scroll-head"></div>
+
+<!-- Footer -->
 <footer th:replace="customer/common/footer :: footer"></footer>
 
-<!-- ✅ JAVASCRIPT -->
+<!-- JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>
 <script src="/customer/js/common.js"></script>
 
 </body>

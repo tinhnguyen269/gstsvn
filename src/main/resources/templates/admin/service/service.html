@@ -35,16 +35,16 @@
                         <thead>
                         <tr>
                             <th><input type="checkbox" id="checkAll"></th>
-                            <th>ID</th>
+                            <th>STT</th>
                             <th>Tên dịch vụ</th>
                             <th>Ngày tạo</th>
                             <th>Hành động</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="service : ${servicePage.content}">
+                        <tr th:each="service, stat : ${servicePage.content}">
                             <td><input type="checkbox" name="ids" th:value="${service.serviceId}"></td>
-                            <td th:text="${service.serviceId}"></td>
+                            <td th:text="${stat.index + 1}"></td>
                             <td th:text="${service.serviceName}"></td>
                             <td th:text="${#temporals.format(service.updateAt != null ? service.updateAt : service.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                             <td>

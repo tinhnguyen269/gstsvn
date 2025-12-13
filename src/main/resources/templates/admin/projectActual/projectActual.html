@@ -30,7 +30,7 @@
                     <table class="table table-striped table-hover mt-3">
                         <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>STT</th>
                             <th>Tên Khách hàng/Tiêu đề</th> <th>Nội dung</th>
                             <th>Link youtube</th>
                             <th>Ngày cập nhật/Ngày tạo</th>
@@ -38,8 +38,8 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="projectActual : ${projectActualPage.content}">
-                            <td th:text="${projectActual.projectActualId}"></td>
+                        <tr th:each="projectActual,stat : ${projectActualPage.content}">
+                            <td th:text="${stat.index + 1}"></td>
                             <td th:text="${projectActual.nameCustomer}"></td>
                             <td th:text="${projectActual.content}"></td>
                             <td th:text="${projectActual.linkYoutube}"></td>

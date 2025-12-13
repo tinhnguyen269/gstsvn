@@ -1,0 +1,118 @@
+/* ================================
+   Global Styles
+================================ */
+body {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+    color: #222;
+}
+
+/* ================================
+   Breadcrumb
+================================ */
+.breadcrumb {
+    background: none;
+    font-size: 1.08rem;
+    font-weight: 500;
+}
+
+.breadcrumb-item a {
+    color: #198754;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+
+.breadcrumb-item a:hover {
+    color: #43e97b;
+}
+
+/* ================================
+   News Card
+================================ */
+.news-card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+    overflow: hidden;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 8px 32px rgba(25,135,84,0.14);
+}
+
+.news-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 1.5rem 1.5rem 0 0;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.10);
+}
+
+.news-card .p-3 {
+    padding: 2rem 1.5rem 1.5rem !important;
+}
+
+.news-card h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #198754;
+    margin-bottom: 0.7rem;
+}
+
+.news-card .text-muted {
+    font-size: 0.98rem;
+    color: #888 !important;
+}
+
+/* ================================
+   Buttons
+================================ */
+.btn-outline-success {
+    border-radius: 2rem;
+    font-weight: 600;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-outline-success:hover {
+    background: linear-gradient(90deg, #43e97b, #198754);
+    color: #fff;
+    border-color: #43e97b;
+}
+
+/* ================================
+   Pagination
+================================ */
+.pagination .page-link {
+    border-radius: 50% !important;
+    font-weight: 600;
+    color: #198754;
+    box-shadow: 0 2px 8px rgba(25,135,84,0.08);
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.pagination .page-link:hover,
+.pagination .page-item.active .page-link {
+    background: linear-gradient(90deg, #43e97b, #198754);
+    color: #fff !important;
+    border-color: #43e97b;
+}
+
+/* ================================
+   Responsive
+================================ */
+@media (max-width: 991px) {
+    .news-card {
+        border-radius: 1rem;
+    }
+
+    .news-card img {
+        height: 140px;
+        border-radius: 1rem 1rem 0 0;
+    }
+
+    .news-card .p-3 {
+        padding: 1.2rem 0.7rem 1rem !important;
+    }
+}

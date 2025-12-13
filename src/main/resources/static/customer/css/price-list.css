@@ -1,54 +1,127 @@
-.nav-tabs .nav-link {
-    border: none;
-    border-bottom: 2px solid transparent;
-    color: #333;
-    transition: 0.3s;
+/* ================================
+   Global Styles
+================================ */
+body {
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f8fafc 0%, #e9ecef 100%);
+    color: #222;
+}
+
+/* ================================
+   Breadcrumb
+================================ */
+.breadcrumb {
+    background: none;
+    font-size: 1.08rem;
     font-weight: 500;
-    cursor: pointer;
 }
 
-.nav-tabs .nav-link:hover {
+.breadcrumb-item a {
     color: #198754;
-    border-bottom: 2px solid #198754;
+    text-decoration: underline;
+    transition: color 0.25s ease;
 }
 
-.nav-tabs .nav-link.active {
-    color: #198754;
-    border-bottom: 3px solid #198754;
-    background-color: #f8f9fa;
+.breadcrumb-item a:hover {
+    color: #43e97b;
 }
 
-.price-table {
-    margin-top: 30px;
-    padding: 20px;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.price-table img {
-    max-width: 100%;
-    border-radius: 10px;
-    margin-top: 20px;
-    transition: 0.3s ease;
-}
-
-.price-table img:hover {
-    transform: scale(1.02);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-}
-
-.container .nav-tabs {
-    border-bottom: none;
-    margin-bottom: 20px;
+/* ================================
+   Tabs
+================================ */
+.nav-tabs {
+    background: linear-gradient(120deg, #fff 80%, #e9f7ef 100%);
+    border: none;
+    border-radius: 2rem;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.08);
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .nav-tabs .nav-item {
-    margin-bottom: -1px;
+    margin: 0;
 }
 
-.price-table img {
-    transition: all 0.5s ease;
-    opacity: 1;
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: 2rem;
+    background: #fff;
+    color: #198754;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(25,135,84,0.06);
+    transition: all 0.25s ease;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
 }
 
+.nav-tabs .nav-link:hover,
+.nav-tabs .nav-link.active {
+    background: linear-gradient(90deg, #43e97b, #198754);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(25,135,84,0.14);
+}
+
+/* ================================
+   Price Table
+================================ */
+.price-table {
+    background: linear-gradient(120deg, #fff 80%, #e9f7ef 100%);
+    border-radius: 2rem;
+    box-shadow: 0 4px 24px rgba(25,135,84,0.10);
+    padding: 2.5rem 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
+
+.price-table:hover {
+    box-shadow: 0 6px 28px rgba(25,135,84,0.15);
+}
+
+.price-table img,
+#priceImage {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 1.5rem;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(25,135,84,0.10);
+    transition: all 0.4s ease;
+    margin: 1.5rem auto 0;
+}
+
+.price-table img:hover,
+#priceImage:hover {
+    transform: scale(1.03);
+    box-shadow: 0 6px 20px rgba(25,135,84,0.15);
+    opacity: 0.95;
+}
+
+/* ================================
+   Responsive
+================================ */
+@media (max-width: 991px) {
+    .nav-tabs {
+        border-radius: 1rem;
+        padding: 0.3rem;
+    }
+
+    .nav-tabs .nav-link {
+        padding: 0.5rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .price-table {
+        border-radius: 1rem;
+        padding: 1.2rem 0.8rem;
+    }
+
+    #priceImage,
+    .price-table img {
+        border-radius: 1rem;
+    }
+}

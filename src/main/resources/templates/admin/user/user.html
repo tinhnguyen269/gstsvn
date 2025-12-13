@@ -27,13 +27,13 @@
                 <table class="table table-striped table-hover align-middle">
                     <thead>
                     <tr>
-                        <th>ID</th><th>Tên</th><th>Tài khoản</th><th>Email</th><th>Số điện thoại</th>
+                        <th>STT</th><th>Tên</th><th>Tài khoản</th><th>Email</th><th>Số điện thoại</th>
                         <th>Địa chỉ</th><th>Quyền</th><th>Ngày tạo</th><th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="user : ${userPage.content}">
-                        <td th:text="${user.userId}"></td>
+                    <tr th:each="user,stat : ${userPage.content}">
+                        <td th:text="${stat.index + 1}"></td>
                         <td th:text="${user.fullName}"></td>
                         <td th:text="${user.username}"></td>
                         <td th:text="${user.email}"></td>
@@ -163,6 +163,7 @@
             callAjax({
                 url: `/user/edit/${id}`,
                 success: data => {
+                    console.log(data);
                     $('#editUserId').val(data.userId);
                     $('#editFullName').val(data.fullName);
                     $('#editUserName').val(data.username);

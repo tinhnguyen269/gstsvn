@@ -3,6 +3,7 @@ package com.example.serviceapp.customer.post.controller;
 import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.customer.home.service.HomeService;
 import com.example.serviceapp.customer.post.service.PostService;
+import com.example.serviceapp.util.DateFormatter;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,7 @@ public class PostController {
         model.addAttribute("postPage", postPage);
         model.addAttribute("currentPage", page + 1); // để hiển thị bắt đầu từ 1
         model.addAttribute("totalPages", postPage.getTotalPages());
+        model.addAttribute("dateFormatter", new DateFormatter());
 
         return "customer/post/post_list";
     }
@@ -48,6 +50,7 @@ public class PostController {
         List<Post> Post = homeService.findPost9();
         model.addAttribute("post", post);
         model.addAttribute("Post", Post);
+        model.addAttribute("dateFormatter", new DateFormatter());
 
         return "customer/post/post_detail";
     }

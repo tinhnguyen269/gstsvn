@@ -47,16 +47,16 @@
                             <thead>
                             <tr>
                                 <th><input type="checkbox" id="checkAll"></th>
-                                <th>ID</th>
+                                <th>STT</th>
                                 <th>Tên dự án</th>
                                 <th>Ngày tạo</th>
                                 <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="project : ${projectPage.content}">
+                            <tr th:each="project,stat : ${projectPage.content}">
                                 <td><input type="checkbox" name="ids" th:value="${project.projectId}"></td>
-                                <td th:text="${project.projectId}"></td>
+                                <td th:text="${stat.index + 1}"></td>
                                 <td th:text="${project.projectName}"></td>
                                 <td th:text="${#temporals.format(project.updateAt != null ? project.updateAt : project.createAt, 'dd/MM/yyyy HH:mm')}"></td>
                                 <td>

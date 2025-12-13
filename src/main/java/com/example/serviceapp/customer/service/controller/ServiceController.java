@@ -4,6 +4,7 @@ import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.home.service.HomeService;
 import com.example.serviceapp.customer.service.service.ServiceService;
+import com.example.serviceapp.util.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,8 @@ public class ServiceController {
         model.addAttribute("services", services);
         List<Post> Post = homeService.findPost9();
         model.addAttribute("Post", Post);
+        model.addAttribute("dateFormatter", new DateFormatter());
+
         return "customer/service/service_detail";
     }
 
