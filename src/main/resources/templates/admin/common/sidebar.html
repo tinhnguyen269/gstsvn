@@ -70,6 +70,7 @@
                     </a>
 
                     <a class="nav-link"
+                       th:if="${isAdmin}"
                        th:classappend="${currentURI.startsWith('/user')} ? ' active' : ''"
                        th:href="@{/user/list}">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-tie"></i></div>
