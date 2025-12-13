@@ -31,4 +31,7 @@ public interface ADProjectRepository extends JpaRepository<ProjectImage, Long> {
     @Transactional
     @Query("UPDATE ProjectImage p SET p.deleteFlag = 1 WHERE p.projectId = :id")
     void softDeleteById(Long id);
+
+    @Query("SELECT CASE WHEN COUNT(p) > 0 THEN true ELSE false END FROM ProjectImage p WHERE LOWER(p.projectName) = LOWER(:projectName) AND p.deleteFlag = 0")
+    boolean existsByProjectName(String projectName);
 }

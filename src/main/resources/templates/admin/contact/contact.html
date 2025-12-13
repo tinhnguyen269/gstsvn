@@ -23,7 +23,7 @@
                         <a href="#addContactModal" class="btn btn-success me-2" data-bs-toggle="modal">
                             <i class="material-icons">&#xE147;</i> <span>Thêm mới</span>
                         </a>
-                        <button type="submit" form="deleteSelectedForm" class="btn btn-danger">
+                        <button type="submit" form="deleteSelectedForm" class="btn btn-danger" th:if="${isAdmin}">
                             <i class="material-icons">delete</i> <span>Xoá</span>
                         </button>
                     </div>
@@ -34,7 +34,7 @@
                     <table class="table table-striped table-hover align-middle">
                         <thead>
                         <tr>
-                            <th><input type="checkbox" id="checkAll"></th>
+                            <th th:if="${isAdmin}"><input type="checkbox" id="checkAll"></th>
                             <th>STT</th>
                             <th>Tên</th>
                             <th>Số điện thoại</th>
@@ -47,7 +47,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="customer, stat : ${customerPage.content}">
-                            <td><input type="checkbox" name="ids" th:value="${customer.customerId}"></td>
+                            <td th:if="${isAdmin}"><input type="checkbox" name="ids" th:value="${customer.customerId}"></td>
                             <td th:text="${stat.index + 1}"></td>
                             <td th:text="${customer.name}"></td>
                             <td th:text="${customer.phoneNumber}"></td>
@@ -59,7 +59,7 @@
                                 <a href="#editContactModal" class="edit" th:data-id="${customer.customerId}" data-bs-toggle="modal">
                                     <i class="material-icons" title="Sửa">&#xE254;</i>
                                 </a>
-                                <a href="javascript:void(0)" class="delete" th:onclick="'deleteCustomer(' + ${customer.customerId} + ')'">
+                                <a href="javascript:void(0)" class="delete" th:if="${isAdmin}" th:onclick="'deleteCustomer(' + ${customer.customerId} + ')'">
                                     <i class="material-icons" title="Xoá">&#xE872;</i>
                                 </a>
                             </td>

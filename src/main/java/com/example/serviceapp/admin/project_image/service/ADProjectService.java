@@ -20,4 +20,6 @@ public interface ADProjectService {
     void softDeleteById(Long id);
 
     ProjectImage save(ProjectImage project);
+
+    boolean existsByProjectName(String projectName);
 }

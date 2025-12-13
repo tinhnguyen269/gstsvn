@@ -27,14 +27,17 @@
                         <input type="hidden" th:field="*{projectId}"/>
                         <div class="mb-3">
                             <label for="title" class="form-label">Tiêu đề</label>
-                            <input type="text" th:field="*{projectName}" class="form-control form-control-lg rounded-3"
-                                   id="title" placeholder="Nhập tên dự án" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="slug" class="form-label">Url</label>
-                            <input type="text" th:field="*{slug}" class="form-control form-control-lg rounded-3"
-                                   id="slug" placeholder="ten-du-an" required>
-                        </div>
+                            <input type="text"
+                                   th:field="*{projectName}"
+                                   class="form-control form-control-lg rounded-3"
+                                   th:classappend="${#fields.hasErrors('projectName')} ? 'is-invalid' : ''"
+                                   id="title"
+                                   placeholder="Nhập tên dự án"
+                                   required/>
+                            <!-- Hiển thị lỗi validation từ Thymeleaf -->
+                            <div class="text-danger small mt-1"
+                                 th:if="${#fields.hasErrors('projectName')}"
+                                 th:errors="*{projectName}">Tên dự án đã tồn tại. Vui lòng chọn tên khác!</div>
                         <div class="mb-3">
                             <label for="thumbnailUpload" class="form-label">Ảnh nền dự án</label>
                             <input class="form-control" type="file" id="thumbnailUpload" accept="image/*" onchange="uploadThumbnail(event)">

@@ -1,11 +1,15 @@
     package com.example.serviceapp.admin.post.controller;
 
+    import com.example.serviceapp.admin.authenticate.repository.UserRepository;
     import com.example.serviceapp.admin.post.service.ADPostService;
     import com.example.serviceapp.common.entity.Post;
+    import com.example.serviceapp.common.entity.User;
     import org.springframework.data.domain.Page;
     import org.springframework.data.domain.PageRequest;
     import org.springframework.data.domain.Pageable;
     import org.springframework.data.domain.Sort;
+    import org.springframework.security.core.Authentication;
+    import org.springframework.security.core.context.SecurityContextHolder;
     import org.springframework.stereotype.Controller;
     import org.springframework.ui.Model;
     import org.springframework.validation.BindingResult;
@@ -13,8 +17,10 @@
 
     import java.text.Normalizer;
     import java.time.LocalDateTime;
+    import java.util.HashMap;
     import java.util.List;
     import java.util.Locale;
+    import java.util.Map;
 
 
     @Controller
@@ -22,9 +28,11 @@
     public class ADPostController {
 
         private final ADPostService postService;
+        private final UserRepository userRepository;
 
-        public ADPostController(ADPostService postService) {
+        public ADPostController(ADPostService postService, UserRepository userRepository) {
             this.postService = postService;
+            this.userRepository = userRepository;
         }
 
         public String toSlug(String input) {
@@ -53,6 +61,15 @@
                 return "admin/post/add_post";
             }
             
+            // Lấy thông tin user đăng nhập
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                String username = authentication.getName();
+                userRepository.findByUsernameOrPhoneNumber(username).ifPresent(user -> {
+                    post.setCreateBy(user.getUserId());
+                });
+            }
+            
             post.setSlug(toSlug(post.getTitle()));
             post.setCreateAt(LocalDateTime.now());
             postService.save(post);
@@ -74,10 +91,26 @@
                 postPage = postService.findAll(pageable);
             }
 
+            // Tạo map chứa thông tin user (createBy và updateBy)
+            Map<Long, User> userMap = new HashMap<>();
+            for (Post post : postPage.getContent()) {
+                if (post.getCreateBy() != null) {
+                    userRepository.findUserByIdById(post.getCreateBy()).ifPresent(user -> {
+                        userMap.put(post.getCreateBy(), user);
+                    });
+                }
+                if (post.getUpdateBy() != null && !post.getUpdateBy().equals(post.getCreateBy())) {
+                    userRepository.findUserByIdById(post.getUpdateBy()).ifPresent(user -> {
+                        userMap.put(post.getUpdateBy(), user);
+                    });
+                }
+            }
+
             model.addAttribute("postPage", postPage);
             model.addAttribute("currentPage", page);
             model.addAttribute("pageSize", size);
             model.addAttribute("keyword", keyword);
+            model.addAttribute("userMap", userMap);
 
             return "admin/post/post";
         }
@@ -113,6 +146,15 @@
                 return "admin/post/edit_post";
             }
 
+            // Lấy thông tin user đăng nhập
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                String username = authentication.getName();
+                userRepository.findByUsernameOrPhoneNumber(username).ifPresent(user -> {
+                    existingPost.setUpdateBy(user.getUserId());
+                });
+            }
+            
             // Cập nhật post
             existingPost.setTitle(updated.getTitle());
             existingPost.setContent(updated.getContent());
