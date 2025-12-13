@@ -27,8 +27,12 @@
 
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputUserName" type="text" name="username"
-                                               placeholder="Username" required/>
-                                        <label for="inputUserName">Tên đăng nhập</label>
+                                               placeholder="Tên đăng nhập hoặc số điện thoại" 
+                                               pattern=".{1,100}"
+                                               title="Nhập tên đăng nhập hoặc số điện thoại (10 số)"
+                                               required/>
+                                        <label for="inputUserName">Tên đăng nhập hoặc số điện thoại</label>
+                                        <small class="form-text text-muted">Bạn có thể đăng nhập bằng tên đăng nhập hoặc số điện thoại</small>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input class="form-control" id="inputPassword" type="password" name="password"
@@ -41,7 +45,7 @@
 <!--                                    </div>-->
                                     <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                         <a class="small" th:href="@{/forgot-password}">Quên mật khẩu?</a>
-                                        <button class="btn btn-primary" type="submit">Login</button>
+                                        <button class="btn btn-primary" type="submit">Đăng nhập</button>
                                     </div>
                                 </form>
                                 <p th:text="${message}" style="color: red"></p>
