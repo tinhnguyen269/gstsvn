@@ -125,14 +125,17 @@
             });
         });
 
-        checkAll.addEventListener('click', e => {
-            checkboxes.forEach(cb => {
-                cb.checked = e.target.checked;
-                const id = parseInt(cb.value);
-                e.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
+        // Chỉ thêm event listener nếu checkAll tồn tại (chỉ có với role ADMIN)
+        if (checkAll) {
+            checkAll.addEventListener('click', e => {
+                checkboxes.forEach(cb => {
+                    cb.checked = e.target.checked;
+                    const id = parseInt(cb.value);
+                    e.target.checked ? selectedIds.add(id) : selectedIds.delete(id);
+                });
+                localStorage.setItem(STORAGE_KEY, JSON.stringify([...selectedIds]));
             });
-            localStorage.setItem(STORAGE_KEY, JSON.stringify([...selectedIds]));
-        });
+        }
     }
 
     // ======================== XÓA NHIỀU =========================
