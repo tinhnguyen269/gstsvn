@@ -161,6 +161,7 @@
     // ======================== MODAL THÊM =========================
     function initAddForm() {
         const addForm = document.getElementById('addForm');
+        const addModal = new bootstrap.Modal(document.getElementById('addContactModal'));
 
         addForm.addEventListener('submit', e => {
             e.preventDefault();
@@ -172,7 +173,10 @@
             })
                 .then(async res => {
                     if (res.ok) {
-                        alert("✅ Thêm khách hàng thành công!");
+                        const data = await res.json();
+                        addModal.hide();
+                        addForm.reset();
+                        alert(data.message || "✅ Thêm khách hàng thành công!");
                         location.reload();
                     } else {
                         const errors = await res.json();
@@ -183,7 +187,8 @@
                         alert(errorMessage);
                     }
                 })
-                .catch(() => {
+                .catch((error) => {
+                    console.error("Error:", error);
                     alert("🚨 Có lỗi xảy ra khi thêm khách hàng!");
                 });
         });
@@ -219,11 +224,11 @@
                     .then(res => res.json())
                     .then(data => {
                         document.getElementById('editCustomerId').value = data.customerId;
-                        document.getElementById('editName').value = data.name;
-                        document.getElementById('editPhoneNumber').value = data.phoneNumber;
-                        document.getElementById('editServiceId').value = data.serviceId;
+                        document.getElementById('editName').value = data.name || '';
+                        document.getElementById('editPhoneNumber').value = data.phoneNumber || '';
+                        document.getElementById('editServiceId').value = data.serviceId || '';
                         document.getElementById('editContext').value = data.context || '';
-                        document.getElementById('editStatus').value = data.status;
+                        document.getElementById('editStatus').value = data.status || 'PENDING';
                         editModal.show();
                     })
                     .catch(() => alert("Không thể tải dữ liệu khách hàng!"));
@@ -234,6 +239,10 @@
             e.preventDefault();
             clearErrors();
             const id = document.getElementById('editCustomerId').value;
+            if (!id) {
+                alert("Không tìm thấy ID khách hàng!");
+                return;
+            }
             fetch(`/admin/contact/update/${id}`, {
                 method: 'POST',
                 headers: { [csrfHeader]: csrfToken },
