@@ -171,44 +171,86 @@ aside {
 =========================== */
 .article-content {
   background: #fff;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   box-shadow: 0 4px 24px rgba(25, 135, 84, 0.1);
-  padding: 2.5rem 2rem;
-  font-size: 1rem; /* trước là 1.15rem */
-  line-height: 1.6; /* giảm nhẹ khoảng cách dòng */
+  padding: 1.5rem 1.5rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
   color: #222;
   margin-bottom: 2rem;
 }
 
-.article-content h2,
+.article-content p {
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.article-content h1 {
+  color: #198754;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.article-content h2 {
+  color: #198754;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-top: 1.3rem;
+  margin-bottom: 0.8rem;
+}
+
 .article-content h3 {
   color: #198754;
   font-weight: 700;
-  margin-top: 2rem;
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 0.7rem;
+}
+
+.article-content h4,
+.article-content h5,
+.article-content h6 {
+  color: #198754;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 .article-content img {
-  border-radius: 1.2rem;
+  border-radius: 0.8rem;
   box-shadow: 0 2px 12px rgba(25, 135, 84, 0.1);
-  margin: 1.5rem 0;
-  max-width: 100%;
+  margin: 0.8rem 0;
+  max-width: 80%;
   height: auto;
   display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .article-content ul,
 .article-content ol {
-  margin-left: 2rem;
+  margin-left: 1.5rem;
+  margin-bottom: 0.8rem;
+  padding-left: 0.5rem;
+}
+
+.article-content li {
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
 }
 
 .article-content blockquote {
   background: linear-gradient(120deg, #e9f7ef 80%, #fff 100%);
-  border-left: 6px solid #43e97b;
-  padding: 1rem 1.5rem;
-  border-radius: 1rem;
+  border-left: 4px solid #43e97b;
+  padding: 0.8rem 1.2rem;
+  border-radius: 0.8rem;
   font-style: italic;
   color: #198754;
-  margin: 2rem 0;
+  margin: 1.2rem 0;
+  font-size: 0.9rem;
 }
 
 .article-content iframe,
