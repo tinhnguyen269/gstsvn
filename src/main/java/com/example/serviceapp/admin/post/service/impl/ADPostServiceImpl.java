@@ -49,4 +49,9 @@ public class ADPostServiceImpl implements ADPostService {
         postRepository.softDeletePosts(ids);
     }
 
+    @Override
+    public boolean existsByTitle(String title) {
+        return postRepository.existsByTitle(title);
+    }
+
 }

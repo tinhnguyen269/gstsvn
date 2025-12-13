@@ -5,10 +5,13 @@ import com.example.serviceapp.common.entity.Services;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.Normalizer;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/service")
@@ -18,6 +21,15 @@ public class ADServiceController {
 
     public ADServiceController(ADServiceService serviceService) {
         this.serviceService = serviceService;
+    }
+
+    public String toSlug(String input) {
+        String slug = Normalizer.normalize(input, Normalizer.Form.NFD)
+                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "")
+                .replaceAll("[^a-zA-Z0-9]+", "-")
+                .toLowerCase(Locale.ROOT)
+                .replaceAll("^-|-$", "");
+        return slug;
     }
 
     @GetMapping("/list")
@@ -46,7 +58,19 @@ public class ADServiceController {
     }
 
     @PostMapping("/save")
-    public String saveService(@ModelAttribute Services service) {
+    public String saveService(@ModelAttribute("service") Services service, 
+                              BindingResult result) {
+
+        boolean serviceNameExists = serviceService.existsByServiceName(service.getServiceName());
+        if (serviceNameExists) {
+            result.rejectValue("serviceName", "error.service", "Tên dịch vụ đã tồn tại. Vui lòng chọn tên khác!");
+        }
+        
+        if (result.hasErrors()) {
+            return "admin/service/add_service";
+        }
+        
+        service.setSlug(toSlug(service.getServiceName()));
         service.setCreateAt(LocalDateTime.now());
         serviceService.save(service);
         return "redirect:/admin/service/list";
@@ -59,13 +83,35 @@ public class ADServiceController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateService(@PathVariable Long id, @ModelAttribute Services updated) {
+    public String updateService(@PathVariable Long id, 
+                               @ModelAttribute("service") Services updated,
+                               BindingResult result, 
+                               Model model) {
+
+        Services existingService = getServiceById(id);
+
+        // Chỉ kiểm tra trùng nếu serviceName thay đổi
+        if (!existingService.getServiceName().toLowerCase().equals(updated.getServiceName().toLowerCase())) {
+            boolean serviceNameExists = serviceService.existsByServiceName(updated.getServiceName());
+            if (serviceNameExists) {
+                result.rejectValue("serviceName", "error.service", "Tên dịch vụ đã tồn tại. Vui lòng chọn tên khác!");
+            }
+        }
+        
+        // Nếu có lỗi, giữ lại serviceId và trả về form
+        if (result.hasErrors()) {
+            updated.setServiceId(id); // Đảm bảo serviceId được giữ lại
+            model.addAttribute("service", updated);
+            return "admin/service/edit_service";
+        }
+
+        // Cập nhật service
         Services service = getServiceById(id);
         service.setServiceName(updated.getServiceName());
         service.setContent(updated.getContent());
         service.setIcon(updated.getIcon());
         service.setImgPrice(updated.getImgPrice());
-        service.setSlug(updated.getSlug());
+        service.setSlug(toSlug(updated.getServiceName()));
         service.setUpdateAt(LocalDateTime.now());
         serviceService.save(service);
         return "redirect:/admin/service/list";

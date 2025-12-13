@@ -3,13 +3,11 @@
 <head>
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <th:block th:replace="admin/common/header :: header"></th:block>
     <!-- CKEditor -->
     <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
 </head>
 <body class="sb-nav-fixed">
-<!-- Header -->
-<div th:replace="admin/common/header :: header"></div>
-
 <div id="layoutSidenav">
     <!-- Sidebar -->
     <div th:replace="admin/common/sidebar :: sidebar"></div>
@@ -27,13 +25,17 @@
 
                         <div class="mb-3">
                             <label for="title" class="form-label">Tiêu đề</label>
-                            <input type="text" th:field="*{serviceName}" class="form-control form-control-lg rounded-3"
-                                   id="title" placeholder="Nhập tên dịch vụ" required/>
-                        </div>
-                        <div class="mb-3">
-                            <label for="slug" class="form-label">Url</label>
-                            <input type="text" th:field="*{slug}" class="form-control form-control-lg rounded-3"
-                                   id="slug" placeholder="ten-dich-vu" required/>
+                            <input type="text" 
+                                   th:field="*{serviceName}" 
+                                   class="form-control form-control-lg rounded-3"
+                                   th:classappend="${#fields.hasErrors('serviceName')} ? 'is-invalid' : ''"
+                                   id="title" 
+                                   placeholder="Nhập tên dịch vụ" 
+                                   required/>
+                            <!-- Hiển thị lỗi validation từ Thymeleaf -->
+                            <div class="text-danger small mt-1" 
+                                 th:if="${#fields.hasErrors('serviceName')}"
+                                 th:errors="*{serviceName}">Tên dịch vụ đã tồn tại. Vui lòng chọn tên khác!</div>
                         </div>
                         <!-- Icon -->
                         <div class="mb-3">
@@ -88,9 +90,6 @@
         </main>
     </div>
 </div>
-
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- CKEditor Config -->
 <script>

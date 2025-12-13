@@ -56,4 +56,9 @@ public class ADServiceServiceImpl implements ADServiceService {
     public void softDeleteServices(List<Long> ids) {
         serviceRepository.softDeleteServices(ids);
     }
+
+    @Override
+    public boolean existsByServiceName(String serviceName) {
+        return serviceRepository.existsByServiceName(serviceName);
+    }
 }

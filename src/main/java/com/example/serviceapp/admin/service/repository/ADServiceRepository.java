@@ -24,4 +24,7 @@ public interface ADServiceRepository extends JpaRepository<Services,Long> {
     @Modifying
     @Query("UPDATE Services s SET s.deleteFlag = 1 WHERE s.serviceId IN :ids")
     void softDeleteServices(@Param("ids") List<Long> ids);
+
+    @Query ("SELECT CASE WHEN COUNT(s) > 0 THEN true ELSE false END FROM Services s WHERE LOWER(s.serviceName) = LOWER(:serviceName) AND s.deleteFlag = 0")
+    boolean existsByServiceName(String serviceName);
 }
