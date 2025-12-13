@@ -67,7 +67,7 @@
 <main class="container mt-5 pt-4 flex-grow-1">
     <div class="row">
         <h1 class="visually-hidden">Tin tức GSTS - [[${post.title}]]</h1>
-        <div class="col-12 col-md-8 mb-5" data-aos="fade-up">
+        <div class="col-12 col-md-9 mb-5" data-aos="fade-up">
             <nav aria-label="breadcrumb" class="pt-4 mt-1">
                 <ol class="breadcrumb bg-transparent p-0 mb-3">
                     <li class="breadcrumb-item">
@@ -85,9 +85,9 @@
             </div>
             <article class="article-content" th:utext="${post.content}"></article>
         </div>
-        <aside class="col-12 col-md-4">
-            <div class="sidebar mb-4" th:replace="customer/common/sidebar :: sidebarService" data-aos="fade-up" data-aos-delay="200"></div>
+        <aside class="col-12 col-md-3">
             <div class="sidebar" th:replace="customer/common/sidebar :: sidebarPost" data-aos="fade-up" data-aos-delay="300"></div>
+            <div class="sidebar mb-4" th:replace="customer/common/sidebar :: sidebarService" data-aos="fade-up" data-aos-delay="200"></div>
         </aside>
     </div>
     <section class="mt-5" th:replace="customer/common/post :: post"></section>

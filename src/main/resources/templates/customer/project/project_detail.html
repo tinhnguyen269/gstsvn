@@ -30,7 +30,7 @@
     <div class="row">
         <h1 class="visually-hidden" th:text="${project.projectName}">GSTS - Dự án đã hoàn thành</h1>
 
-        <div class="col-12 col-md-8 mb-4">
+        <div class="col-12 col-md-9 mb-4">
             <article class="container my-5 service-detail">
                 <nav aria-label="breadcrumb" class="pt-4 mt-1">
                     <ol class="breadcrumb bg-transparent p-0 mb-3">
@@ -68,9 +68,9 @@
             </div>
         </div>
 
-        <aside class="col-12 col-md-4">
-            <section class="mb-4" th:replace="customer/common/sidebar :: sidebarService"></section>
+        <aside class="col-12 col-md-3">
             <section th:replace="customer/common/sidebar :: sidebarPost"></section>
+            <section class="mb-4" th:replace="customer/common/sidebar :: sidebarService"></section>
         </aside>
     </div>
 
