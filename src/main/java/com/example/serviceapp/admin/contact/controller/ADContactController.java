@@ -1,5 +1,6 @@
 package com.example.serviceapp.admin.contact.controller;
 
+import com.example.serviceapp.admin.authenticate.repository.UserRepository;
 import com.example.serviceapp.admin.service.service.ADServiceService;
 import com.example.serviceapp.common.constants.CONTACT_STATUS;
 import com.example.serviceapp.admin.contact.service.ADContactService;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,12 +31,13 @@ import java.util.stream.Collectors;
 public class ADContactController {
 
     public final ADContactService contactService;
-
     public final ADServiceService serviceService;
+    private final UserRepository userRepository;
 
-    public ADContactController(ADContactService contactService, ADServiceService serviceService) {
+    public ADContactController(ADContactService contactService, ADServiceService serviceService, UserRepository userRepository) {
         this.contactService = contactService;
         this.serviceService = serviceService;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/contact/add")
@@ -55,6 +59,15 @@ public class ADContactController {
 
         if (!errors.isEmpty()) {
             return ResponseEntity.badRequest().body(errors);
+        }
+
+        // Lấy thông tin user đăng nhập
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            userRepository.findByUsernameOrPhoneNumber(username).ifPresent(user -> {
+                customer.setCreateBy(user.getUserId());
+            });
         }
 
         customer.setStatus(CONTACT_STATUS.PENDING);
@@ -121,10 +134,6 @@ public class ADContactController {
             return ResponseEntity.badRequest().body(errors);
         }
 
-        if (contactService.isPhoneNumberUpdateExists(updatedCustomer.getPhoneNumber(), updatedCustomer.getCustomerId())) {
-            errors.put("phoneNumber", "Số điện thoại đã được sử dụng bởi khách hàng khác.");
-        }
-
         if (!serviceService.isServiceIdExists(updatedCustomer.getServiceId())) {
             errors.put("serviceId", "Dịch vụ không tồn tại.");
         }
@@ -141,6 +150,15 @@ public class ADContactController {
         Map<String, String> response = new HashMap<>();
 
         if (existing != null) {
+            // Lấy thông tin user đăng nhập
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication != null && authentication.isAuthenticated()) {
+                String username = authentication.getName();
+                userRepository.findByUsernameOrPhoneNumber(username).ifPresent(user -> {
+                    existing.setUpdateBy(user.getUserId());
+                });
+            }
+
             existing.setName(updatedCustomer.getName());
             existing.setPhoneNumber(updatedCustomer.getPhoneNumber());
             existing.setServiceId(updatedCustomer.getServiceId());
