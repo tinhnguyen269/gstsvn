@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>Register - SB Admin</title>
-    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dyeje8mx3/image/upload/v1755924095/gsts-logo_ll5vaz.png">
-
+    <title>Đăng kí</title>
+    <link rel="icon" type="image/png"
+          th:href="@{/customer/images/logo/gsts-logo.png}">
     <link href="admin/css/styles.css" rel="stylesheet"/>
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -33,7 +33,7 @@
                                         <label for="inputUserName">Tên đăng nhập</label>
                                         <div class="text-danger" th:if="${#fields.hasErrors('username')}"
                                              th:errors="*{username}"></div>
-                                        <div class="text-danger" th:text="${usernameError}"></div>
+                                        <div class="text-danger" th:if="${usernameError != null}" th:text="${usernameError}"></div>
 
                                     </div>
 
@@ -44,7 +44,7 @@
                                         <label for="inputEmail">Email</label>
                                         <div class="text-danger" th:if="${#fields.hasErrors('email')}"
                                              th:errors="*{email}"></div>
-                                        <div class="text-danger" th:text="${emailError}"></div>
+                                        <div class="text-danger" th:if="${emailError != null}" th:text="${emailError}"></div>
 
                                     </div>
 
@@ -82,6 +82,7 @@
                                         <label for="inputPhone">Số điện thoại</label>
                                         <div class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}"
                                              th:errors="*{phoneNumber}"></div>
+                                        <div class="text-danger" th:if="${phoneError != null}" th:text="${phoneError}"></div>
                                     </div>
 
                                     <!-- Address (Employee) -->

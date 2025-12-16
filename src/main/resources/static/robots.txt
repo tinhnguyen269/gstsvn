@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gstsvn.onrender.com/sitemap_index.xml
+Sitemap: https://gsts.click/sitemap_index.xml

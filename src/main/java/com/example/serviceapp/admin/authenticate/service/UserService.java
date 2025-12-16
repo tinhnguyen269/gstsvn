@@ -2,11 +2,10 @@ package com.example.serviceapp.admin.authenticate.service;
 
 import com.example.serviceapp.admin.authenticate.repository.UserRepository;
 import com.example.serviceapp.common.entity.User;
-import com.sendgrid.*;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,7 @@ public class UserService {
 
     private final UserRepository userRepo;
     private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender mailSender;
 
     @Value("${app.host}")
     private String appHost;
@@ -26,12 +26,10 @@ public class UserService {
     @Value("${company.email}")
     private String companyEmail;
 
-    @Value("${sendgrid.api.key}")
-    private String sendGridApiKey;
-
-    public UserService(UserRepository userRepo, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepo, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
         this.userRepo = userRepo;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
     }
 
     // ============= Đăng ký tài khoản =============
@@ -113,27 +111,19 @@ public class UserService {
         sendEmail(user.getEmail(), subject, contentHtml);
     }
 
-    // ============= Gửi email qua SendGrid API =============
+    // ============= Gửi email qua Spring Boot Mail =============
     private void sendEmail(String to, String subject, String htmlContent) {
         try {
-            Email from = new Email(companyEmail, "GSTS Support");
-            Email recipient = new Email(to);
-            Content content = new Content("text/html", htmlContent);
-            Mail mail = new Mail(from, subject, recipient, content);
-
-            SendGrid sg = new SendGrid(sendGridApiKey);
-            Request request = new Request();
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            Response response = sg.api(request);
-
-            if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-                System.out.println("✅ Email đã gửi thành công đến: " + to);
-            } else {
-                System.err.println("⚠️ Gửi email thất bại. Mã phản hồi: " + response.getStatusCode());
-                System.err.println(response.getBody());
-            }
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            
+            helper.setFrom(companyEmail, "GSTS Support");
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setText(htmlContent, true);
+            
+            mailSender.send(message);
+            System.out.println("✅ Email đã gửi thành công đến: " + to);
         } catch (Exception e) {
             System.err.println("❌ Lỗi gửi email: " + e.getMessage());
         }
@@ -174,5 +164,24 @@ public class UserService {
 
     public Optional<User> findByUsername(String username) {
         return userRepo.findByUsername(username);
+    }
+
+    public boolean checkPassword(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
+    }
+
+    public boolean changePassword(Long userId, String newPassword) {
+        Optional<User> userOpt = userRepo.findById(userId);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepo.save(user);
+            return true;
+        }
+        return false;
+    }
+
+    public Optional<User> findByPhoneNumber(String phoneNumber) {
+        return userRepo.findByPhoneNumber(phoneNumber);
     }
 }

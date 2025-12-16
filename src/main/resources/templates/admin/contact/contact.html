@@ -12,6 +12,11 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4 mt-3">
+                <!-- Thông báo thành công -->
+                <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="fas fa-check-circle me-2"></i><span th:text="${successMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
                 <!-- Tiêu đề + Tìm kiếm + Thêm + Xóa -->
                 <div class="table-title d-flex justify-content-between align-items-center flex-wrap">
                     <h2>Quản lí <b>khách hàng</b></h2>
@@ -107,8 +112,16 @@
     function deleteCustomer(id) {
         if (!confirm("Bạn có chắc chắn muốn xóa khách hàng này không?\nHành động này không thể phục hồi.")) return;
         fetch(`/admin/contact/delete/${id}`, { method: 'POST', headers: { [csrfHeader]: csrfToken } })
-            .then(res => res.ok ? location.reload() : alert("Xóa thất bại!"))
-            .catch(() => alert("Có lỗi xảy ra!"));
+            .then(async res => {
+                const data = await res.json();
+                if (res.ok) {
+                    alert("✅ " + data.message);
+                    location.reload();
+                } else {
+                    alert("❌ " + data.message);
+                }
+            })
+            .catch(() => alert("🚨 Có lỗi xảy ra!"));
     }
 
     // ======================== CHECKBOX =========================
@@ -141,23 +154,33 @@
     // ======================== XÓA NHIỀU =========================
     function initDeleteSelected() {
         document.getElementById('deleteSelectedForm').addEventListener('submit', e => {
+            e.preventDefault();
             if (selectedIds.size === 0) {
                 alert("Vui lòng chọn ít nhất 1 khách hàng để xóa.");
-                e.preventDefault();
                 return;
             }
             if (!confirm("Bạn có chắc chắn muốn xóa các khách hàng đã chọn?\nHành động này không thể phục hồi.")) {
-                e.preventDefault();
                 return;
             }
-            selectedIds.forEach(id => {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = 'ids';
-                input.value = id;
-                e.target.appendChild(input);
-            });
-            localStorage.removeItem(STORAGE_KEY);
+            const formData = new FormData();
+            selectedIds.forEach(id => formData.append('ids', id));
+            
+            fetch('/admin/contact/delSelected', {
+                method: 'POST',
+                headers: { [csrfHeader]: csrfToken },
+                body: formData
+            })
+            .then(async res => {
+                const data = await res.json();
+                if (res.ok) {
+                    localStorage.removeItem(STORAGE_KEY);
+                    alert("✅ " + data.message);
+                    location.reload();
+                } else {
+                    alert("❌ " + data.message);
+                }
+            })
+            .catch(() => alert("🚨 Có lỗi xảy ra!"));
         });
     }
 

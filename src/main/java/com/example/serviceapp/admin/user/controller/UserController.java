@@ -15,16 +15,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
+    private final com.example.serviceapp.admin.authenticate.service.UserService userAuthenticateService;
     private final RoleRepository roleRepository;
 
-    public UserController(UserService userService, RoleRepository roleRepository) {
+    public UserController(UserService userService, UserService userAuthenticateService, com.example.serviceapp.admin.authenticate.service.UserService userAuthenticateService1, RoleRepository roleRepository) {
         this.userService = userService;
+        this.userAuthenticateService = userAuthenticateService1;
         this.roleRepository = roleRepository;
     }
 
@@ -51,6 +54,10 @@ public class UserController {
     @ResponseBody
     public Map<String, Object> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
+        if (user == null) {
+            return Map.of("error", "Không tìm thấy người dùng!");
+        }
+        
         Map<String, Object> response = new HashMap<>();
         response.put("userId", user.getUserId());
         response.put("fullName", user.getFullName());
@@ -70,6 +77,23 @@ public class UserController {
             @RequestBody @Validated(User.OnUpdate.class) UserUpdateDTO userFromClient,
             BindingResult bindingResult) {
 
+        User currentUser = userService.getUserById(id);
+        if (currentUser == null) {
+            return createErrorResponse("Không tìm thấy người dùng!");
+        }
+
+        // Validate duplicate fields (exclude current user)
+        String duplicateError = validateDuplicateFields(
+                userFromClient.getUsername(),
+                userFromClient.getEmail(),
+                userFromClient.getPhoneNumber(),
+                id
+        );
+        if (duplicateError != null) {
+            return createErrorResponse(duplicateError);
+        }
+
+        // Validate binding errors
         if (bindingResult.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach(error -> {
@@ -79,21 +103,71 @@ public class UserController {
         }
 
         // Convert DTO -> Entity
-        User user = new User();
-        user.setUserId(id);
-        user.setFullName(userFromClient.getFullName());
-        user.setUsername(userFromClient.getUsername());
-        user.setEmail(userFromClient.getEmail());
-        user.setPhoneNumber(userFromClient.getPhoneNumber());
-        user.setAddress(userFromClient.getAddress());
-
-        Role role = new Role();
-        role.setRoleId(userFromClient.getRoleId());
-        user.setRole(role);
-
+        User user = convertDtoToEntity(userFromClient, id);
         userService.updateUser(user);
 
         return ResponseEntity.ok("success");
+    }
+
+    /**
+     * Validate duplicate username, email, phoneNumber
+     * @param username username to check
+     * @param email email to check
+     * @param phoneNumber phoneNumber to check
+     * @param excludeUserId user ID to exclude from check
+     * @return error message if duplicate found, null otherwise
+     */
+    private String validateDuplicateFields(String username, String email, String phoneNumber, Long excludeUserId) {
+        if (username != null) {
+            Optional<User> existingUser = userAuthenticateService.findByUsername(username);
+            if (existingUser.isPresent() && !existingUser.get().getUserId().equals(excludeUserId)) {
+                return "Tên đăng nhập đã được sử dụng!";
+            }
+        }
+
+        if (email != null) {
+            Optional<User> existingUser = userAuthenticateService.findByEmail(email);
+            if (existingUser.isPresent() && !existingUser.get().getUserId().equals(excludeUserId)) {
+                return "Email đã được sử dụng!";
+            }
+        }
+
+        if (phoneNumber != null) {
+            Optional<User> existingUser = userAuthenticateService.findByPhoneNumber(phoneNumber);
+            if (existingUser.isPresent() && !existingUser.get().getUserId().equals(excludeUserId)) {
+                return "Số điện thoại đã được sử dụng!";
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Create error response with message
+     */
+    private ResponseEntity<Map<String, String>> createErrorResponse(String message) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", message);
+        return ResponseEntity.badRequest().body(error);
+    }
+
+    /**
+     * Convert UserUpdateDTO to User entity
+     */
+    private User convertDtoToEntity(UserUpdateDTO dto, Long userId) {
+        User user = new User();
+        user.setUserId(userId);
+        user.setFullName(dto.getFullName());
+        user.setUsername(dto.getUsername());
+        user.setEmail(dto.getEmail());
+        user.setPhoneNumber(dto.getPhoneNumber());
+        user.setAddress(dto.getAddress());
+
+        Role role = new Role();
+        role.setRoleId(dto.getRoleId());
+        user.setRole(role);
+
+        return user;
     }
 
 

@@ -13,5 +13,5 @@ public interface HomeService {
 
     List<Post> findPost9();
 
-    List<ProjectImage> findProject9();
+    List<ProjectImage> findProject();
 }

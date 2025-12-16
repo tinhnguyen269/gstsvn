@@ -33,6 +33,7 @@ public class ServiceController {
         List<Post> Post = homeService.findPost9();
         model.addAttribute("Post", Post);
         model.addAttribute("dateFormatter", new DateFormatter());
+        model.addAttribute("customer", new com.example.serviceapp.common.entity.Customer());
 
         return "customer/service/service_detail";
     }

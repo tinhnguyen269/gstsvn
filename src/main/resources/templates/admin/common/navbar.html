@@ -14,9 +14,10 @@
                     <span th:if="${currentUserFullName == null && currentUsername != null}" th:text="${currentUsername}"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" th:href="@{/admin/change-password}"><i class="fas fa-key me-2"></i>Đổi mật khẩu</a></li>
 <!--                    <li><a class="dropdown-item" href="#!">Cài đặt</a></li>-->
 <!--                    <li><a class="dropdown-item" href="#!">Lịch sử hoạt động</a></li>-->
-<!--                    <li><hr class="dropdown-divider" /></li>-->
+                    <li><hr class="dropdown-divider" /></li>
                     <form th:action="@{/logout}" method="post">
                         <button type="submit" class="dropdown-item">Đăng xuất</button>
                     </form>

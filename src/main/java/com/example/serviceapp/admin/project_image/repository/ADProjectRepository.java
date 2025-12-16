@@ -19,8 +19,8 @@ public interface ADProjectRepository extends JpaRepository<ProjectImage, Long> {
     @Query("SELECT p FROM ProjectImage p WHERE LOWER(p.projectName) LIKE LOWER(CONCAT('%', :keyword, '%')) AND p.deleteFlag = 0 ORDER BY p.createAt DESC")
     Page<ProjectImage> searchProjects(@Param("keyword") String keyword, Pageable pageable);
 
-    @Query("SELECT p FROM ProjectImage p WHERE p.deleteFlag = 0 ORDER BY p.createAt DESC limit 9")
-    List<ProjectImage> findTop9ByOrderByCreateAtDesc();
+    @Query("SELECT p FROM ProjectImage p WHERE p.deleteFlag = 0 ORDER BY p.createAt DESC ")
+    List<ProjectImage> findAllByOrderByCreateAtDesc();
 
     @Modifying
     @Transactional

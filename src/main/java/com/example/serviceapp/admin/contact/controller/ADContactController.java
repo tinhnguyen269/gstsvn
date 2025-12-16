@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -176,17 +177,20 @@ public class ADContactController {
 
 
     @PostMapping("/contact/delete/{id}")
-    public String deleteCustomer(@PathVariable Long id) {
+    @ResponseBody
+    public ResponseEntity<?> deleteCustomer(@PathVariable Long id) {
         Customer customer = contactService.findById(id);
         if (customer != null) {
             contactService.delete(customer);
+            return ResponseEntity.ok(Map.of("message", "Xóa khách hàng thành công!"));
         }
-        return "redirect:/admin/contact/list";
+        return ResponseEntity.badRequest().body(Map.of("message", "Không tìm thấy khách hàng!"));
     }
     @PostMapping("/contact/delSelected")
-    public String deleteListContacts(@RequestParam("ids") List<Long> ids) {
+    @ResponseBody
+    public ResponseEntity<?> deleteListContacts(@RequestParam("ids") List<Long> ids) {
         contactService.softDeleteContacts(ids);
-        return "redirect:/admin/contact/list";
+        return ResponseEntity.ok(Map.of("message", "Xóa " + ids.size() + " khách hàng thành công!"));
     }
 }
 

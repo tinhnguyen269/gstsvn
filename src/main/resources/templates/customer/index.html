@@ -47,8 +47,8 @@
                     "addressLocality": "Tỉnh Hải Dương",
                     "addressCountry": "Việt Nam"
                 },
-                "telephone": "0333360748",
-                "url": "https://gstsvn.onrender.com/home"
+                "telephone": "0965123855",
+                "url": "https://gsts.click/"
             }
         </script>
     </th:block>
@@ -58,7 +58,23 @@
         <link href="/customer/css/home.css" rel="stylesheet">
         <link href="/customer/css/post-detail.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-
+        <style>
+            html, body {
+                overflow-x: hidden;
+                max-width: 100vw;
+            }
+            @media (max-width: 767px) {
+                .stats-section h3 { font-size: 1.5rem !important; }
+                .stats-section h2 { font-size: 1.8rem !important; }
+                .stats-section .fs-5 { font-size: 1rem !important; }
+                section h2 { font-size: 1.8rem !important; }
+                .stat-box { padding: 1rem !important; }
+                [data-aos] { opacity: 1 !important; transform: none !important; }
+            }
+            /* FAQ Accordion */
+            .accordion-button:not(.collapsed) { background-color: #e8f5e9; color: #198754; }
+            .accordion-button:focus { box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25); }
+        </style>
     </th:block>
 </head>
 <body>
@@ -66,8 +82,8 @@
 <main class="col-12 order-2 order-md-1 mb-4">
     <h1 class="hidden">GSTS-Vệ sinh công nghiệp</h1>
     <!-- Banner Carousel -->
-    <section id="sliderCarousel" class="carousel slide rounded-4 shadow-lg mb-5 overflow-hidden"
-             data-bs-ride="carousel" data-aos="fade-up" style="margin-top: 80px;">
+ <section id="sliderCarousel" class="carousel slide rounded-4 shadow-lg mb-5"
+            data-bs-ride="carousel" data-aos="fade-up" style="margin-top: 80px;">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="img-fluid w-100"
@@ -208,13 +224,13 @@
             <div class="row g-4">
                 <div class="col-lg-6" data-aos="fade-right" data-aos-delay="400">
                     <div class="testimonial-card bg-white rounded-4 shadow-sm p-4 h-100 transition-all">
-                        <div class="d-flex align-items-center mb-3">
+                        <div class="d-flex align-items-start mb-3">
                             <img th:src="@{/customer/images/user/ly-kieu-150x150.jpg}" alt="Lý Kiều"
-                                 class="profile-pic rounded-circle me-3"
-                                 style="width: 60px; height: 60px; object-fit: cover;">
-                            <div class="flex-grow-1">
-                                <h6 class="customer-name fw-bold mb-1">Lý Kiều</h6>
-                                <div class="stars text-warning">
+                                 class="profile-pic rounded-circle me-3 flex-shrink-0"
+                                 style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <h6 class="customer-name fw-bold mb-0 me-2">Lý Kiều</h6>
+                                <div class="stars text-warning" style="font-size: 0.85rem;">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -223,8 +239,8 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="review-text mb-0" style="line-height: 1.7; color: #495057;">
-                            <i class="bi bi-quote text-success me-2" style="font-size: 1.5rem; opacity: 0.3;"></i>
+                        <p class="review-text mb-0 fst-italic" style="line-height: 1.7; color: #495057;">
+                            <i class="bi bi-quote text-success me-1" style="font-size: 1.2rem; opacity: 0.5;"></i>
                             Tôi đã sử dụng và rất hài lòng về dịch vụ này. Cảm ơn Công Ty dịch vụ vệ sinh
                             công nghiệp GSTS rất uy tín, giá cả hợp lý rất ok.
                         </p>
@@ -232,13 +248,13 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left" data-aos-delay="500">
                     <div class="testimonial-card bg-white rounded-4 shadow-sm p-4 h-100 transition-all">
-                        <div class="d-flex align-items-center mb-3">
+                        <div class="d-flex align-items-start mb-3">
                             <img th:src="@{/customer/images/user/nguyen-thoa-150x150.jpg}" alt="Nguyễn Thoa"
-                                 class="profile-pic rounded-circle me-3"
-                                 style="width: 60px; height: 60px; object-fit: cover;">
-                            <div class="flex-grow-1">
-                                <h6 class="customer-name fw-bold mb-1">Nguyễn Thoa</h6>
-                                <div class="stars text-warning">
+                                 class="profile-pic rounded-circle me-3 flex-shrink-0"
+                                 style="width: 50px; height: 50px; object-fit: cover;">
+                            <div class="d-flex align-items-center flex-wrap">
+                                <h6 class="customer-name fw-bold mb-0 me-2">Nguyễn Thoa</h6>
+                                <div class="stars text-warning" style="font-size: 0.85rem;">
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
                                     <i class="fas fa-star"></i>
@@ -247,8 +263,8 @@
                                 </div>
                             </div>
                         </div>
-                        <p class="review-text mb-0" style="line-height: 1.7; color: #495057;">
-                            <i class="bi bi-quote text-success me-2" style="font-size: 1.5rem; opacity: 0.3;"></i>
+                        <p class="review-text mb-0 fst-italic" style="line-height: 1.7; color: #495057;">
+                            <i class="bi bi-quote text-success me-1" style="font-size: 1.2rem; opacity: 0.5;"></i>
                             Dịch vụ vệ sinh công nghiệp công ty này rất chất lượng và chuyên nghiệp. Nhân
                             viên làm việc chăm chỉ, nhiệt tình, vui vẻ.
                         </p>
@@ -596,30 +612,85 @@
         </div>
     </section>
 
+    <!-- FAQ Section -->
+    <section class="faq-section py-5" data-aos="fade-up">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="text-success fw-bold mb-3" style="font-size: 2.5rem;">Câu hỏi thường gặp</h2>
+                <div class="title-divider-container mx-auto" style="max-width: 200px;">
+                    <div class="title-divider" style="height: 4px; background: linear-gradient(90deg, transparent, #198754, transparent); border-radius: 2px;"></div>
+                </div>
+                <p class="text-muted mt-3">Giải đáp những thắc mắc phổ biến của khách hàng</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item border-0 mb-3 rounded-4 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button rounded-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                    <i class="bi bi-question-circle text-success me-2"></i>Chi phí dịch vụ vệ sinh được tính như thế nào?
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Chi phí được tính dựa trên diện tích, loại hình dịch vụ và mức độ công việc. Chúng tôi sẽ khảo sát miễn phí và báo giá chi tiết trước khi thực hiện.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-3 rounded-4 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                    <i class="bi bi-question-circle text-success me-2"></i>Thời gian hoàn thành công việc là bao lâu?
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Tùy thuộc vào quy mô và loại dịch vụ. Thông thường vệ sinh nhà ở từ 2-4 giờ, văn phòng từ 4-8 giờ, công trình lớn có thể từ 1-3 ngày.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-3 rounded-4 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                    <i class="bi bi-question-circle text-success me-2"></i>GSTS có cam kết chất lượng dịch vụ không?
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Có. Chúng tôi cam kết hoàn tiền 100% nếu khách hàng không hài lòng với chất lượng dịch vụ. Đội ngũ sẽ làm lại miễn phí cho đến khi đạt yêu cầu.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 mb-3 rounded-4 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-semibold" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                    <i class="bi bi-question-circle text-success me-2"></i>Tôi có thể đặt lịch vệ sinh định kỳ không?
+                                </button>
+                            </h2>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body text-muted">
+                                    Có. GSTS cung cấp gói dịch vụ định kỳ theo tuần/tháng với mức giá ưu đãi. Liên hệ hotline để được tư vấn gói phù hợp nhất.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!--Button contact-->
     <div th:replace="customer/common/contact:: contact"></div>
 
     <!--Button scroll head-->
     <div th:replace="customer/common/scroll_head:: scroll-head"></div>
 
+    <!-- Live Chat Widget -->
+    <div th:replace="customer/common/livechat :: livechat"></div>
+
 </main>
 
-<!-- Toast Bootstrap - Tối ưu - Hiển thị giữa màn hình với overlay -->
-<div id="toastOverlay" class="toast-overlay" style="display: none;"></div>
-<div id="successToast" class="toast toast-custom toast-top-center align-items-center border-0 shadow-lg"
-     role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true" data-bs-delay="3000">
-    <div class="d-flex align-items-center">
-        <div class="toast-icon-wrapper me-3">
-            <i class="bi bi-check-circle-fill text-white" style="font-size: 1.5rem;"></i>
-        </div>
-        <div class="toast-body flex-grow-1">
-            <strong class="d-block mb-1">Thành công!</strong>
-            <span class="toast-message">Nội dung thông báo</span>
-        </div>
-        <button type="button" class="btn-close btn-close-white me-2" 
-                data-bs-dismiss="toast" aria-label="Đóng"></button>
-    </div>
-</div>
+
 
 <div th:replace="customer/common/footer:: footer"></div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -627,7 +698,8 @@
 <script>
     AOS.init({
         duration: 800,
-        once: true
+        once: true,
+        disable: window.innerWidth < 768
     });
 </script>
 <script src="/customer/js/home.js"></script>
@@ -635,6 +707,8 @@
 
 </body>
 </html>
+
+
 
 
 

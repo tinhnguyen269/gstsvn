@@ -38,124 +38,47 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("scroll", handleScroll);
 });
 
-// Xử lý gửi form liên hệ với Fetch API và CSRF
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-        // Lấy CSRF token và header name từ meta
-        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
-
-        e.preventDefault();
-
-        // Xóa lỗi cũ
-        document.querySelectorAll(".text-danger").forEach(el => el.innerText = "");
-
-        let formData = new FormData(this);
-
-        fetch("/lien-he/them-moi", {
-            method: "POST",
-            body: formData,
-            headers: {
-                [csrfHeader]: csrfToken // Gửi CSRF token
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.status === "error") {
-                    for (let field in data.errors) {
-                        let errDiv = document.getElementById("error-" + field);
-                        if (errDiv) {
-                            errDiv.innerText = data.errors[field];
-                        }
-                    }
-                }
-                if (data.status === "success") {
-                    let toastEl = document.getElementById("successToast");
-                    let toastOverlay = document.getElementById("toastOverlay");
-                    let toastMessage = toastEl.querySelector(".toast-message");
-                    
-                    if (toastMessage) {
-                        toastMessage.innerText = data.message;
-                    } else {
-                        // Fallback nếu không tìm thấy .toast-message
-                        let toastBody = toastEl.querySelector(".toast-body");
-                        if (toastBody) {
-                            toastBody.innerHTML = `<strong class="d-block mb-1">Thành công!</strong><span>${data.message}</span>`;
-                        }
-                    }
-
-                    // Khởi tạo toast trước
-                    let bsToast = new bootstrap.Toast(toastEl, {
-                        delay: 3000,
-                        autohide: true
-                    });
-
-                    // Hiển thị overlay
-                    if (toastOverlay) {
-                        toastOverlay.style.display = "block";
-                        // Đóng toast khi click vào overlay
-                        toastOverlay.onclick = function() {
-                            bsToast.hide();
-                            toastOverlay.style.display = "none";
-                        };
-                    }
-                    
-                    // Ẩn overlay khi toast đóng
-                    toastEl.addEventListener('hidden.bs.toast', function () {
-                        if (toastOverlay) {
-                            toastOverlay.style.display = "none";
-                        }
-                    });
-                    
-                    bsToast.show();
-
-                    document.getElementById("contactForm").reset();
-                }
-            })
-            .catch(err => console.error("Lỗi:", err));
-    });
-
-// Auto scroll video cards
+// Auto scroll video cards - infinite seamless loop
     document.addEventListener('DOMContentLoaded', function () {
         const scrollContainer = document.getElementById('videoScroll');
         const wrapper = document.getElementById('videoWrapper');
+        if (!scrollContainer || !wrapper) return;
+
+        // Clone 2 lần để đảm bảo luôn có nội dung hiển thị
+        const originalItems = Array.from(scrollContainer.children);
+        originalItems.forEach(item => scrollContainer.appendChild(item.cloneNode(true)));
+        originalItems.forEach(item => scrollContainer.appendChild(item.cloneNode(true)));
 
         let scrollAmount = 0;
-        let maxScroll = scrollContainer.scrollWidth - wrapper.clientWidth;
-        let scrollSpeed = 1; // pixels per frame approx
-        let requestId;
+        let singleSetWidth = scrollContainer.scrollWidth / 3;
+        let scrollSpeed = 0.8;
         let isPaused = false;
 
         function autoScroll() {
             if (!isPaused) {
                 scrollAmount += scrollSpeed;
-                if (scrollAmount >= maxScroll) {
-                    scrollAmount = 0; // reset scroll về đầu
+                // Reset không giật - khi đến set thứ 2, nhảy về set 1
+                if (scrollAmount >= singleSetWidth) {
+                    scrollAmount -= singleSetWidth;
                 }
                 scrollContainer.style.transform = `translateX(${-scrollAmount}px)`;
             }
-            requestId = requestAnimationFrame(autoScroll);
+            requestAnimationFrame(autoScroll);
         }
 
-        // Bật auto scroll
         autoScroll();
 
-        // Pause khi hover vào wrapper hoặc video card
         wrapper.addEventListener('mouseenter', () => isPaused = true);
         wrapper.addEventListener('mouseleave', () => isPaused = false);
 
-        // Pause khi click vào video (iframe)
         scrollContainer.querySelectorAll('iframe').forEach(iframe => {
             iframe.addEventListener('mouseenter', () => isPaused = true);
             iframe.addEventListener('mouseleave', () => isPaused = false);
-            // Nếu cần pause khi click
-            iframe.addEventListener('click', () => {
-                isPaused = true;
-            });
+            iframe.addEventListener('click', () => isPaused = true);
         });
 
-        // Khi cửa sổ thay đổi kích thước, cập nhật maxScroll lại
         window.addEventListener('resize', () => {
-            maxScroll = scrollContainer.scrollWidth - wrapper.clientWidth;
+            singleSetWidth = scrollContainer.scrollWidth / 3;
         });
     });
 

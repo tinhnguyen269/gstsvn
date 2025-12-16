@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="livechat">
+    <!-- Live Chat Widget -->
+    <div id="liveChatWidget" class="live-chat-widget">
+        <div id="chatBox" class="chat-box" style="display: none;">
+            <div class="chat-header bg-success text-white p-3 rounded-top-4">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center">
+                        <div class="chat-avatar me-2">
+                            <i class="bi bi-headset fs-4"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold">Hỗ trợ GSTS</h6>
+                            <small class="opacity-75"><span class="online-dot"></span> Đang trực tuyến</small>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm text-white" onclick="toggleChat()">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="chat-body p-3" id="chatMessages">
+                <div class="chat-message bot mb-3">
+                    <div class="message-bubble bg-light p-3 rounded-4">
+                        <p class="mb-2">👋 Xin chào! Tôi là trợ lý ảo của GSTS.</p>
+                        <p class="mb-0">Bạn cần hỗ trợ gì ạ?</p>
+                    </div>
+                </div>
+                <div class="quick-replies d-flex flex-wrap gap-2 mb-3">
+                    <button class="btn btn-outline-success btn-sm rounded-pill quick-reply" data-reply="Tôi muốn báo giá dịch vụ">💰 Báo giá</button>
+                    <button class="btn btn-outline-success btn-sm rounded-pill quick-reply" data-reply="Tôi muốn đặt lịch vệ sinh">📅 Đặt lịch</button>
+                    <button class="btn btn-outline-success btn-sm rounded-pill quick-reply" data-reply="Tôi cần tư vấn dịch vụ">💬 Tư vấn</button>
+                    <button class="btn btn-outline-success btn-sm rounded-pill quick-reply" data-reply="Liên hệ hotline">📞 Hotline</button>
+                </div>
+            </div>
+            <div class="chat-footer p-3 border-top">
+                <form id="chatForm" class="d-flex gap-2">
+                    <input type="text" class="form-control rounded-pill" id="chatInput" placeholder="Nhập tin nhắn..." autocomplete="off">
+                    <button type="submit" class="btn btn-success rounded-circle"><i class="bi bi-send-fill"></i></button>
+                </form>
+            </div>
+        </div>
+        <button id="chatToggle" class="chat-toggle-btn btn btn-success rounded-circle shadow-lg" onclick="toggleChat()">
+            <i class="bi bi-chat-dots-fill fs-4"></i>
+            <span class="chat-badge">1</span>
+        </button>
+    </div>
+
+    <style>
+        /* Live Chat Widget */
+        .live-chat-widget { position: fixed; bottom: 100px; right: 20px; z-index: 1050; }
+        .chat-toggle-btn { width: 60px; height: 60px; position: relative; transition: transform 0.3s; }
+        .chat-toggle-btn:hover { transform: scale(1.1); }
+        .chat-badge { position: absolute; top: -5px; right: -5px; background: #dc3545; color: white; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: flex; align-items: center; justify-content: center; animation: pulse 2s infinite; }
+        .chat-box { position: absolute; bottom: 80px; right: 0; width: 350px; max-height: 500px; background: white; border-radius: 1rem; box-shadow: 0 10px 40px rgba(0,0,0,0.2); overflow: hidden; animation: slideUp 0.3s ease; }
+        .chat-body { height: 280px; overflow-y: auto; }
+        .message-bubble { max-width: 85%; }
+        .chat-message.user .message-bubble { background: #198754 !important; color: white; margin-left: auto; }
+        .online-dot { display: inline-block; width: 8px; height: 8px; background: #00ff00; border-radius: 50%; margin-right: 5px; animation: blink 1.5s infinite; }
+        .typing-indicator { display: flex; gap: 4px; padding: 5px 0; }
+        .typing-indicator span { width: 8px; height: 8px; background: #198754; border-radius: 50%; animation: typing 1.4s infinite; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-8px); } }
+        @media (max-width: 576px) { .chat-box { width: 300px; right: -10px; } }
+    </style>
+
+    <script>
+        // Live Chat Widget
+        function toggleChat() {
+            const chatBox = document.getElementById('chatBox');
+            const badge = document.querySelector('.chat-badge');
+            chatBox.style.display = chatBox.style.display === 'none' ? 'block' : 'none';
+            if (badge) badge.style.display = 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.quick-reply').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const reply = this.dataset.reply;
+                    addMessage(reply, 'user');
+                    this.parentElement.style.display = 'none';
+                    setTimeout(() => botReply(reply), 800);
+                });
+            });
+
+            document.getElementById('chatForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const input = document.getElementById('chatInput');
+                if (input.value.trim()) {
+                    addMessage(input.value, 'user');
+                    const msg = input.value;
+                    input.value = '';
+                    setTimeout(() => botReply(msg), 800);
+                }
+            });
+        });
+
+        function addMessage(text, type, isLoading = false) {
+            const chatMessages = document.getElementById('chatMessages');
+            const div = document.createElement('div');
+            div.className = `chat-message ${type} mb-3`;
+            if (isLoading) div.id = 'loadingMsg';
+            div.innerHTML = `<div class="message-bubble p-3 rounded-4 ${type === 'bot' ? 'bg-light' : ''}">${text}</div>`;
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function botReply(userMsg) {
+            addMessage('<div class="typing-indicator"><span></span><span></span><span></span></div>', 'bot', true);
+
+            setTimeout(() => {
+                document.getElementById('loadingMsg')?.remove();
+                const msg = userMsg.toLowerCase();
+                let reply = '';
+
+                if (msg.includes('giá') || msg.includes('báo giá') || msg.includes('chi phí') || msg.includes('bao nhiêu')) {
+                    reply = '💰 <strong>Báo giá dịch vụ:</strong><br>• Vệ sinh nhà ở: từ 150.000đ/lần<br>• Vệ sinh văn phòng: từ 3.000đ/m²<br>• Vệ sinh công trình: liên hệ báo giá<br><br>📞 Hotline: <a href="tel:0965123855" class="text-success fw-bold">0965123855</a>';
+                }
+                else if (msg.includes('đặt lịch') || msg.includes('đặt hẹn') || msg.includes('book')) {
+                    reply = '📅 <strong>Đặt lịch dễ dàng:</strong><br>1. Gọi hotline: <a href="tel:0965123855" class="text-success fw-bold">0965123855</a><br>2. Nhắn Zalo: <a href="https://zalo.me/0965123855" target="_blank" class="text-success fw-bold">0965123855</a><br>3. Điền form bên dưới<br><br>⏰ Làm việc 24/7!';
+                }
+                else if (msg.includes('dịch vụ') || msg.includes('làm gì') || msg.includes('cung cấp') || msg.includes('tư vấn')) {
+                    reply = '🧹 <strong>Dịch vụ của GSTS:</strong><br>• Vệ sinh nhà ở, căn hộ<br>• Vệ sinh văn phòng, tòa nhà<br>• Vệ sinh công trình sau xây dựng<br>• Vệ sinh nhà xưởng, kho bãi<br>• Vệ sinh kính cao tầng<br>• Giặt thảm, sofa, rèm cửa';
+                }
+                else if (msg.includes('liên hệ') || msg.includes('hotline') || msg.includes('số điện thoại') || msg.includes('zalo')) {
+                    reply = '📞 <strong>Liên hệ GSTS:</strong><br>• Hotline 24/7: <a href="tel:0965123855" class="text-success fw-bold">0965123855</a><br>• Zalo: <a href="https://zalo.me/0965123855" target="_blank" class="text-success fw-bold">0965123855</a><br>• Địa chỉ: 56 Lê Quang Đạo, Nam Từ Liêm, Hà Nội';
+                }
+                else if (msg.includes('địa chỉ') || msg.includes('ở đâu') || msg.includes('văn phòng')) {
+                    reply = '📍 <strong>Địa chỉ GSTS:</strong><br>56 Đ. Lê Quang Đạo, Mễ Trì, Nam Từ Liêm, Hà Nội<br><br>🗺️ <a href="https://maps.google.com/?q=56+Le+Quang+Dao+Ha+Noi" target="_blank" class="text-success fw-bold">Xem bản đồ</a>';
+                }
+                else if (msg.includes('cam kết') || msg.includes('bảo hành') || msg.includes('chất lượng')) {
+                    reply = '✅ <strong>Cam kết của GSTS:</strong><br>• Hoàn tiền 100% nếu không hài lòng<br>• Làm lại miễn phí nếu chưa đạt yêu cầu<br>• Nhân viên được đào tạo chuyên nghiệp<br>• Sử dụng hóa chất an toàn';
+                }
+                else if (msg.includes('bao lâu') || msg.includes('thời gian') || msg.includes('mất bao')) {
+                    reply = '⏱️ <strong>Thời gian hoàn thành:</strong><br>• Nhà ở: 2-4 giờ<br>• Văn phòng: 4-8 giờ<br>• Công trình lớn: 1-3 ngày<br><br>Tùy thuộc diện tích và mức độ bẩn.';
+                }
+                else if (msg.includes('xin chào') || msg.includes('hello') || msg.includes('hi') || msg === 'chào') {
+                    reply = '👋 Xin chào! Tôi là trợ lý ảo của <strong>GSTS</strong>.<br>Tôi có thể giúp bạn:<br>• Báo giá dịch vụ<br>• Đặt lịch vệ sinh<br>• Tư vấn dịch vụ phù hợp<br><br>Bạn cần hỗ trợ gì ạ? 😊';
+                }
+                else if (msg.includes('cảm ơn') || msg.includes('thank')) {
+                    reply = '🙏 Không có gì ạ! Rất vui được hỗ trợ bạn.<br><br>Nếu cần thêm thông tin, đừng ngại hỏi nhé! 😊';
+                }
+                else {
+                    reply = '🤔 Cảm ơn bạn đã nhắn tin!<br><br>Để được tư vấn chi tiết hơn, bạn có thể:<br>• Gọi hotline: <a href="tel:0965123855" class="text-success fw-bold">0965123855</a><br>• Nhắn Zalo: <a href="https://zalo.me/0965123855" target="_blank" class="text-success fw-bold">0965123855</a><br><br>Hoặc hỏi tôi về: <em>giá, dịch vụ, đặt lịch, địa chỉ...</em>';
+                }
+
+                addMessage(reply, 'bot');
+            }, 1000);
+        }
+    </script>
+</th:block>
+</html>
+

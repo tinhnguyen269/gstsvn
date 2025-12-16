@@ -21,9 +21,9 @@
                 "@type": "LocalBusiness",
                 "name": "Công ty Vệ Sinh GSTS",
                 "image": "https://res.cloudinary.com/dyeje8mx3/image/upload/v1760675146/GSTS-removebg-preview_a5ydty.png",
-                "@id": "https://gstsvn.onrender.com/dich-vu/${services.slug}",
-                "url": "https://gstsvn.onrender.com/dich-vu/${services.slug}",
-                "telephone": "0333360748",
+                "@id": "https://gsts.click/dich-vu/${services.slug}",
+                "url": "https://gsts.click/dich-vu/${services.slug}",
+                "telephone": " 0965123855",
                 "priceRange": "₫",
                 "address": {
                     "@type": "PostalAddress",
@@ -75,6 +75,7 @@
         </aside>
     </div>
     <section class="mt-5" th:replace="customer/common/post :: post"></section>
+    <section class="mt-5" th:replace="customer/common/quote-form :: quoteForm"></section>
 
     <section class="mt-5" th:replace="customer/common/contact :: contact"></section>
 </main>
@@ -83,6 +84,9 @@
 <div th:replace="customer/common/scroll_head:: scroll-head"></div>
 
 <!-- Footer -->
+<!-- Live Chat Widget -->
+<div th:replace="customer/common/livechat :: livechat"></div>
+
 <footer th:replace="customer/common/footer :: footer"></footer>
 
 <!-- JS -->

@@ -5,11 +5,10 @@ import com.example.serviceapp.common.entity.Customer;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.customer.contact.service.ContactService;
 import com.example.serviceapp.customer.service.repository.ServiceRepository;
-import com.sendgrid.*;
-import com.sendgrid.helpers.mail.Mail;
-import com.sendgrid.helpers.mail.objects.Content;
-import com.sendgrid.helpers.mail.objects.Email;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +17,15 @@ public class ContactServiceImpl implements ContactService {
 
     private final ADContactRepository contactRepository;
     private final ServiceRepository serviceRepository;
+    private final JavaMailSender mailSender;
 
     @Value("${company.email}")
     private String companyEmail;
 
-    @Value("${sendgrid.api.key}")
-    private String sendGridApiKey;
-
-    public ContactServiceImpl(ADContactRepository contactRepository, ServiceRepository serviceRepository) {
+    public ContactServiceImpl(ADContactRepository contactRepository, ServiceRepository serviceRepository, JavaMailSender mailSender) {
         this.contactRepository = contactRepository;
         this.serviceRepository = serviceRepository;
+        this.mailSender = mailSender;
     }
 
     @Override
@@ -74,24 +72,17 @@ public class ContactServiceImpl implements ContactService {
             </html>
             """.formatted(customerName, phoneNumber, serviceName, note);
 
-            // ✅ Gửi email qua SendGrid API
-            Email from = new Email(companyEmail, "GSTS Support");
-            Email to = new Email(companyEmail);
-            Content content = new Content("text/html", contentHtml);
-            Mail mail = new Mail(from, "📩 Có khách hàng mới đăng ký dịch vụ GSTS", to, content);
-
-            SendGrid sg = new SendGrid(sendGridApiKey);
-            Request request = new Request();
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            Response response = sg.api(request);
-
-            if (response.getStatusCode() >= 200 && response.getStatusCode() < 300) {
-                System.out.println("✅ Đã gửi thông báo tới công ty: " + companyEmail);
-            } else {
-                System.err.println("⚠️ Gửi email thất bại, mã phản hồi: " + response.getStatusCode());
-            }
+            // ✅ Gửi email qua Spring Boot Mail
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            
+            helper.setFrom(companyEmail, "GSTS Support");
+            helper.setTo(companyEmail);
+            helper.setSubject("📩 Có khách hàng mới đăng ký dịch vụ GSTS");
+            helper.setText(contentHtml, true);
+            
+            mailSender.send(message);
+            System.out.println("✅ Đã gửi thông báo tới công ty: " + companyEmail);
 
         } catch (Exception e) {
             System.err.println("❌ Lỗi khi gửi email tới công ty: " + e.getMessage());

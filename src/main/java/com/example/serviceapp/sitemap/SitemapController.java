@@ -1,5 +1,10 @@
 package com.example.serviceapp.sitemap;
 
+import com.example.serviceapp.admin.post.repository.ADPostRepository;
+import com.example.serviceapp.admin.project_image.repository.ADProjectRepository;
+import com.example.serviceapp.admin.project_image.repository.ImageProjectRepository;
+import com.example.serviceapp.common.entity.ImageProject;
+import com.example.serviceapp.common.entity.ProjectImage;
 import com.example.serviceapp.common.entity.Services;
 import com.example.serviceapp.common.entity.Post;
 import com.example.serviceapp.customer.post.repositoty.PostRepository;
@@ -19,13 +24,15 @@ public class SitemapController {
 
     private final ServiceRepository serviceRepository;
     private final PostRepository postRepository;
+    private final ADProjectRepository imageProjectRepository;
 
     @Value("${app.host}")
     private String baseUrl;
 
-    public SitemapController(ServiceRepository serviceRepository, PostRepository postRepository) {
+    public SitemapController(ServiceRepository serviceRepository, PostRepository postRepository, ADProjectRepository imageProjectRepository) {
         this.serviceRepository = serviceRepository;
         this.postRepository = postRepository;
+        this.imageProjectRepository = imageProjectRepository;
     }
 
     // ------------------ 🧭 Sitemap Index ------------------
@@ -46,6 +53,10 @@ public class SitemapController {
                 "    </sitemap>\n" +
                 "    <sitemap>\n" +
                 "        <loc>" + baseUrl + "/sitemap-posts.xml</loc>\n" +
+                "        <lastmod>" + today + "</lastmod>\n" +
+                "    </sitemap>\n" +
+                "    <sitemap>\n" +
+                "        <loc>" + baseUrl + "/sitemap-projects.xml</loc>\n" +
                 "        <lastmod>" + today + "</lastmod>\n" +
                 "    </sitemap>\n" +
                 "</sitemapindex>";
@@ -103,6 +114,26 @@ public class SitemapController {
         for (Post p : posts) {
             LocalDate updatedAt = p.getUpdateAt() != null ? LocalDate.from(p.getUpdateAt()) : LocalDate.now();
             xml.append(createUrl(baseUrl + "/tin-tuc/" + p.getSlug(), updatedAt));
+        }
+
+        xml.append("</urlset>");
+        return xml.toString();
+    }
+
+    // ------------------ 📰 Sitemap hình ảnh dự án ------------------
+    @GetMapping(value = "/sitemap-projects.xml", produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public String imageProjectSitemap() {
+        List<ProjectImage> imageProjects = imageProjectRepository.findAllByOrderByCreateAtDesc();
+        StringBuilder xml = new StringBuilder();
+        xml.append("""
+                <?xml version="1.0" encoding="UTF-8"?>
+                <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+                """);
+
+        for (ProjectImage i : imageProjects) {
+            LocalDate updatedAt = i.getUpdateAt() != null ? LocalDate.from(i.getUpdateAt()) : LocalDate.now();
+            xml.append(createUrl(baseUrl + "/du-an/" + i.getSlug(), updatedAt));
         }
 
         xml.append("</urlset>");

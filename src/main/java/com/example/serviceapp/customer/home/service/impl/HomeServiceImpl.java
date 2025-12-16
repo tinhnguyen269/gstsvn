@@ -39,8 +39,8 @@ public class HomeServiceImpl implements HomeService {
 
     @Override
     @Cacheable("projects") // cache theo key "projects"
-    public List<ProjectImage> findProject9() {
-        List<ProjectImage> projects = adProjectRepository.findTop9ByOrderByCreateAtDesc();
+    public List<ProjectImage> findProject() {
+        List<ProjectImage> projects = adProjectRepository.findAllByOrderByCreateAtDesc();
         return projects;
     }
 }

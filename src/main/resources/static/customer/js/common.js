@@ -62,3 +62,80 @@ document.addEventListener('DOMContentLoaded', (event) => {
         }
     });
 });
+
+
+// Xử lý gửi form liên hệ với Fetch API và CSRF
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+        // Lấy CSRF token và header name từ meta
+        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
+        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
+
+        e.preventDefault();
+
+        // Xóa lỗi cũ
+        document.querySelectorAll(".text-danger").forEach(el => el.innerText = "");
+
+        let formData = new FormData(this);
+
+        fetch("/lien-he/them-moi", {
+            method: "POST",
+            body: formData,
+            headers: {
+                [csrfHeader]: csrfToken // Gửi CSRF token
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === "error") {
+                    for (let field in data.errors) {
+                        let errDiv = document.getElementById("error-" + field);
+                        if (errDiv) {
+                            errDiv.innerText = data.errors[field];
+                        }
+                    }
+                }
+                if (data.status === "success") {
+                    let toastEl = document.getElementById("successToast");
+                    let toastOverlay = document.getElementById("toastOverlay");
+                    let toastMessage = toastEl.querySelector(".toast-message");
+
+                    if (toastMessage) {
+                        toastMessage.innerText = data.message;
+                    } else {
+                        // Fallback nếu không tìm thấy .toast-message
+                        let toastBody = toastEl.querySelector(".toast-body");
+                        if (toastBody) {
+                            toastBody.innerHTML = `<strong class="d-block mb-1">Thành công!</strong><span>${data.message}</span>`;
+                        }
+                    }
+
+                    // Khởi tạo toast trước
+                    let bsToast = new bootstrap.Toast(toastEl, {
+                        delay: 3000,
+                        autohide: true
+                    });
+
+                    // Hiển thị overlay
+                    if (toastOverlay) {
+                        toastOverlay.style.display = "block";
+                        // Đóng toast khi click vào overlay
+                        toastOverlay.onclick = function() {
+                            bsToast.hide();
+                            toastOverlay.style.display = "none";
+                        };
+                    }
+
+                    // Ẩn overlay khi toast đóng
+                    toastEl.addEventListener('hidden.bs.toast', function () {
+                        if (toastOverlay) {
+                            toastOverlay.style.display = "none";
+                        }
+                    });
+
+                    bsToast.show();
+
+                    document.getElementById("contactForm").reset();
+                }
+            })
+            .catch(err => console.error("Lỗi:", err));
+    });
