@@ -66,9 +66,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // Xử lý gửi form liên hệ với Fetch API và CSRF
     document.getElementById("contactForm").addEventListener("submit", function (e) {
-        // Lấy CSRF token và header name từ meta
-        const csrfToken = document.querySelector('meta[name="_csrf"]').content;
-        const csrfHeader = document.querySelector('meta[name="_csrf_header"]').content;
 
         e.preventDefault();
 
@@ -80,9 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         fetch("/lien-he/them-moi", {
             method: "POST",
             body: formData,
-            headers: {
-                [csrfHeader]: csrfToken // Gửi CSRF token
-            }
+
         })
             .then(res => res.json())
             .then(data => {

@@ -529,88 +529,8 @@
         </div>
     </section>
 
-    <!-- Nhận báo giá -->
-    <section class="contact-section py-5" id="section_5" data-aos="fade-up" data-aos-delay="200"
-             style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);">
-        <div class="container">
-            <div class="text-center mb-5">
-                <h2 class="text-success fw-bold mb-3" style="font-size: 2.5rem;">Nhận báo giá miễn phí</h2>
-                <div class="title-divider-container mx-auto" style="max-width: 200px;">
-                    <div class="title-divider"
-                         style="height: 4px; background: linear-gradient(90deg, transparent, #198754, transparent); border-radius: 2px;"></div>
-                </div>
-                <p class="text-muted mt-3">Điền thông tin bên dưới để nhận báo giá nhanh chóng và chính xác</p>
-            </div>
-            <div class="row g-4">
-                <!-- Đặt lịch và form -->
-                <div class="col-lg-6 col-12">
-                    <div class="card shadow-lg border-0 p-4 rounded-4 bg-white h-100">
-                        <form id="contactForm" th:object="${customer}" novalidate>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Tên <span class="text-danger">*</span></label>
-                                    <input th:field="*{name}" type="text" class="form-control rounded-3 border-2"
-                                           placeholder="Nhập tên của bạn">
-                                    <div class="text-danger small mt-1" id="error-name"></div>
-                                </div>
+    <div th:replace="customer/common/quote-form :: quoteForm"></div>
 
-                                <div class="col-md-6">
-                                    <label class="form-label fw-semibold">Số điện thoại <span
-                                            class="text-danger">*</span></label>
-                                    <input th:field="*{phoneNumber}" type="text" class="form-control rounded-3 border-2"
-                                           placeholder="Nhập số điện thoại">
-                                    <div class="text-danger small mt-1" id="error-phoneNumber"></div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">Loại dịch vụ <span
-                                            class="text-danger">*</span></label>
-                                    <select class="form-select custom-select-beauty rounded-3 border-2"
-                                            th:field="*{serviceId}">
-                                        <option value="">Chọn dịch vụ</option>
-                                        <option th:each="service : ${serviceAdvice}"
-                                                th:value="${service.serviceId}"
-                                                th:text="${service.serviceName}"></option>
-                                    </select>
-                                    <div class="text-danger small mt-1" id="error-serviceId"></div>
-                                </div>
-
-                                <div class="col-12">
-                                    <label class="form-label fw-semibold">Ghi chú</label>
-                                    <textarea th:field="*{context}" class="form-control rounded-3 border-2" rows="4"
-                                              placeholder="Nhập ghi chú (nếu có)"></textarea>
-                                </div>
-
-                                <div class="col-12 d-grid mt-3">
-                                    <button type="submit"
-                                            class="btn btn-success btn-lg rounded-3 shadow-sm fw-bold transition-all">
-                                        <i class="bi bi-send-fill me-2"></i>Gửi thông tin
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Google Map -->
-                <div class="col-lg-6 col-12">
-                    <div class="card shadow-lg border-0 rounded-4 bg-white h-100">
-                        <div class="card-body p-4">
-                            <h4 class="text-success fw-bold mb-4 text-center">
-                                <i class="bi bi-geo-alt-fill me-2"></i>Vị trí của chúng tôi
-                            </h4>
-                            <div class="ratio ratio-4x3 rounded-3 overflow-hidden shadow-sm">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.4996776207217!2d105.76752957503098!3d21.012683580632668!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345358290522df%3A0x54eaf70372ee6727!2zNTYgxJAuTMOqIFF1YW5nIMSQ4bqhbywgTeG7hSBUcsOsLCBOYW0gVOG7qyBMacOqbSwgSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1763286315593!5m2!1svi!2s"
-                                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-
-            </div>
-        </div>
-    </section>
 
     <!-- FAQ Section -->
     <section class="faq-section py-5" data-aos="fade-up">
