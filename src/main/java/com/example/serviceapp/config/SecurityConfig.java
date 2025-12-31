@@ -13,21 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.web.filter.ForwardedHeaderFilter;
 
-/**
- * Cấu hình Spring Security cho ứng dụng GSTS.
- * 
- * <p>Bao gồm:</p>
- * <ul>
- *   <li>Authorization rules (phân quyền ADMIN, EMPLOYEE)</li>
- *   <li>Form-based authentication (login/logout)</li>
- *   <li>Session management</li>
- *   <li>CSRF protection (disable cho public API)</li>
- *   <li>Reverse proxy support (X-Forwarded headers)</li>
- * </ul>
- * 
- * @author GSTS Team
- * @version 1.0
- */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -43,10 +28,13 @@ public class SecurityConfig {
 
     // Public pages patterns (no CSRF protection)
     private static final String[] PUBLIC_PAGES = {
-            "/", "/home",
+            "/",
             "/dich-vu/**", "/tin-tuc/**", "/du-an/**",
             "/gioi-thieu", "/lien-he/**", "/bao-gia/**",
-            "/customer/**", "/api/**", "/sitemap.xml",
+            "/customer/**", "/api/**",
+            "/sitemap_index.xml",
+            "/sitemap-*.xml",
+            "/robots.txt"
     };
 
     // Authentication pages
@@ -93,6 +81,12 @@ public class SecurityConfig {
                         // Static resources - public access
                         .requestMatchers(STATIC_RESOURCES).permitAll()
 
+                        .requestMatchers(
+                                "/sitemap_index.xml",
+                                "/sitemap-*.xml",
+                                "/robots.txt"
+                        ).permitAll()
+
                         // Admin-only endpoints
                         .requestMatchers("/user/**").hasRole("ADMIN")
 
@@ -123,13 +117,11 @@ public class SecurityConfig {
 
                 // ========== Session Management ==========
                 .sessionManagement(session -> session
-                        // Chỉ tạo session khi cần (login/admin)
+
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                        // Ngăn session fixation attacks
+
                         .sessionFixation().migrateSession()
-                        // Max 1 session per user (optional - comment out if not needed)
-                        // .maximumSessions(1)
-                        // .maxSessionsPreventsLogin(false)
+
                 )
 
                 // ========== CSRF Protection ==========
