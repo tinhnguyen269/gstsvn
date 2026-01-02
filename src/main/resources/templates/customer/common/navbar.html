@@ -22,16 +22,17 @@
                         <i class="bi bi-info-circle me-1"></i>Giới thiệu
                     </a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown" id="serviceDropdown">
                     <a class="nav-link fw-semibold d-flex align-items-center dropdown-toggle mx-2 px-3 py-2 rounded-pill text-white transition-all"
                        href="#"
                        id="navbarLightDropdownMenuLink"
                        role="button"
                        data-bs-toggle="dropdown"
+                       data-bs-auto-close="outside"
                        aria-expanded="false">
                         <i class="bi bi-grid-3x3-gap me-1"></i>Dịch vụ
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-light shadow-lg rounded-4 border-0 mt-2" aria-labelledby="navbarLightDropdownMenuLink" style="min-width: 250px; padding: 0.5rem;">
+                    <ul class="dropdown-menu dropdown-menu-light shadow-lg rounded-4 border-0" aria-labelledby="navbarLightDropdownMenuLink" style="min-width: 250px; padding: 0.5rem; margin-top: 0 !important;">
                         <li th:each="service : ${serviceAdvice}">
                             <a class="dropdown-item fw-semibold py-2 px-3 rounded-3 transition-all"
                                th:classappend="${currentRequestURI == '/dich-vu/' + service.slug ? 'active' : ''}"
@@ -96,6 +97,19 @@
         .nav-link.active::before, .nav-link:hover::before {
             width: 80%;
         }
+        .dropdown-toggle {
+            border: none !important;
+            outline: none !important;
+        }
+        .dropdown-toggle:focus,
+        .dropdown-toggle:active {
+            border: none !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .dropdown-toggle::after {
+            vertical-align: middle;
+        }
         .dropdown-menu {
             min-width: 250px;
             font-size: 0.95rem;
@@ -125,4 +139,51 @@
             }
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownElement = document.getElementById('serviceDropdown');
+            const dropdownToggle = dropdownElement.querySelector('[data-bs-toggle="dropdown"]');
+            const dropdownMenu = dropdownElement.querySelector('.dropdown-menu');
+            let hideTimeout;
+
+            // Hiển thị dropdown khi hover vào button
+            dropdownToggle.addEventListener('mouseenter', function() {
+                clearTimeout(hideTimeout);
+                const bsDropdown = new bootstrap.Dropdown(dropdownToggle);
+                bsDropdown.show();
+            });
+
+            // Giữ dropdown mở khi hover vào menu
+            dropdownMenu.addEventListener('mouseenter', function() {
+                clearTimeout(hideTimeout);
+            });
+
+            // Ẩn dropdown với delay khi rời khỏi button
+            dropdownToggle.addEventListener('mouseleave', function() {
+                hideTimeout = setTimeout(function() {
+                    const bsDropdown = bootstrap.Dropdown.getInstance(dropdownToggle);
+                    if (bsDropdown) {
+                        bsDropdown.hide();
+                    }
+                }, 300); // Delay 300ms trước khi ẩn
+            });
+
+            // Ẩn dropdown với delay khi rời khỏi menu
+            dropdownMenu.addEventListener('mouseleave', function() {
+                hideTimeout = setTimeout(function() {
+                    const bsDropdown = bootstrap.Dropdown.getInstance(dropdownToggle);
+                    if (bsDropdown) {
+                        bsDropdown.hide();
+                    }
+                }, 300); // Delay 300ms trước khi ẩn
+            });
+
+            // Vẫn giữ chức năng click cho mobile
+            dropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const bsDropdown = bootstrap.Dropdown.getOrCreateInstance(dropdownToggle);
+                bsDropdown.toggle();
+            });
+        });
+    </script>
 </nav>
