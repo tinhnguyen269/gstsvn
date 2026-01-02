@@ -41,10 +41,10 @@ body {
   color: transparent;
 }
 
-.echbay-sms-messenger .phonering-alo-alo    { background: #0084ff url(https://codfe.com/wp-content/uploads/2020/08/call.png) center/60% no-repeat; }
-.echbay-sms-messenger .phonering-alo-sms    { background: var(--orange) url(https://codfe.com/wp-content/uploads/2020/08/mail.png) center/60% no-repeat; }
-.echbay-sms-messenger .phonering-alo-zalo   { background: #0084ff url(https://codfe.com/wp-content/uploads/2020/08/zalo.png) center/60% no-repeat; }
-.echbay-sms-messenger .phonering-alo-messenger { background: var(--red) url(https://codfe.com/wp-content/uploads/2020/08/messenger.png) center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-alo    { background: #0084ff url("/customer/images/contact/call.png") center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-sms    { background: var(--orange) url("/customer/images/contact/mail.png") center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-zalo   { background: #0084ff url("/customer/images/contact/zalo.png") center/60% no-repeat; }
+.echbay-sms-messenger .phonering-alo-messenger { background: var(--red) url("/customer/images/contact/messenger.png") center/60% no-repeat; }
 
 /* Hiệu ứng rung */
 @keyframes ring {
